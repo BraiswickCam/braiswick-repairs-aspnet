@@ -15,7 +15,11 @@ namespace WebApplication2
         Camera camera;
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadDetails("23");
+            if (Request.QueryString["CameraID"] != null)
+            {
+                if (!IsPostBack) LoadDetails(Request.QueryString["CameraID"]);
+                else UpdateDetails(Request.QueryString["CameraID"]);
+            }
         }
 
         protected void LoadDetails(string cameraID)
@@ -26,6 +30,18 @@ namespace WebApplication2
             modelText.Text = camera.Model;
             snText.Text = camera.SerialNumber;
             activeCheck.Checked = camera.Active;
+        }
+
+        protected void UpdateDetails(string cameraID)
+        {
+            camera = new Camera(cameraID);
+            camera.SetCameraDetails(makeText.Text, modelText.Text, snText.Text, activeCheck.Checked);
+            messageLabel.Text = camera.UpdateCameraDatabase() ? "Record updated successfully!" : "An error occured!";
+        }
+
+        protected void saveButton_Click(object sender, EventArgs e)
+        {
+            
         }
 
     }
@@ -95,6 +111,30 @@ namespace WebApplication2
             this.Make = dt.Rows[0][2].ToString();
             this.Model = dt.Rows[0][3].ToString();
             this.Active = Convert.ToBoolean(dt.Rows[0][4]);
+        }
+
+        public void SetCameraDetails(string newMake, string newModel, string newSN, bool newActive)
+        {
+            this.Make = newMake;
+            this.Model = newModel;
+            this.SerialNumber = newSN;
+            this.Active = newActive;
+        }
+
+        public bool UpdateCameraDatabase()
+        {
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "UPDATE Cameras SET Make=@Make, Model=@Model, SerialNumber=@SN, Active=@Active WHERE CameraID=@ID";
+                command.Parameters.Add(new SQLiteParameter("@Make", this.Make));
+                command.Parameters.Add(new SQLiteParameter("@Model", this.Model));
+                command.Parameters.Add(new SQLiteParameter("@SN", this.SerialNumber));
+                command.Parameters.Add(new SQLiteParameter("@Active", this.Active));
+                command.Parameters.Add(new SQLiteParameter("@ID", this.CameraID));
+                m_dbConnection.Open();
+                return command.ExecuteNonQuery() == 1;
+            }
         }
     }
 }

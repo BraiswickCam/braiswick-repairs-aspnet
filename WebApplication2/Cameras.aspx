@@ -28,7 +28,7 @@
     </asp:Table>
     </div>
     <div class="controls">
-        <asp:Button ID="saveButton" runat="server" Text="Save"/>
+        <asp:Button ID="saveButton" runat="server" Text="Save" OnClick="saveButton_Click"/>
     </div>
     <div class="messages">
         <asp:Label ID="messageLabel" runat="server"></asp:Label>
