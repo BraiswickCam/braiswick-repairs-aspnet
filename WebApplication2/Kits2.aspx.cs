@@ -177,95 +177,22 @@ namespace WebApplication2
 
         protected void RefreshDetails()
         {
-            //DataTable ids = GetAssociatedIDs(DropDownList1.SelectedValue);
-            //try
-            //{
-            //    DataTable photog = GetPhotog(ids.Rows[0][2].ToString());
-            //    nameLabel.Text = photog.Rows[0][1].ToString();
-            //    initialLabel.Text = photog.Rows[0][2].ToString();
-            //    officeLabel.Text = photog.Rows[0][4].ToString();
-            //}
-            //catch (SQLiteException)
-            //{
-            //    nameLabel.Text = "";
-            //    initialLabel.Text = "";
-            //    officeLabel.Text = "";
-            //}
-
-            //try
-            //{
-            //    DataTable camera = GetCamera(ids.Rows[0][4].ToString());
-            //    camMakeLabel.Text = camera.Rows[0][2].ToString();
-            //    camModelLabel.Text = camera.Rows[0][3].ToString();
-            //    camSNLabel.Text = camera.Rows[0][1].ToString();
-            //}
-            //catch (SQLiteException)
-            //{
-            //    camMakeLabel.Text = "";
-            //    camModelLabel.Text = "";
-            //    camSNLabel.Text = "";
-            //}
-
-            //try
-            //{
-            //    DataTable laptop = GetLaptop(ids.Rows[0][3].ToString());
-            //    lapMakeLabel.Text = laptop.Rows[0][2].ToString();
-            //    lapModelLabel.Text = laptop.Rows[0][3].ToString();
-            //    //laptopOS.Text = laptop.Rows[0][4].ToString();
-            //    lapSNLabel.Text = laptop.Rows[0][1].ToString();
-            //}
-            //catch (SQLiteException)
-            //{
-            //    lapMakeLabel.Text = "";
-            //    lapModelLabel.Text = "";
-            //    //laptopOS.Text = "";
-            //    lapSNLabel.Text = "";
-            //}
-
             DataTable details = GetFullKitRecord(DropDownList1.SelectedValue);
 
             //Populate Photographer details
-            try
-            {
-                nameLabel.Text = details.Rows[0][3].ToString();
-                initialLabel.Text = details.Rows[0][4].ToString();
-                officeLabel.Text = details.Rows[0][5].ToString();
-            }
-            catch (SQLiteException)
-            {
-                nameLabel.Text = "";
-                initialLabel.Text = "";
-                officeLabel.Text = "";
-            }
+            nameLabel.Text = details.Rows[0][3].ToString();
+            initialLabel.Text = details.Rows[0][4].ToString();
+            officeLabel.Text = details.Rows[0][5].ToString();
 
             //Populate Camera details
-            try
-            {
-                camMakeLabel.Text = details.Rows[0][8].ToString();
-                camModelLabel.Text = details.Rows[0][9].ToString();
-                camSNLabel.Text = details.Rows[0][7].ToString();
-            }
-            catch (SQLiteException)
-            {
-                camMakeLabel.Text = "";
-                camModelLabel.Text = "";
-                camSNLabel.Text = "";
-            }
+            camMakeLabel.Text = details.Rows[0][8].ToString();
+            camModelLabel.Text = details.Rows[0][9].ToString();
+            camSNLabel.Text = details.Rows[0][7].ToString();
 
             //Populate Laptop details
-            try
-            {
-                lapMakeLabel.Text = details.Rows[0][12].ToString();
-                lapModelLabel.Text = details.Rows[0][13].ToString();
-                lapSNLabel.Text = details.Rows[0][11].ToString();
-            }
-            catch (SQLiteException)
-            {
-                lapMakeLabel.Text = "";
-                lapModelLabel.Text = "";
-                lapSNLabel.Text = "";
-            }
-
+            lapMakeLabel.Text = details.Rows[0][12].ToString();
+            lapModelLabel.Text = details.Rows[0][13].ToString();
+            lapSNLabel.Text = details.Rows[0][11].ToString();
 
             //Populate History records
             try
