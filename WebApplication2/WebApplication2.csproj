@@ -207,6 +207,7 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="Cameras.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -227,6 +228,7 @@
     <Content Include="images\small_up.png" />
     <Content Include="Kits.aspx" />
     <Content Include="Kits2.aspx" />
+    <Content Include="Laptops.aspx" />
     <Content Include="PhotogDetails.aspx" />
     <Content Include="Photogs.aspx" />
     <Content Include="Repairs.aspx" />
@@ -399,6 +401,13 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Cameras.aspx.cs">
+      <DependentUpon>Cameras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cameras.aspx.designer.cs">
+      <DependentUpon>Cameras.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -430,6 +439,13 @@
     </Compile>
     <Compile Include="Kits2.aspx.designer.cs">
       <DependentUpon>Kits2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Laptops.aspx.cs">
+      <DependentUpon>Laptops.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Laptops.aspx.designer.cs">
+      <DependentUpon>Laptops.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="PhotogDetails.aspx.cs">
