@@ -13,12 +13,17 @@ namespace WebApplication2
     public partial class Cameras : System.Web.UI.Page
     {
         Camera camera;
+        string mainCameraID;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["CameraID"] != null)
+            if (Request.QueryString["CameraID"] != null && Request.QueryString["CameraID"] != "none")
             {
-                if (!IsPostBack) LoadDetails(Request.QueryString["CameraID"]);
-                else UpdateDetails(Request.QueryString["CameraID"]);
+                mainCameraID = Request.QueryString["CameraID"];
+                if (!IsPostBack) LoadDetails(mainCameraID);
+            }
+            else
+            {
+                mainCameraID = "0";
             }
         }
 
@@ -39,9 +44,17 @@ namespace WebApplication2
             messageLabel.Text = camera.UpdateCameraDatabase() ? "Record updated successfully!" : "An error occured!";
         }
 
+        protected void NewDetails()
+        {
+            camera = new Camera();
+            camera.SetCameraDetails(makeText.Text, modelText.Text, snText.Text, activeCheck.Checked);
+            messageLabel.Text = camera.NewCameraRecord() ? "New record added successfully!" : "An error occured!";
+        }
+
         protected void saveButton_Click(object sender, EventArgs e)
         {
-            
+            if (mainCameraID != "0") UpdateDetails(mainCameraID);
+            else NewDetails();
         }
 
     }
@@ -132,6 +145,21 @@ namespace WebApplication2
                 command.Parameters.Add(new SQLiteParameter("@SN", this.SerialNumber));
                 command.Parameters.Add(new SQLiteParameter("@Active", this.Active));
                 command.Parameters.Add(new SQLiteParameter("@ID", this.CameraID));
+                m_dbConnection.Open();
+                return command.ExecuteNonQuery() == 1;
+            }
+        }
+
+        public bool NewCameraRecord()
+        {
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "INSERT INTO Cameras (Make, Model, SerialNumber, Active) VALUES(@Make, @Model, @SN, @Active)";
+                command.Parameters.Add(new SQLiteParameter("@Make", this.Make));
+                command.Parameters.Add(new SQLiteParameter("@Model", this.Model));
+                command.Parameters.Add(new SQLiteParameter("@SN", this.SerialNumber));
+                command.Parameters.Add(new SQLiteParameter("@Active", this.Active));
                 m_dbConnection.Open();
                 return command.ExecuteNonQuery() == 1;
             }
