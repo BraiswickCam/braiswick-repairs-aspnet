@@ -228,6 +228,7 @@
     <Content Include="images\small_up.png" />
     <Content Include="Kits.aspx" />
     <Content Include="Kits2.aspx" />
+    <Content Include="Laptops.aspx" />
     <Content Include="PhotogDetails.aspx" />
     <Content Include="Photogs.aspx" />
     <Content Include="Repairs.aspx" />
@@ -438,6 +439,13 @@
     </Compile>
     <Compile Include="Kits2.aspx.designer.cs">
       <DependentUpon>Kits2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Laptops.aspx.cs">
+      <DependentUpon>Laptops.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Laptops.aspx.designer.cs">
+      <DependentUpon>Laptops.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="PhotogDetails.aspx.cs">
