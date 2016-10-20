@@ -88,7 +88,7 @@
         <a href="/PhotogDetails.aspx?PhotogID=0" class="link">Add New <asp:Label ID="equipLabel" runat="server"></asp:Label></a>
     </p>
     <div class="mainTable">
-        <asp:GridView ID="equipGrid" runat="server">
+        <asp:GridView ID="equipGrid" runat="server" OnRowDataBound="equipGrid_RowDataBound">
         </asp:GridView></div>
     
         </div>

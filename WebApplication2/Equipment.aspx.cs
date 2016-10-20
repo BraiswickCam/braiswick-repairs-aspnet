@@ -14,6 +14,7 @@ namespace WebApplication2
     {
         SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", "C:\\datatest\\2016repairhistory.sqlite"));
         int activeCol, kitIdCol, kitPhCol, photogIdCol, photogInitialCol, otherIdCol;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             activeCol = 4; kitIdCol = 5; kitPhCol = 6; photogIdCol = 7; photogInitialCol = 8; otherIdCol = 9;
@@ -98,6 +99,15 @@ namespace WebApplication2
                         otherIDHolder);
                 }
             }
+        }
+
+
+        protected void equipGrid_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            e.Row.Cells[kitPhCol].Visible = false;
+            e.Row.Cells[photogIdCol].Visible = false;
+            e.Row.Cells[photogInitialCol].Visible = false;
+            e.Row.Cells[otherIdCol].Visible = false;
         }
     }
 }
