@@ -35,6 +35,7 @@ namespace WebApplication2
             modelText.Text = camera.Model;
             snText.Text = camera.SerialNumber;
             activeCheck.Checked = camera.Active;
+            mainCameraID = camera.CameraID;
         }
 
         protected void UpdateDetails(string cameraID)
@@ -48,7 +49,9 @@ namespace WebApplication2
         {
             camera = new Camera();
             camera.SetCameraDetails(makeText.Text, modelText.Text, snText.Text, activeCheck.Checked);
-            messageLabel.Text = camera.NewCameraRecord() ? "New record added successfully!" : "An error occured!";
+            mainCameraID = camera.NewCameraRecord().ToString();
+            messageLabel.Text = mainCameraID != "0" ? "New record added successfully!" : "An error occured!";
+            Response.Redirect("~/Cameras.aspx?CameraID=" + mainCameraID);
         }
 
         protected void saveButton_Click(object sender, EventArgs e)
@@ -150,18 +153,18 @@ namespace WebApplication2
             }
         }
 
-        public bool NewCameraRecord()
+        public int NewCameraRecord()
         {
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "INSERT INTO Cameras (Make, Model, SerialNumber, Active) VALUES(@Make, @Model, @SN, @Active)";
+                command.CommandText = "INSERT INTO Cameras (Make, Model, SerialNumber, Active) VALUES(@Make, @Model, @SN, @Active); SELECT last_insert_rowid();";
                 command.Parameters.Add(new SQLiteParameter("@Make", this.Make));
                 command.Parameters.Add(new SQLiteParameter("@Model", this.Model));
                 command.Parameters.Add(new SQLiteParameter("@SN", this.SerialNumber));
                 command.Parameters.Add(new SQLiteParameter("@Active", this.Active));
                 m_dbConnection.Open();
-                return command.ExecuteNonQuery() == 1;
+                return Convert.ToInt32(command.ExecuteScalar());
             }
         }
     }
