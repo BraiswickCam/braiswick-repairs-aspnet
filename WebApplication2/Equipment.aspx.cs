@@ -13,9 +13,11 @@ namespace WebApplication2
     public partial class Equipment : System.Web.UI.Page
     {
         SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", "C:\\datatest\\2016repairhistory.sqlite"));
-        int activeCol = 4, kitIdCol = 5, kitPhCol = 6, photogIdCol = 7, photogInitialCol = 8, otherIdCol = 9;
+        int activeCol, kitIdCol, kitPhCol, photogIdCol, photogInitialCol, otherIdCol;
         protected void Page_Load(object sender, EventArgs e)
         {
+            activeCol = 4; kitIdCol = 5; kitPhCol = 6; photogIdCol = 7; photogInitialCol = 8; otherIdCol = 9;
+
             if (equipDrop.SelectedValue == "laptop")
             {
                 activeCol = activeCol + 1;
@@ -25,8 +27,10 @@ namespace WebApplication2
                 photogInitialCol = photogInitialCol + 1;
                 otherIdCol = otherIdCol + 1;
             }
+
             equipGrid.DataSource = equipDrop.SelectedValue == "laptop" ? GetLaptopList() : GetCameraList();
             equipGrid.DataBind();
+            AddLinks();
         }
 
         protected DataTable GetLaptopList()
@@ -67,7 +71,33 @@ namespace WebApplication2
 
         protected void AddLinks()
         {
+            foreach (GridViewRow gr in equipGrid.Rows)
+            {
+                if (gr.Cells[kitIdCol] != null)
+                {
+                    string kitIDHolder = gr.Cells[kitIdCol].Text;
+                    string photogIDHolder, otherIDHolder, photogInitialHolder;
+                    string otherType = equipDrop.SelectedValue == "laptop" ? "Camera" : "Laptop";
 
+                    if (gr.Cells[photogIdCol].Text == "&nbsp;") photogIDHolder = "none";
+                    else photogIDHolder = gr.Cells[photogIdCol].Text;
+
+                    if (gr.Cells[otherIdCol].Text == "&nbsp;") otherIDHolder = "none";
+                    else otherIDHolder = gr.Cells[otherIdCol].Text;
+
+                    if (gr.Cells[photogInitialCol].Text == "&nbsp;") photogInitialHolder = "none";
+                    else photogInitialHolder = gr.Cells[photogInitialCol].Text;
+
+                    gr.Cells[kitIdCol].Text =
+                        String.Format("<div class=\"kitLink\"><a href=\"Kits2.aspx?KitID={0}\">{1}</a><div class=\"kitDrop\"><a href=\"PhotogDetails.aspx?PhotogID={2}\">Photog ID = {3}</a></br><a href=\"{4}s.aspx?{4}ID={5}\">{4} ID = {5}</a></div></div>",
+                        kitIDHolder,
+                        gr.Cells[kitPhCol].Text,
+                        photogIDHolder,
+                        photogInitialHolder,
+                        otherType,
+                        otherIDHolder);
+                }
+            }
         }
     }
 }
