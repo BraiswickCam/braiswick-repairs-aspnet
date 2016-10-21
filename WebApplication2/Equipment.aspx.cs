@@ -103,13 +103,83 @@ namespace WebApplication2
             }
         }
 
-
         protected void equipGrid_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             e.Row.Cells[kitPhCol].Visible = false;
             e.Row.Cells[photogIdCol].Visible = false;
             e.Row.Cells[photogInitialCol].Visible = false;
             e.Row.Cells[otherIdCol].Visible = false;
+
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                string[] headers = equipDrop.SelectedValue == "laptop" ? new string[] { "LaptopID", "SerialNumber", "Make", "Model", "OS", "Active", "KitID", "", "", "", "" } :
+                    new string[] { "CameraID", "SerialNumber", "Make", "Model", "Active", "KitID", "", "", "", "" }; 
+                for (int i = 0; i < e.Row.Cells.Count; i++)
+                {
+                    if (headers[i] == lastSort)
+                    {
+                        Image img = new Image();
+                        img.ImageUrl = dir == SortDirection.Ascending ? "images/small_up.png" : "images/small_down.png";
+                        e.Row.Cells[i].Controls.Add(img);
+                    }
+
+                }
+            }
+        }
+
+        public SortDirection dir
+        {
+            get
+            {
+                if (ViewState["dirState"] == null)
+                {
+                    ViewState["dirState"] = SortDirection.Ascending;
+                }
+                return (SortDirection)ViewState["dirState"];
+            }
+            set
+            {
+                ViewState["dirState"] = value;
+            }
+        }
+
+        public string lastSort
+        {
+            get
+            {
+                if (ViewState["lastSortState"] == null)
+                {
+                    ViewState["lastSortState"] = equipDrop.SelectedValue == "laptop" ? "LaptopID" : "CameraID";
+                }
+                return ViewState["lastSortState"].ToString();
+            }
+
+            set
+            {
+                ViewState["lastSortState"] = value;
+            }
+        }
+
+        protected void equipGrid_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            string sortingDirection = string.Empty;
+            if (e.SortExpression != lastSort) dir = SortDirection.Descending;
+            if (dir == SortDirection.Ascending)
+            {
+                dir = SortDirection.Descending;
+                sortingDirection = "Desc";
+            }
+            else
+            {
+                dir = SortDirection.Ascending;
+                sortingDirection = "Asc";
+            }
+            DataView sortedView = new DataView(equipDrop.SelectedValue == "laptop" ? GetLaptopList() : GetCameraList());
+            sortedView.Sort = e.SortExpression + " " + sortingDirection;
+            lastSort = e.SortExpression;
+            equipGrid.DataSource = sortedView;
+            equipGrid.DataBind();
+            AddLinks();
         }
     }
 }
