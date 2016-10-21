@@ -85,7 +85,7 @@
             </asp:DropDownList>
         </p>
     <p>
-        <a href="/PhotogDetails.aspx?PhotogID=0" class="link">Add New <asp:Label ID="equipLabel" runat="server"></asp:Label></a>
+        <a ID="newEquipLink" class="link" runat="server">Add New <asp:Label ID="equipLabel" runat="server"></asp:Label></a>
     </p>
     <div class="mainTable">
         <asp:GridView ID="equipGrid" runat="server" OnRowDataBound="equipGrid_RowDataBound">

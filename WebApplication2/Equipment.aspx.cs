@@ -32,6 +32,8 @@ namespace WebApplication2
             equipGrid.DataSource = equipDrop.SelectedValue == "laptop" ? GetLaptopList() : GetCameraList();
             equipGrid.DataBind();
             AddLinks();
+            newEquipLink.HRef = equipDrop.SelectedValue == "laptop" ? "Laptops.aspx" : "Cameras.aspx";
+            newEquipLink.InnerText = equipDrop.SelectedValue == "laptop" ? "Add New Laptop" : "Add New Camera";
         }
 
         protected DataTable GetLaptopList()
