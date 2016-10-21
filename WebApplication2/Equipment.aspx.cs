@@ -17,6 +17,11 @@ namespace WebApplication2
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (lastEquip != equipDrop.SelectedValue)
+            {
+                lastSort = null;
+                dir = SortDirection.Ascending;
+            }
             activeCol = 4; kitIdCol = 5; kitPhCol = 6; photogIdCol = 7; photogInitialCol = 8; otherIdCol = 9;
 
             if (equipDrop.SelectedValue == "laptop")
@@ -34,6 +39,7 @@ namespace WebApplication2
             AddLinks();
             newEquipLink.HRef = equipDrop.SelectedValue == "laptop" ? "Laptops.aspx" : "Cameras.aspx";
             newEquipLink.InnerText = equipDrop.SelectedValue == "laptop" ? "Add New Laptop" : "Add New Camera";
+            lastEquip = equipDrop.SelectedValue;
         }
 
         protected DataTable GetLaptopList()
@@ -167,6 +173,23 @@ namespace WebApplication2
             set
             {
                 ViewState["lastSortState"] = value;
+            }
+        }
+
+        public string lastEquip
+        {
+            get
+            {
+                if (ViewState["lastEquipState"] == null)
+                {
+                    ViewState["lastEquipState"] = equipDrop.SelectedValue;
+                }
+                return ViewState["lastEquipState"].ToString();
+            }
+
+            set
+            {
+                ViewState["lastEquipState"] = value;
             }
         }
 
