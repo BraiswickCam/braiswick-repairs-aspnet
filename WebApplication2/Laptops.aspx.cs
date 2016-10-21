@@ -25,6 +25,12 @@ namespace WebApplication2
             {
                 mainLaptopID = "0";
             }
+
+            if (mainLaptopID != "0")
+            {
+                historyGridView.DataSource = laptop.GetLaptopHistory();
+                historyGridView.DataBind();
+            }
         }
 
         protected void LoadDetails(string lapID)
@@ -176,6 +182,25 @@ namespace WebApplication2
                 command.Parameters.Add(new SQLiteParameter("@Active", this.Active));
                 m_dbConnection.Open();
                 return Convert.ToInt32(command.ExecuteScalar());
+            }
+        }
+
+        public DataTable GetLaptopHistory()
+        {
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "SELECT * FROM Repairs WHERE LaptopID = @LaptopID";
+                command.Parameters.Add(new SQLiteParameter("@LaptopID", this.LaptopID));
+                using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
+                {
+                    sda.SelectCommand = command;
+                    using (DataTable dt = new DataTable())
+                    {
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
             }
         }
     }

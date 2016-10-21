@@ -25,6 +25,12 @@ namespace WebApplication2
             {
                 mainCameraID = "0";
             }
+
+            if (mainCameraID != "0")
+            {
+                historyGridView.DataSource = camera.GetCameraHistory();
+                historyGridView.DataBind();
+            }
         }
 
         protected void LoadDetails(string cameraID)
@@ -165,6 +171,25 @@ namespace WebApplication2
                 command.Parameters.Add(new SQLiteParameter("@Active", this.Active));
                 m_dbConnection.Open();
                 return Convert.ToInt32(command.ExecuteScalar());
+            }
+        }
+
+        public DataTable GetCameraHistory()
+        {
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "SELECT * FROM Repairs WHERE CameraID = @CameraID";
+                command.Parameters.Add(new SQLiteParameter("@CameraID", this.CameraID));
+                using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
+                {
+                    sda.SelectCommand = command;
+                    using (DataTable dt = new DataTable())
+                    {
+                        sda.Fill(dt);
+                        return dt;
+                    } 
+                }
             }
         }
     }

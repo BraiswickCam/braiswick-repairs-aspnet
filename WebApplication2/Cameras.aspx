@@ -5,6 +5,11 @@
             font-family: Ubuntu, sans-serif;
         }
 
+        .tableContainer {
+            width: 100%;
+            text-align: center;
+        }
+
         .tableMain {
             display: inline-block;
             width: auto;
@@ -29,10 +34,16 @@
             padding: 2px 4px;
         }
 
+        .controls {
+            text-align: center;
+            width: 100%;
+        }
+
         .link {
             padding: 4px 7px;
             background-color: cornflowerblue;
             color: antiquewhite;
+            text-align: left;
         }
 
         .link:hover {
@@ -44,8 +55,24 @@
             margin-top: 10px;
         }
 
-    </style>
+        .historyContainer {
+                margin-top: 40px;
+                text-align: center;
+                width: 100%;
+                height: auto;
+            }
 
+            .history {
+                text-align: left;
+                margin: 0 auto;
+            }
+
+            .history th, .history td {
+                padding: 4px;
+            }
+
+    </style>
+    <div class="tableContainer">
     <div class="tableMain">
     <asp:Table ID="CameraDetailsTable" runat="server">
         <asp:TableHeaderRow>
@@ -74,5 +101,10 @@
     <div class="messages">
         <asp:Label ID="messageLabel" runat="server"></asp:Label>
     </div>
+        </div>
+        </div>
+    <div class="historyContainer">
+            <asp:GridView ID="historyGridView" runat="server" CssClass="history">
+            </asp:GridView>
         </div>
 </asp:Content>
