@@ -14,15 +14,24 @@ namespace WebApplication2
     {
         SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", "C:\\datatest\\2016repairhistory.sqlite"));
         int activeCol, kitIdCol, kitPhCol, photogIdCol, photogInitialCol, otherIdCol;
+        string addToKit, addToType;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["KitID"] != null) { addToKit = Request.QueryString["KitID"]; }
             if (lastEquip != equipDrop.SelectedValue)
             {
                 lastSort = null;
                 dir = SortDirection.Ascending;
             }
             activeCol = 4; kitIdCol = 5; kitPhCol = 6; photogIdCol = 7; photogInitialCol = 8; otherIdCol = 9;
+
+            if (Request.QueryString["type"] != null)
+            {
+                string type = Request.QueryString["type"];
+                if (type == "Laptop") { equipDrop.SelectedValue = "laptop"; equipDrop.Visible = false; addToType = "Laptop"; }
+                if (type == "Camera") { equipDrop.SelectedValue = "camera"; equipDrop.Visible = false; addToType = "Camera"; }
+            }
 
             if (equipDrop.SelectedValue == "laptop")
             {
@@ -141,6 +150,20 @@ namespace WebApplication2
 
                 }
             }
+            else
+            {
+                if (Request.QueryString["type"] != null)
+                {
+                    if (e.Row.Cells[kitIdCol].Text == "&nbsp;")
+                    {
+                        TableCell tc = new TableCell();
+                        tc.Text = String.Format("<a href=Kits2.aspx?KitID={0}&type=add{1}&ID={2}>Add to kit</a>", addToKit, addToType, e.Row.Cells[0].Text);
+                        e.Row.Cells.Add(tc);
+                    }
+                }
+            }
+
+            
         }
 
         public SortDirection dir
