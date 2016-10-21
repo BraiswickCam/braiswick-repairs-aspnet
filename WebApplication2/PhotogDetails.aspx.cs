@@ -18,7 +18,8 @@ namespace WebApplication2
         protected void Page_Load(object sender, EventArgs e)
         {
             photogID = Request.QueryString["PhotogID"];
-            photogIntID = Convert.ToInt32(photogID);
+            try { photogIntID = Convert.ToInt32(photogID); }
+            catch (System.FormatException) { photogIntID = 0; }
             if (!IsPostBack)
             {
                 if (photogIntID > 0)
@@ -100,7 +101,7 @@ namespace WebApplication2
         protected void saveButton_Click(object sender, EventArgs e)
         {
             string errorMessage;
-            if (Convert.ToInt32(photogID) > 0)
+            if (photogIntID > 0)
             {
                 updateLabel.Text = UpdateDetails(out errorMessage) ? "Record updated successfully. " + DateTime.Now.ToString() : "An error occured updating the record! " + DateTime.Now.ToString() + "\n" + errorMessage;
             }
