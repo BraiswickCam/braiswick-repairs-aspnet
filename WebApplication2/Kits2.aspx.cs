@@ -15,6 +15,11 @@ namespace WebApplication2
         string databaseLocation = "C:\\datatest\\2016repairhistory.sqlite";
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["type"] != null)
+            {
+                if(ChangeItem()) { Response.Redirect(String.Format("~/Kits2.aspx?KitID={0}", Request.QueryString["KitID"])); }
+            }
+
             if (!IsPostBack)
             {
                 DataTable kits = GetKits();
@@ -129,11 +134,58 @@ namespace WebApplication2
             {
 
             }
+
+            //Refreshes Add/Remove links
+
+            string kitID = DropDownList1.SelectedValue;
+
+            photogAddRemove.HRef = details.Rows[0][2].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remPhotog&ID={1}", kitID, details.Rows[0][2].ToString()) : String.Format("Photogs.aspx?KitID={0}", kitID);
+            photogAddRemove.InnerText = details.Rows[0][2].ToString() != string.Empty ? "Remove Photographer" : "Add Photographer";
+
+            cameraAddRemove.HRef = details.Rows[0][6].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remCamera&ID={1}", kitID, details.Rows[0][6].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=Camera", kitID);
+            cameraAddRemove.InnerText = details.Rows[0][6].ToString() != string.Empty ? "Remove Camera" : "Add Camera";
+
+            laptopAddRemove.HRef = details.Rows[0][10].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remLaptop&ID={1}", kitID, details.Rows[0][10].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=Laptop", kitID);
+            laptopAddRemove.InnerText = details.Rows[0][10].ToString() != string.Empty ? "Remove Laptop" : "Add Laptop";
         }
 
         protected void historyGridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             
+        }
+
+        protected bool ChangeItem()
+        {
+            string type = Request.QueryString["type"];
+            int itemID;
+            try { itemID = Convert.ToInt32(Request.QueryString["ID"]); }
+            catch (System.FormatException) { return false; }
+            int oldID = itemID;
+            int kitID;
+            try { kitID = Convert.ToInt32(Request.QueryString["KitID"]); }
+            catch (System.FormatException) { return false; }
+
+            if (type == "addLaptop") { type = "LaptopID"; }
+            else if (type == "addCamera") { type = "CameraID"; }
+            else if (type == "addPhotog") { type = "PhotogID"; }
+            else if (type == "remLaptop") { type = "LaptopID"; itemID = 0; }
+            else if (type == "remCamera") { type = "CameraID"; itemID = 0; }
+            else if (type == "remPhotog") { type = "PhotogID"; itemID = 0; }
+            else { return false; }
+
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = String.Format("UPDATE Kits SET {0}=@newID WHERE KitID=@KitID; INSERT INTO Repairs ({0}, KitID, Date, Fixed, FixedDate, Notes) VALUES (@oldID, @KitID, \"{1}\", 1, \"{1}\", \"{2}\");", 
+                    type,
+                    DateTime.Now,
+                    itemID > 0 ? String.Format("{0} added to kit.", type) : String.Format("{0} removed from kit.", type));
+                command.Parameters.Add(new SQLiteParameter("@newID", itemID));
+                command.Parameters.Add(new SQLiteParameter("@KitID", kitID));
+                command.Parameters.Add(new SQLiteParameter("@oldID", oldID));
+                m_dbConnection.Open();
+                return command.ExecuteNonQuery() > 0;
+            }
         }
     }
 }

@@ -13,8 +13,10 @@ namespace WebApplication2
     public partial class Photogs : System.Web.UI.Page
     {
         SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", "C:\\datatest\\2016repairhistory.sqlite"));
+        string addToKit;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["KitID"] != null) { addToKit = Request.QueryString["KitID"]; }
             GridView1.DataSource = GetPhotogList(activeBox.Checked);
             GridView1.DataBind();
             AddLinks();
@@ -130,6 +132,18 @@ namespace WebApplication2
                         e.Row.Cells[i].Controls.Add(img);
                     }
 
+                }
+            }
+            else
+            {
+                if (Request.QueryString["KitID"] != null)
+                {
+                    if (e.Row.Cells[5].Text == "&nbsp;")
+                    {
+                        TableCell tc = new TableCell();
+                        tc.Text = String.Format("<a href=Kits2.aspx?KitID={0}&type=addPhotog&ID={1}>Add to kit</a>", addToKit, e.Row.Cells[0].Text);
+                        e.Row.Cells.Add(tc);
+                    }
                 }
             }
         }
