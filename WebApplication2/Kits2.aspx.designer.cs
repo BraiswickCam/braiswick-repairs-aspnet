@@ -49,6 +49,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.Label officeLabel;
         
         /// <summary>
+        /// photogAddRemove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor photogAddRemove;
+        
+        /// <summary>
         /// camMakeLabel control.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.Label camSNLabel;
         
         /// <summary>
+        /// cameraAddRemove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor cameraAddRemove;
+        
+        /// <summary>
         /// lapMakeLabel control.
         /// </summary>
         /// <remarks>
@@ -101,6 +119,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lapSNLabel;
+        
+        /// <summary>
+        /// laptopAddRemove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor laptopAddRemove;
         
         /// <summary>
         /// historyGridView control.

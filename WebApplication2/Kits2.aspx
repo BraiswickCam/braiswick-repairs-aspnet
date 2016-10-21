@@ -117,7 +117,7 @@
             </asp:TableRow>
         </asp:Table>
           <br />
-          <a class="btn">Add/Remove</a>
+          <a class="btn" id="photogAddRemove" runat="server">Add/Remove</a>
           </div>
         <div class="tableContainer">
         <asp:Table runat="server" CssClass="detailTables">
@@ -138,7 +138,7 @@
             </asp:TableRow>
         </asp:Table>
             <br />
-          <a class="btn">Add/Remove</a><a class="btn">New Repair</a>
+          <a class="btn" id="cameraAddRemove" runat="server">Add/Remove</a><a class="btn">New Repair</a>
             </div>
         <div class="tableContainer">
         <asp:Table runat="server" CssClass="detailTables">
@@ -159,7 +159,7 @@
             </asp:TableRow>
         </asp:Table>
            <br />
-          <a class="btn">Add/Remove</a><a class="btn">New Repair</a>
+          <a class="btn" id="laptopAddRemove" runat="server">Add/Remove</a><a class="btn">New Repair</a>
     </div>
         </div>
         <div class="historyContainer">
