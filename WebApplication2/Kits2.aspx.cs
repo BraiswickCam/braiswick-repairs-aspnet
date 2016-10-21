@@ -49,95 +49,11 @@ namespace WebApplication2
             }
         }
 
-        protected DataTable GetAssociatedIDs(string kitID)
-        {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
-            {
-                string sql = String.Format("SELECT * FROM Kits WHERE KitID = {0}", kitID);
-                using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
-                {
-                    using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
-                    {
-                        command.Connection = m_dbConnection;
-                        sda.SelectCommand = command;
-                        using (DataTable dt = new DataTable())
-                        {
-                            sda.Fill(dt);
-                            return dt;
-                        }
-                    }
-                }
-            }
-        }
-
         protected DataTable GetKits()
         {
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
             {
                 string sql = String.Format("SELECT KitPH, KitID FROM Kits ORDER BY KitPH ASC");
-                using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
-                {
-                    using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
-                    {
-                        command.Connection = m_dbConnection;
-                        sda.SelectCommand = command;
-                        using (DataTable dt = new DataTable())
-                        {
-                            sda.Fill(dt);
-                            return dt;
-                        }
-                    }
-                }
-            }
-        }
-
-        protected DataTable GetPhotog(string photogID)
-        {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
-            {
-                string sql = String.Format("SELECT * FROM Photographers WHERE ID = {0}", photogID);
-                using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
-                {
-                    using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
-                    {
-                        command.Connection = m_dbConnection;
-                        sda.SelectCommand = command;
-                        using (DataTable dt = new DataTable())
-                        {
-                            sda.Fill(dt);
-                            return dt;
-                        }
-                    }
-                }
-            }
-        }
-
-        protected DataTable GetCamera(string cameraID)
-        {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
-            {
-                string sql = String.Format("SELECT * FROM Cameras WHERE CameraID = {0}", cameraID);
-                using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
-                {
-                    using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
-                    {
-                        command.Connection = m_dbConnection;
-                        sda.SelectCommand = command;
-                        using (DataTable dt = new DataTable())
-                        {
-                            sda.Fill(dt);
-                            return dt;
-                        }
-                    }
-                }
-            }
-        }
-
-        protected DataTable GetLaptop(string laptopID)
-        {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
-            {
-                string sql = String.Format("SELECT * FROM Laptops WHERE LaptopID = {0}", laptopID);
                 using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
                 {
                     using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
