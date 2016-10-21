@@ -100,6 +100,16 @@ namespace WebApplication2
                         otherType,
                         otherIDHolder);
                 }
+
+                if (gr.Cells[0] != null)
+                {
+                    HyperLink hp = new HyperLink();
+                    hp.Target = "_blank";
+                    hp.ToolTip = "Edit details for " + gr.Cells[1].Text;
+                    hp.Text = gr.Cells[0].Text;
+                    hp.NavigateUrl = String.Format("~/{0}s.aspx?{0}ID={1}", equipDrop.SelectedValue == "laptop" ? "Laptop" : "Camera", gr.Cells[0].Text);
+                    gr.Cells[0].Controls.Add(hp);
+                }
             }
         }
 
