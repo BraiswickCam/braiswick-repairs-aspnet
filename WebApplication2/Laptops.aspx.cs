@@ -63,7 +63,7 @@ namespace WebApplication2
         {
             laptop = new Laptop(lapID);
             laptop.SetLaptopDetails(makeText.Text, modelText.Text, snText.Text, osText.Text, activeCheck.Checked);
-            messageLabel.Text = laptop.UpdateLaptopDatabase() ? "Record updated successfully!" : "An error occured!";
+            messageLabel.Text = laptop.UpdateLaptopDatabase() ? "<span class=\"glyphicon glyphicon-ok-sign\"></span> Record updated successfully!" : "<span class=\"glyphicon glyphicon-remove-sign\"></span> An error occured!";
         }
 
         protected void NewDetails()
@@ -71,7 +71,7 @@ namespace WebApplication2
             laptop = new Laptop();
             laptop.SetLaptopDetails(makeText.Text, modelText.Text, snText.Text, osText.Text, activeCheck.Checked);
             mainLaptopID = laptop.NewLaptopRecord().ToString();
-            messageLabel.Text = mainLaptopID != "0" ? "New record added successfully!" : "An error occured!";
+            messageLabel.Text = mainLaptopID != "0" ? "<span class=\"glyphicon glyphicon-ok-sign\"></span> New record added successfully!" : "<span class=\"glyphicon glyphicon-remove-sign\"></span> An error occured!";
             Response.Redirect("~/Laptops.aspx?LaptopID=" + mainLaptopID);
         }
 

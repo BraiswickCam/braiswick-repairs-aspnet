@@ -103,7 +103,7 @@
         <asp:Button ID="saveButton" runat="server" Text="Save" OnClick="saveButton_Click" CssClass="link"/>
     </div>
     <div class="messages">
-        <asp:Label ID="messageLabel" runat="server"></asp:Label>
+        <asp:Literal ID="messageLabel" runat="server"></asp:Literal>
     </div>
         </div>
         </div>

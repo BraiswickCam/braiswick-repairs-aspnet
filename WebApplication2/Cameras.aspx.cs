@@ -62,7 +62,7 @@ namespace WebApplication2
         {
             camera = new Camera(cameraID);
             camera.SetCameraDetails(makeText.Text, modelText.Text, snText.Text, activeCheck.Checked);
-            messageLabel.Text = camera.UpdateCameraDatabase() ? "Record updated successfully!" : "An error occured!";
+            messageLabel.Text = camera.UpdateCameraDatabase() ? "<span class=\"glyphicon glyphicon-ok-sign\"></span> Record updated successfully!" : "<span class=\"glyphicon glyphicon-remove-sign\"></span> An error occured!";
         }
 
         protected void NewDetails()
@@ -70,7 +70,7 @@ namespace WebApplication2
             camera = new Camera();
             camera.SetCameraDetails(makeText.Text, modelText.Text, snText.Text, activeCheck.Checked);
             mainCameraID = camera.NewCameraRecord().ToString();
-            messageLabel.Text = mainCameraID != "0" ? "New record added successfully!" : "An error occured!";
+            messageLabel.Text = mainCameraID != "0" ? "<span class=\"glyphicon glyphicon-ok-sign\"></span> New record added successfully!" : "<span class=\"glyphicon glyphicon-remove-sign\"></span> An error occured!";
             Response.Redirect("~/Cameras.aspx?CameraID=" + mainCameraID);
         }
 
