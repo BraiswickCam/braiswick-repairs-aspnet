@@ -26,10 +26,20 @@ namespace WebApplication2
                 mainLaptopID = "0";
             }
 
-            if (mainLaptopID != "0")
+            if (mainLaptopID != "0" && !IsPostBack)
             {
                 historyGridView.DataSource = laptop.GetLaptopHistory();
                 historyGridView.DataBind();
+                foreach (GridViewRow gr in historyGridView.Rows)
+                {
+                    HyperLink hp = new HyperLink();
+                    hp.CssClass = "btn";
+                    hp.Target = "_blank";
+                    hp.ToolTip = "Open repair record for RepairID " + gr.Cells[0].Text;
+                    hp.Text = gr.Cells[0].Text;
+                    hp.NavigateUrl = "~/Repairs2.aspx?repairID=" + hp.Text;
+                    gr.Cells[0].Controls.Add(hp);
+                }
             }
         }
 
