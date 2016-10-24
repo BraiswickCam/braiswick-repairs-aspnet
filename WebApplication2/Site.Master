@@ -51,9 +51,9 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/Kits2">Kits</a></li>
-                        <li><a runat="server" href="~/Photogs">Photographers</a></li>
-                        <li><a runat="server" href="~/Equipment">Equipment</a></li>
+                        <li><a runat="server" href="~/Kits2"><span class="glyphicon glyphicon-briefcase"></span> Kits</a></li>
+                        <li><a runat="server" href="~/Photogs"><span class="glyphicon glyphicon-user"></span> Photographers</a></li>
+                        <li><a runat="server" href="~/Equipment"><span class="glyphicon glyphicon-camera"></span> Equipment</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>

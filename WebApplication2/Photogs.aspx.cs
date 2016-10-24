@@ -141,7 +141,7 @@ namespace WebApplication2
                     if (e.Row.Cells[5].Text == "&nbsp;")
                     {
                         TableCell tc = new TableCell();
-                        tc.Text = String.Format("<a href=Kits2.aspx?KitID={0}&type=addPhotog&ID={1}>Add to kit</a>", addToKit, e.Row.Cells[0].Text);
+                        tc.Text = String.Format("<a href=Kits2.aspx?KitID={0}&type=addPhotog&ID={1}><span class=\"glyphicon glyphicon-plus\"></span> Add to kit</a>", addToKit, e.Row.Cells[0].Text);
                         e.Row.Cells.Add(tc);
                     }
                 }
