@@ -223,6 +223,10 @@
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="images\edit-icon-1901.png" />
+    <Content Include="images\glyphicons-12-camera.png" />
+    <Content Include="images\glyphicons-691-laptop.png" />
+    <Content Include="images\glyphicons-7-user-add.png" />
+    <Content Include="images\glyphicons-8-user-remove.png" />
     <Content Include="images\ORIGINAL DOWN.png" />
     <Content Include="images\ORIGINAL UP.png" />
     <Content Include="images\small_down.png" />
