@@ -30,6 +30,10 @@ namespace WebApplication2
             {
                 historyGridView.DataSource = camera.GetCameraHistory();
                 historyGridView.DataBind();
+            }
+
+            if (mainCameraID != "0")
+            {
                 foreach (GridViewRow gr in historyGridView.Rows)
                 {
                     HyperLink hp = new HyperLink();

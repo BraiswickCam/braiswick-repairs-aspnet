@@ -30,6 +30,10 @@ namespace WebApplication2
             {
                 historyGridView.DataSource = laptop.GetLaptopHistory();
                 historyGridView.DataBind();
+            }
+
+            if (mainLaptopID != "0")
+            {
                 foreach (GridViewRow gr in historyGridView.Rows)
                 {
                     HyperLink hp = new HyperLink();
