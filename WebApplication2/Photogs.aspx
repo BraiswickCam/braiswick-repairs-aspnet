@@ -72,18 +72,28 @@
         display: block;
         }
 
+        .row {
+            margin-top: 15px;
+        }
+
     </style>
-    <div class="controls">
-    
-    <p>
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 text-center">
         <asp:CheckBox ID="activeBox" runat="server" AutoPostBack="True" Text="Show only active photographers" />
-    </p>
-    <p>
+            </div>
+    </div>
+        <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 text-center">
         <a href="/PhotogDetails.aspx?PhotogID=0" class="link">Add New Photographer</a>
-    </p>
+            </div>
+    </div>
+        <div class="row">
+            <div class="col-sm-12">
     <div class="mainTable">
         <asp:GridView ID="GridView1" runat="server" OnRowDataBound="GridView1_RowDataBound" AllowSorting="True" OnSorting="GridView1_Sorting">
         </asp:GridView></div>
-    
+    </div>
+        </div>
         </div>
 </asp:Content>

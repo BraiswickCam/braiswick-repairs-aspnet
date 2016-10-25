@@ -5,45 +5,10 @@
             font-family: Ubuntu, sans-serif;
         }
 
-        .tableContainer {
-            width: 100%;
-            text-align: center;
-        }
-
-        .tableMain {
-            display: inline-block;
-            width: auto;
-            min-width: 25%;
-            margin: 20px;
-            padding: 0px 10px 2px 10px;
-            text-align: left;
-            background: -webkit-linear-gradient(left top, #FFF, #f7f7f7);
-            border: 1px solid Black;
-            border-radius: 5px;
-        }
-
-        .tableMain tr:nth-child(2) td {
-            padding-top: 10px;
-        }
-
-        .tableMain tr:last-child td {
-            padding-bottom: 10px;
-        }
-
-        .tableMain td {
-            padding: 2px 4px;
-        }
-
-        .controls {
-            text-align: center;
-            width: 100%;
-        }
-
         .link {
             padding: 4px 7px;
             background-color: cornflowerblue;
             color: antiquewhite;
-            text-align: left;
         }
 
         .link:hover {
@@ -51,64 +16,96 @@
             background-color: blue;
         }
 
-        .messages {
-            margin-top: 10px;
+        .topBox {
+            background: -webkit-linear-gradient(left top, #FFF, #f7f7f7);
+            border: 1px solid Black;
+            border-radius: 5px;
         }
 
-        .historyContainer {
-                margin-top: 40px;
-                text-align: center;
-                width: 100%;
-                height: auto;
-            }
+        .rowMain {
+            margin-top: 15px;
+        }
 
-            .history {
-                text-align: left;
-                margin: 0 auto;
-            }
+        .textInput {
+            width: 100%;
+        }
 
-            .history th, .history td {
-                padding: 4px;
-            }
+        .history {
+            text-align: left;
+            margin: 0 auto;
+        }
+
+        .history th, .history td {
+            padding: 4px;
+        }
 
     </style>
-    <div class="tableContainer">
-    <div class="tableMain">
-    <asp:Table ID="LaptopDetailsTable" runat="server">
-        <asp:TableHeaderRow>
-            <asp:TableHeaderCell ColumnSpan="2">Laptop ID: <asp:Label ID="idLabel" runat="server"></asp:Label></asp:TableHeaderCell>
-        </asp:TableHeaderRow>
-        <asp:TableRow>
-            <asp:TableCell>Serial Number:</asp:TableCell>
-            <asp:TableCell><asp:TextBox ID="snText" runat="server"></asp:TextBox></asp:TableCell>
-        </asp:TableRow>
-        <asp:TableRow>
-            <asp:TableCell>Make:</asp:TableCell>
-            <asp:TableCell><asp:TextBox ID="makeText" runat="server"></asp:TextBox></asp:TableCell>
-        </asp:TableRow>
-        <asp:TableRow>
-            <asp:TableCell>Model:</asp:TableCell>
-            <asp:TableCell><asp:TextBox ID="modelText" runat="server"></asp:TextBox></asp:TableCell>
-        </asp:TableRow>
-        <asp:TableRow>
-            <asp:TableCell>Operating System:</asp:TableCell>
-            <asp:TableCell><asp:TextBox ID="osText" runat="server"></asp:TextBox></asp:TableCell>
-        </asp:TableRow>
-        <asp:TableRow>
-            <asp:TableCell>Active?:</asp:TableCell>
-            <asp:TableCell><asp:CheckBox ID="activeCheck" runat="server" /></asp:TableCell>
-        </asp:TableRow>
-    </asp:Table>
-    <div class="controls">
-        <asp:Button ID="saveButton" runat="server" Text="Save" OnClick="saveButton_Click" CssClass="link"/>
+<div class="container-fluid">
+  <div class="row rowMain">
+    <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3 col-xs-12 topBox">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>Laptop ID: <asp:Label ID="idLabel" runat="server"></asp:Label></h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <p>Serial Number: </p>
+        </div>
+        <div class="col-sm-7">
+          <asp:TextBox ID="snText" runat="server" CssClass="textInput"></asp:TextBox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <p>Make: </p>
+        </div>
+        <div class="col-sm-7">
+          <asp:TextBox ID="makeText" runat="server" CssClass="textInput"></asp:TextBox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <p>Model: </p>
+        </div>
+        <div class="col-sm-7">
+          <asp:TextBox ID="modelText" runat="server" CssClass="textInput"></asp:TextBox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <p>Operating System: </p>
+        </div>
+        <div class="col-sm-7">
+          <asp:TextBox ID="osText" runat="server" CssClass="textInput"></asp:TextBox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <p>Active?: </p>
+        </div>
+        <div class="col-sm-7">
+          <asp:CheckBox ID="activeCheck" runat="server" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <asp:Button ID="saveButton" runat="server" Text="Save" OnClick="saveButton_Click" CssClass="link"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <asp:Literal ID="messageLabel" runat="server"></asp:Literal>
+        </div>
+      </div>
     </div>
-    <div class="messages">
-        <asp:Literal ID="messageLabel" runat="server"></asp:Literal>
+  </div>
     </div>
-        </div>
-        </div>
-    <div class="historyContainer">
-            <asp:GridView ID="historyGridView" runat="server" CssClass="history">
-            </asp:GridView>
-        </div>
+    <div class="container-fluid">
+  <div class="row rowMain">
+    <div class="col-sm-12">
+      <asp:GridView ID="historyGridView" runat="server" CssClass="history"></asp:GridView>
+    </div>
+  </div>
+</div>
 </asp:Content>

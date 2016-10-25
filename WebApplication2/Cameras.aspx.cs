@@ -16,6 +16,10 @@ namespace WebApplication2
         string mainCameraID;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["msg"] != null && !IsPostBack)
+            {
+                if (Request.QueryString["msg"] == "new") messageLabel.Text = "<span class=\"glyphicon glyphicon-ok-sign\"></span> New record added successfully!";
+            }
             if (Request.QueryString["CameraID"] != null && Request.QueryString["CameraID"] != "none")
             {
                 mainCameraID = Request.QueryString["CameraID"];
@@ -71,7 +75,7 @@ namespace WebApplication2
             camera.SetCameraDetails(makeText.Text, modelText.Text, snText.Text, activeCheck.Checked);
             mainCameraID = camera.NewCameraRecord().ToString();
             messageLabel.Text = mainCameraID != "0" ? "<span class=\"glyphicon glyphicon-ok-sign\"></span> New record added successfully!" : "<span class=\"glyphicon glyphicon-remove-sign\"></span> An error occured!";
-            Response.Redirect("~/Cameras.aspx?CameraID=" + mainCameraID);
+            Response.Redirect(String.Format("~/Cameras.aspx?CameraID={0}&msg=new", mainCameraID));
         }
 
         protected void saveButton_Click(object sender, EventArgs e)
