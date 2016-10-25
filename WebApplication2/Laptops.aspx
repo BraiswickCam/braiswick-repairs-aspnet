@@ -88,7 +88,7 @@
     </style>
 <div class="container-fluid">
   <div class="row rowMain">
-    <div class="col-sm-4 col-sm-offset-4 topBox">
+    <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3 col-xs-12 topBox">
       <div class="row">
         <div class="col-sm-12">
           <h3>Laptop ID: <asp:Label ID="idLabel" runat="server"></asp:Label></h3>
@@ -146,6 +146,8 @@
       </div>
     </div>
   </div>
+    </div>
+    <div class="container-fluid">
   <div class="row rowMain">
     <div class="col-sm-12">
       <asp:GridView ID="historyGridView" runat="server" CssClass="history"></asp:GridView>
