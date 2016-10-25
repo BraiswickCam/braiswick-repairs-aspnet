@@ -55,6 +55,20 @@
             margin-top: 10px;
         }
 
+        .topBox {
+            background: -webkit-linear-gradient(left top, #FFF, #f7f7f7);
+            border: 1px solid Black;
+            border-radius: 5px;
+        }
+
+        .rowMain {
+            margin-top: 15px;
+        }
+
+        .textInput {
+            width: 100%;
+        }
+
         .historyContainer {
                 margin-top: 40px;
                 text-align: center;
@@ -72,43 +86,70 @@
             }
 
     </style>
-    <div class="tableContainer">
-    <div class="tableMain">
-    <asp:Table ID="LaptopDetailsTable" runat="server">
-        <asp:TableHeaderRow>
-            <asp:TableHeaderCell ColumnSpan="2">Laptop ID: <asp:Label ID="idLabel" runat="server"></asp:Label></asp:TableHeaderCell>
-        </asp:TableHeaderRow>
-        <asp:TableRow>
-            <asp:TableCell>Serial Number:</asp:TableCell>
-            <asp:TableCell><asp:TextBox ID="snText" runat="server"></asp:TextBox></asp:TableCell>
-        </asp:TableRow>
-        <asp:TableRow>
-            <asp:TableCell>Make:</asp:TableCell>
-            <asp:TableCell><asp:TextBox ID="makeText" runat="server"></asp:TextBox></asp:TableCell>
-        </asp:TableRow>
-        <asp:TableRow>
-            <asp:TableCell>Model:</asp:TableCell>
-            <asp:TableCell><asp:TextBox ID="modelText" runat="server"></asp:TextBox></asp:TableCell>
-        </asp:TableRow>
-        <asp:TableRow>
-            <asp:TableCell>Operating System:</asp:TableCell>
-            <asp:TableCell><asp:TextBox ID="osText" runat="server"></asp:TextBox></asp:TableCell>
-        </asp:TableRow>
-        <asp:TableRow>
-            <asp:TableCell>Active?:</asp:TableCell>
-            <asp:TableCell><asp:CheckBox ID="activeCheck" runat="server" /></asp:TableCell>
-        </asp:TableRow>
-    </asp:Table>
-    <div class="controls">
-        <asp:Button ID="saveButton" runat="server" Text="Save" OnClick="saveButton_Click" CssClass="link"/>
+<div class="container-fluid">
+  <div class="row rowMain">
+    <div class="col-sm-4 col-sm-offset-4 topBox">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>Laptop ID: <asp:Label ID="idLabel" runat="server"></asp:Label></h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <p>Serial Number: </p>
+        </div>
+        <div class="col-sm-7">
+          <asp:TextBox ID="snText" runat="server" CssClass="textInput"></asp:TextBox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <p>Make: </p>
+        </div>
+        <div class="col-sm-7">
+          <asp:TextBox ID="makeText" runat="server" CssClass="textInput"></asp:TextBox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <p>Model: </p>
+        </div>
+        <div class="col-sm-7">
+          <asp:TextBox ID="modelText" runat="server" CssClass="textInput"></asp:TextBox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <p>Operating System: </p>
+        </div>
+        <div class="col-sm-7">
+          <asp:TextBox ID="osText" runat="server" CssClass="textInput"></asp:TextBox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <p>Active?: </p>
+        </div>
+        <div class="col-sm-7">
+          <asp:CheckBox ID="activeCheck" runat="server" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <asp:Button ID="saveButton" runat="server" Text="Save" OnClick="saveButton_Click" CssClass="link"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <asp:Literal ID="messageLabel" runat="server"></asp:Literal>
+        </div>
+      </div>
     </div>
-    <div class="messages">
-        <asp:Literal ID="messageLabel" runat="server"></asp:Literal>
+  </div>
+  <div class="row rowMain">
+    <div class="col-sm-12">
+      <asp:GridView ID="historyGridView" runat="server" CssClass="history"></asp:GridView>
     </div>
-        </div>
-        </div>
-    <div class="historyContainer">
-            <asp:GridView ID="historyGridView" runat="server" CssClass="history">
-            </asp:GridView>
-        </div>
+  </div>
+</div>
 </asp:Content>
