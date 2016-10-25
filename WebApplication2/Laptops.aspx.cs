@@ -16,6 +16,10 @@ namespace WebApplication2
         string mainLaptopID;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["msg"] != null && !IsPostBack)
+            {
+                if (Request.QueryString["msg"] == "new") messageLabel.Text = "<span class=\"glyphicon glyphicon-ok-sign\"></span> New record added successfully!";
+            }
             if (Request.QueryString["LaptopID"] != null && Request.QueryString["LaptopID"] != "none")
             {
                 mainLaptopID = Request.QueryString["LaptopID"];
@@ -72,7 +76,7 @@ namespace WebApplication2
             laptop.SetLaptopDetails(makeText.Text, modelText.Text, snText.Text, osText.Text, activeCheck.Checked);
             mainLaptopID = laptop.NewLaptopRecord().ToString();
             messageLabel.Text = mainLaptopID != "0" ? "<span class=\"glyphicon glyphicon-ok-sign\"></span> New record added successfully!" : "<span class=\"glyphicon glyphicon-remove-sign\"></span> An error occured!";
-            Response.Redirect("~/Laptops.aspx?LaptopID=" + mainLaptopID);
+            Response.Redirect(String.Format("~/Laptops.aspx?LaptopID={0}&msg=new", mainLaptopID));
         }
 
         protected void saveButton_Click(object sender, EventArgs e)
