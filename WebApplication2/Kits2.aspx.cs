@@ -47,7 +47,6 @@ namespace WebApplication2
                 if (Request.QueryString["KitID"] != null) DropDownList1.SelectedValue = Request.QueryString["KitID"];
             }
             RefreshDetails();
-            historyGridView.CssClass = "history";
         }
 
         protected DataTable GetFullKitRecord(string kitID)
@@ -101,7 +100,8 @@ namespace WebApplication2
                     "LEFT JOIN Cameras ON Repairs.CameraID = Cameras.CameraID " + 
                     "LEFT JOIN Laptops ON Repairs.LaptopID = Laptops.LaptopID " +
                     "LEFT JOIN Photographers ON Repairs.PhotogID = Photographers.ID " + 
-                    "WHERE Repairs.KitID = @KitID";
+                    "WHERE Repairs.KitID = @KitID " +
+                    "ORDER BY Repairs.RepairID DESC";
                 command.Parameters.Add(new SQLiteParameter("@KitID", kitID));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
@@ -115,6 +115,14 @@ namespace WebApplication2
             }
         }
 
+        protected void ToggleTooltip(bool toggle, System.Web.UI.HtmlControls.HtmlGenericControl div, string item = "none")
+        {
+            div.Attributes["class"] = toggle ? "panel panel-danger" : "panel panel-default";
+            div.Attributes["data-toggle"] = toggle ? "tooltip" : "";
+            div.Attributes["data-title"] = toggle ? String.Format("No {0} assigned!", item) : "";
+            div.Attributes["data-placement"] = toggle ? "auto" : "";
+        }
+
         protected void RefreshDetails()
         {
             DataTable details = GetFullKitRecord(DropDownList1.SelectedValue);
@@ -123,16 +131,22 @@ namespace WebApplication2
             nameLabel.Text = details.Rows[0][3].ToString();
             initialLabel.Text = details.Rows[0][4].ToString();
             officeLabel.Text = details.Rows[0][5].ToString();
+            if (string.IsNullOrEmpty(details.Rows[0][2].ToString())) ToggleTooltip(true, photogPanel, "photographer");
+            else ToggleTooltip(false, photogPanel);
 
             //Populate Camera details
             camMakeLabel.Text = details.Rows[0][8].ToString();
             camModelLabel.Text = details.Rows[0][9].ToString();
             camSNLabel.Text = details.Rows[0][7].ToString();
+            if (string.IsNullOrEmpty(details.Rows[0][6].ToString())) ToggleTooltip(true, cameraPanel, "camera");
+            else ToggleTooltip(false, cameraPanel);
 
             //Populate Laptop details
             lapMakeLabel.Text = details.Rows[0][12].ToString();
             lapModelLabel.Text = details.Rows[0][13].ToString();
             lapSNLabel.Text = details.Rows[0][11].ToString();
+            if (string.IsNullOrEmpty(details.Rows[0][10].ToString())) ToggleTooltip(true, laptopPanel, "laptop");
+            else ToggleTooltip(false, laptopPanel);
 
             //Populate History records
             try
@@ -150,42 +164,6 @@ namespace WebApplication2
                     hp.Text = gr.Cells[repairID].Text;
                     hp.NavigateUrl = "~/Repairs2.aspx?repairID=" + hp.Text;
                     gr.Cells[repairID].Controls.Add(hp);
-
-                    ////Add links to camera page
-                    //if (gr.Cells[camID].Text != "0" && gr.Cells[camID].Text != "&nbsp;")
-                    //{
-                    //    hp = new HyperLink();
-                    //    hp.CssClass = "btn";
-                    //    hp.Target = "_blank";
-                    //    hp.ToolTip = "Open camera record for " + gr.Cells[camSerial].Text;
-                    //    hp.Text = gr.Cells[camID].Text;
-                    //    hp.NavigateUrl = "~/Cameras.aspx?CameraID=" + hp.Text;
-                    //    gr.Cells[camID].Controls.Add(hp);
-                    //}
-
-                    ////Add links to laptop page
-                    //if (gr.Cells[lapID].Text != "0" && gr.Cells[lapID].Text != "&nbsp;")
-                    //{
-                    //    hp = new HyperLink();
-                    //    hp.CssClass = "btn";
-                    //    hp.Target = "_blank";
-                    //    hp.ToolTip = "Open laptop record for " + gr.Cells[lapSerial].Text;
-                    //    hp.Text = gr.Cells[lapID].Text;
-                    //    hp.NavigateUrl = "~/Laptops.aspx?LaptopID=" + hp.Text;
-                    //    gr.Cells[lapID].Controls.Add(hp);
-                    //}
-
-                    ////Add links to photographer page
-                    //if (gr.Cells[photogID].Text != "0" && gr.Cells[photogID].Text != "&nbsp;")
-                    //{
-                    //    hp = new HyperLink();
-                    //    hp.CssClass = "btn";
-                    //    hp.Target = "_blank";
-                    //    hp.ToolTip = "Open photographer record for " + gr.Cells[photogName].Text;
-                    //    hp.Text = gr.Cells[photogID].Text;
-                    //    hp.NavigateUrl = "~/PhotogDetails.aspx?PhotogID=" + hp.Text;
-                    //    gr.Cells[photogID].Controls.Add(hp);
-                    //}
 
                     if (gr.Cells[camID].Text != "0" && gr.Cells[camID].Text != "&nbsp;")
                     {
@@ -228,15 +206,12 @@ namespace WebApplication2
             string kitID = DropDownList1.SelectedValue;
 
             photogAddRemove.HRef = details.Rows[0][2].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remPhotog&ID={1}", kitID, details.Rows[0][2].ToString()) : String.Format("Photogs.aspx?KitID={0}", kitID);
-            //photogAddRemove.InnerText = details.Rows[0][2].ToString() != string.Empty ? "Remove Photographer" : "Add Photographer";
             photogAddRemove.InnerHtml = details.Rows[0][2].ToString() != string.Empty ? "<img src=\"images/glyphicons-8-user-remove.png\"> Remove Photographer" : "<img src=\"images/glyphicons-7-user-add.png\"> Add Photographer";
 
             cameraAddRemove.HRef = details.Rows[0][6].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remCamera&ID={1}", kitID, details.Rows[0][6].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=Camera", kitID);
-            //cameraAddRemove.InnerText = details.Rows[0][6].ToString() != string.Empty ? "Remove Camera" : "Add Camera";
             cameraAddRemove.InnerHtml = details.Rows[0][6].ToString() != string.Empty ? "<img src=\"images/glyphicons-12-camera.png\"> Remove Camera" : "<img src=\"images/glyphicons-12-camera.png\"> Add Camera";
 
             laptopAddRemove.HRef = details.Rows[0][10].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remLaptop&ID={1}", kitID, details.Rows[0][10].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=Laptop", kitID);
-            //laptopAddRemove.InnerText = details.Rows[0][10].ToString() != string.Empty ? "Remove Laptop" : "Add Laptop";
             laptopAddRemove.InnerHtml = details.Rows[0][10].ToString() != string.Empty ? "<img src=\"images/glyphicons-691-laptop.png\"> Remove Laptop" : "<img src=\"images/glyphicons-691-laptop.png\"> Add Laptop";
         }
 
