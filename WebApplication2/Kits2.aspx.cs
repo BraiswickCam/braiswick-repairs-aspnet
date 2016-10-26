@@ -47,7 +47,7 @@ namespace WebApplication2
                 if (Request.QueryString["KitID"] != null) DropDownList1.SelectedValue = Request.QueryString["KitID"];
             }
             RefreshDetails();
-            historyGridView.CssClass = "history";
+            //historyGridView.CssClass = "history";
         }
 
         protected DataTable GetFullKitRecord(string kitID)
@@ -123,16 +123,19 @@ namespace WebApplication2
             nameLabel.Text = details.Rows[0][3].ToString();
             initialLabel.Text = details.Rows[0][4].ToString();
             officeLabel.Text = details.Rows[0][5].ToString();
+            photogPanel.Attributes["class"] = string.IsNullOrEmpty(details.Rows[0][2].ToString()) ? "panel panel-danger" : "panel panel-default";
 
             //Populate Camera details
             camMakeLabel.Text = details.Rows[0][8].ToString();
             camModelLabel.Text = details.Rows[0][9].ToString();
             camSNLabel.Text = details.Rows[0][7].ToString();
+            cameraPanel.Attributes["class"] = string.IsNullOrEmpty(details.Rows[0][6].ToString()) ? "panel panel-danger" : "panel panel-default";
 
             //Populate Laptop details
             lapMakeLabel.Text = details.Rows[0][12].ToString();
             lapModelLabel.Text = details.Rows[0][13].ToString();
             lapSNLabel.Text = details.Rows[0][11].ToString();
+            laptopPanel.Attributes["class"] = string.IsNullOrEmpty(details.Rows[0][10].ToString()) ? "panel panel-danger" : "panel panel-default";
 
             //Populate History records
             try

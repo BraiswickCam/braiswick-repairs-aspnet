@@ -124,7 +124,116 @@ $(document).ready(function(){
         <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" CssClass="dropdown">
         </asp:DropDownList>
     </div>
-    <div class="topTables">  
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel panel-default" id="photogPanel" runat="server">
+                    <div class="panel-heading">Photographer</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-5 col-sm-5">Name: </div>
+                            <div class="col-xs-7 col-sm-7">
+                                <asp:Label ID="nameLabel" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5 col-sm-5">Initials: </div>
+                            <div class="col-xs-7 col-sm-7">
+                                <asp:Label ID="initialLabel" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5 col-sm-5">Office: </div>
+                            <div class="col-xs-7 col-sm-7">
+                                <asp:Label ID="officeLabel" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-6">
+                                <a class="btn" id="photogAddRemove" runat="server"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-default" id="cameraPanel" runat="server">
+                    <div class="panel-heading">Camera</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-5">Serial Number: </div>
+                            <div class="col-sm-7">
+                                <asp:Label ID="camSNLabel" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">Make: </div>
+                            <div class="col-sm-7">
+                                <asp:Label ID="camMakeLabel" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">Model: </div>
+                            <div class="col-sm-7">
+                                <asp:Label ID="camModelLabel" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-6">
+                                <a class="btn" id="cameraAddRemove" runat="server">Add/Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-default" id="laptopPanel" runat="server">
+                    <div class="panel-heading">Laptop</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-5">Serial Number: </div>
+                            <div class="col-sm-7">
+                                <asp:Label ID="lapSNLabel" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">Make: </div>
+                            <div class="col-sm-7">
+                                <asp:Label ID="lapMakeLabel" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">Model: </div>
+                            <div class="col-sm-7">
+                                <asp:Label ID="lapModelLabel" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-6">
+                                <a class="btn" id="laptopAddRemove" runat="server">Add/Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <asp:GridView ID="historyGridView" runat="server" OnRowDataBound="historyGridView_RowDataBound" CssClass="table table-striped table-hover" GridLines="None"></asp:GridView>
+            </div>
+        </div>
+    </div>
+
+<%--    <div class="topTables">  
       <div class="tableContainer">
         <asp:Table runat="server" CssClass="detailTables">
             <asp:TableHeaderRow CssClass="tableHeader">
@@ -188,10 +297,10 @@ $(document).ready(function(){
            <br />
           <a class="btn" id="laptopAddRemove" runat="server">Add/Remove</a><a class="btn">New Repair</a>
     </div>
-        </div>
-        <div class="historyContainer">
+        </div>--%>
+<%--        <div class="historyContainer">
             <asp:GridView ID="historyGridView" runat="server" CssClass="history" OnRowDataBound="historyGridView_RowDataBound">
             </asp:GridView>
-        </div>
+        </div>--%>
     
 </asp:Content>

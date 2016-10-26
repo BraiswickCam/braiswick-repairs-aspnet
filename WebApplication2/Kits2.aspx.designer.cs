@@ -22,6 +22,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
         
         /// <summary>
+        /// photogPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl photogPanel;
+        
+        /// <summary>
         /// nameLabel control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,24 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor photogAddRemove;
         
         /// <summary>
+        /// cameraPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl cameraPanel;
+        
+        /// <summary>
+        /// camSNLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label camSNLabel;
+        
+        /// <summary>
         /// camMakeLabel control.
         /// </summary>
         /// <remarks>
@@ -76,15 +103,6 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.Label camModelLabel;
         
         /// <summary>
-        /// camSNLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label camSNLabel;
-        
-        /// <summary>
         /// cameraAddRemove control.
         /// </summary>
         /// <remarks>
@@ -92,6 +110,24 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor cameraAddRemove;
+        
+        /// <summary>
+        /// laptopPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl laptopPanel;
+        
+        /// <summary>
+        /// lapSNLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lapSNLabel;
         
         /// <summary>
         /// lapMakeLabel control.
@@ -110,15 +146,6 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lapModelLabel;
-        
-        /// <summary>
-        /// lapSNLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lapSNLabel;
         
         /// <summary>
         /// laptopAddRemove control.
