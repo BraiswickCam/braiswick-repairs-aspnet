@@ -1,5 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Kits2.aspx.cs" Inherits="WebApplication2.Kits2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
     <style>
             *{
                 font-family: Ubuntu, sans-serif;
