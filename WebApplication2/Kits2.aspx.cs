@@ -190,7 +190,7 @@ namespace WebApplication2
                     if (gr.Cells[camID].Text != "0" && gr.Cells[camID].Text != "&nbsp;")
                     {
                         string idHolder = gr.Cells[camID].Text;
-                        gr.Cells[camID].Text = String.Format("<div class=\"kitLink\"><a href=\"Cameras.aspx?CameraID={0}\">{0}</a><div class=\"kitDrop\">{1}</br>{2}</br>{3}</div></div>",
+                        gr.Cells[camID].Text = String.Format("<a href=\"Cameras.aspx?CameraID={0}\" data-toggle=\"tooltip\" data-placement=\"right\" data-html=\"true\" title=\"{1}</br>{2}</br>{3}\">{0}</a>",
                             idHolder,
                             gr.Cells[camSerial].Text,
                             gr.Cells[camMake].Text,
@@ -200,7 +200,7 @@ namespace WebApplication2
                     if (gr.Cells[lapID].Text != "0" && gr.Cells[lapID].Text != "&nbsp;")
                     {
                         string idHolder = gr.Cells[lapID].Text;
-                        gr.Cells[lapID].Text = String.Format("<div class=\"kitLink\"><a href=\"Laptops.aspx?LaptopID={0}\">{0}</a><div class=\"kitDrop\">{1}</br>{2}</br>{3}</div></div>",
+                        gr.Cells[lapID].Text = String.Format("<a href=\"Laptops.aspx?LaptopID={0}\" data-toggle=\"tooltip\" data-placement=\"right\" data-html=\"true\" title=\"{1}</br>{2}</br>{3}\">{0}</a>",
                             idHolder,
                             gr.Cells[lapSerial].Text,
                             gr.Cells[lapMake].Text,
@@ -210,7 +210,7 @@ namespace WebApplication2
                     if (gr.Cells[photogID].Text != "0" && gr.Cells[photogID].Text != "&nbsp;")
                     {
                         string idHolder = gr.Cells[photogID].Text;
-                        gr.Cells[photogID].Text = String.Format("<div class=\"kitLink\"><a href=\"PhotogDetails.aspx?PhotogID={0}\">{0}</a><div class=\"kitDrop\">{1}</br>{2}</br>{3}</div></div>",
+                        gr.Cells[photogID].Text = String.Format("<a href=\"PhotogDetails.aspx?PhotogID={0}\" data-toggle=\"tooltip\" data-placement=\"right\" data-html=\"true\" title=\"{1}</br>{2}</br>{3}\">{0}</a>",
                             idHolder,
                             gr.Cells[photogInitials].Text,
                             gr.Cells[photogName].Text,
