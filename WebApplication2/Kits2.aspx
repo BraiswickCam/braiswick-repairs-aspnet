@@ -90,6 +90,28 @@
                 border-radius: 4px;
             }
 
+            .kitLink {
+        position: relative;
+        display: inline-block;
+        }
+
+        .kitDrop {
+        display: none;
+        position: absolute;
+        background: -webkit-linear-gradient(left top, #FFF, #f7f7f7);
+        min-width: 160px;
+        width: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1;
+        border: 0;
+        border-radius: 10px;
+        }
+
+        .kitLink:hover .kitDrop {
+        display: block;
+        }
+
         </style>
     <p>
         &nbsp;</p>

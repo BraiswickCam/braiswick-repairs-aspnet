@@ -12,7 +12,24 @@ namespace WebApplication2
 {
     public partial class Kits2 : System.Web.UI.Page
     {
+        //Database Location
         string databaseLocation = "C:\\datatest\\2016repairhistory.sqlite";
+
+        //History table index references
+        int repairID = 0;
+        int camID = 1;
+        int camSerial = 2;
+        int camMake = 3;
+        int camModel = 4;
+        int lapID = 5;
+        int lapSerial = 6;
+        int lapMake = 7;
+        int lapModel = 8;
+        int photogID = 9;
+        int photogInitials = 10;
+        int photogName = 11;
+        int photogOffice = 12;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["type"] != null)
@@ -80,7 +97,11 @@ namespace WebApplication2
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT * FROM Repairs WHERE KitID = @KitID";
+                command.CommandText = "SELECT Repairs.RepairID, Repairs.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Repairs.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Repairs.PhotogID, Photographers.Initials, Photographers.Name, Photographers.Office, Repairs.Date, Repairs.Fixed, Repairs.FixedDate, Repairs.TechInitials, Repairs.Notes, Repairs.RepairCost FROM Repairs " + 
+                    "LEFT JOIN Cameras ON Repairs.CameraID = Cameras.CameraID " + 
+                    "LEFT JOIN Laptops ON Repairs.LaptopID = Laptops.LaptopID " +
+                    "LEFT JOIN Photographers ON Repairs.PhotogID = Photographers.ID " + 
+                    "WHERE Repairs.KitID = @KitID";
                 command.Parameters.Add(new SQLiteParameter("@KitID", kitID));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
@@ -121,13 +142,80 @@ namespace WebApplication2
                 historyGridView.DataBind();
                 foreach (GridViewRow gr in historyGridView.Rows)
                 {
+                    //Add link to full repair record page
                     HyperLink hp = new HyperLink();
                     hp.CssClass = "btn";
                     hp.Target = "_blank";
-                    hp.ToolTip = "Open repair record for RepairID " + gr.Cells[0].Text;
-                    hp.Text = gr.Cells[0].Text;
+                    hp.ToolTip = "Open repair record for RepairID " + gr.Cells[repairID].Text;
+                    hp.Text = gr.Cells[repairID].Text;
                     hp.NavigateUrl = "~/Repairs2.aspx?repairID=" + hp.Text;
-                    gr.Cells[0].Controls.Add(hp);
+                    gr.Cells[repairID].Controls.Add(hp);
+
+                    ////Add links to camera page
+                    //if (gr.Cells[camID].Text != "0" && gr.Cells[camID].Text != "&nbsp;")
+                    //{
+                    //    hp = new HyperLink();
+                    //    hp.CssClass = "btn";
+                    //    hp.Target = "_blank";
+                    //    hp.ToolTip = "Open camera record for " + gr.Cells[camSerial].Text;
+                    //    hp.Text = gr.Cells[camID].Text;
+                    //    hp.NavigateUrl = "~/Cameras.aspx?CameraID=" + hp.Text;
+                    //    gr.Cells[camID].Controls.Add(hp);
+                    //}
+
+                    ////Add links to laptop page
+                    //if (gr.Cells[lapID].Text != "0" && gr.Cells[lapID].Text != "&nbsp;")
+                    //{
+                    //    hp = new HyperLink();
+                    //    hp.CssClass = "btn";
+                    //    hp.Target = "_blank";
+                    //    hp.ToolTip = "Open laptop record for " + gr.Cells[lapSerial].Text;
+                    //    hp.Text = gr.Cells[lapID].Text;
+                    //    hp.NavigateUrl = "~/Laptops.aspx?LaptopID=" + hp.Text;
+                    //    gr.Cells[lapID].Controls.Add(hp);
+                    //}
+
+                    ////Add links to photographer page
+                    //if (gr.Cells[photogID].Text != "0" && gr.Cells[photogID].Text != "&nbsp;")
+                    //{
+                    //    hp = new HyperLink();
+                    //    hp.CssClass = "btn";
+                    //    hp.Target = "_blank";
+                    //    hp.ToolTip = "Open photographer record for " + gr.Cells[photogName].Text;
+                    //    hp.Text = gr.Cells[photogID].Text;
+                    //    hp.NavigateUrl = "~/PhotogDetails.aspx?PhotogID=" + hp.Text;
+                    //    gr.Cells[photogID].Controls.Add(hp);
+                    //}
+
+                    if (gr.Cells[camID].Text != "0" && gr.Cells[camID].Text != "&nbsp;")
+                    {
+                        string idHolder = gr.Cells[camID].Text;
+                        gr.Cells[camID].Text = String.Format("<div class=\"kitLink\"><a href=\"Cameras.aspx?CameraID={0}\">{0}</a><div class=\"kitDrop\">{1}</br>{2}</br>{3}</div></div>",
+                            idHolder,
+                            gr.Cells[camSerial].Text,
+                            gr.Cells[camMake].Text,
+                            gr.Cells[camModel].Text);
+                    }
+
+                    if (gr.Cells[lapID].Text != "0" && gr.Cells[lapID].Text != "&nbsp;")
+                    {
+                        string idHolder = gr.Cells[lapID].Text;
+                        gr.Cells[lapID].Text = String.Format("<div class=\"kitLink\"><a href=\"Laptops.aspx?LaptopID={0}\">{0}</a><div class=\"kitDrop\">{1}</br>{2}</br>{3}</div></div>",
+                            idHolder,
+                            gr.Cells[lapSerial].Text,
+                            gr.Cells[lapMake].Text,
+                            gr.Cells[lapModel].Text);
+                    }
+
+                    if (gr.Cells[photogID].Text != "0" && gr.Cells[photogID].Text != "&nbsp;")
+                    {
+                        string idHolder = gr.Cells[photogID].Text;
+                        gr.Cells[photogID].Text = String.Format("<div class=\"kitLink\"><a href=\"PhotogDetails.aspx?PhotogID={0}\">{0}</a><div class=\"kitDrop\">{1}</br>{2}</br>{3}</div></div>",
+                            idHolder,
+                            gr.Cells[photogInitials].Text,
+                            gr.Cells[photogName].Text,
+                            gr.Cells[photogOffice].Text);
+                    }
                 }
             }
             catch (SQLiteException)
@@ -154,7 +242,15 @@ namespace WebApplication2
 
         protected void historyGridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            
+            e.Row.Cells[camSerial].Visible = false;
+            e.Row.Cells[camMake].Visible = false;
+            e.Row.Cells[camModel].Visible = false;
+            e.Row.Cells[lapSerial].Visible = false;
+            e.Row.Cells[lapMake].Visible = false;
+            e.Row.Cells[lapModel].Visible = false;
+            e.Row.Cells[photogName].Visible = false;
+            e.Row.Cells[photogInitials].Visible = false;
+            e.Row.Cells[photogOffice].Visible = false;
         }
 
         protected bool ChangeItem()
