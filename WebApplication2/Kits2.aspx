@@ -35,12 +35,7 @@ $(document).ready(function(){
             }
 
         </style>
-<%--    <p>
-        &nbsp;</p>
-    <div class="kitSelect">
-        <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" CssClass="dropdown">
-        </asp:DropDownList>
-    </div>--%>
+
     <div class="container-fluid">
         <div class="row top20">
             <div class="col-xs-12">
@@ -154,76 +149,5 @@ $(document).ready(function(){
                 <asp:GridView ID="historyGridView" runat="server" OnRowDataBound="historyGridView_RowDataBound" CssClass="table table-striped table-hover" GridLines="None"></asp:GridView>
             </div>
         </div>
-    </div>
-
-<%--    <div class="topTables">  
-      <div class="tableContainer">
-        <asp:Table runat="server" CssClass="detailTables">
-            <asp:TableHeaderRow CssClass="tableHeader">
-                <asp:TableHeaderCell ColumnSpan="2" CssClass="tableHeaderCell">Photographer</asp:TableHeaderCell>
-            </asp:TableHeaderRow>
-            <asp:TableRow>
-                <asp:TableCell>Name:</asp:TableCell>
-                <asp:TableCell CssClass="rightCell"><asp:Label ID="nameLabel" runat="server"></asp:Label></asp:TableCell>
-            </asp:TableRow>
-            <asp:TableRow>
-                <asp:TableCell>Initial:</asp:TableCell>
-                <asp:TableCell CssClass="rightCell"><asp:Label ID="initialLabel" runat="server"></asp:Label></asp:TableCell>
-            </asp:TableRow>
-            <asp:TableRow>
-                <asp:TableCell>Office:</asp:TableCell>
-                <asp:TableCell CssClass="rightCell"><asp:Label ID="officeLabel" runat="server"></asp:Label></asp:TableCell>
-            </asp:TableRow>
-        </asp:Table>
-          <br />
-          <a class="btn" id="photogAddRemove" runat="server">Add/Remove</a>
-          </div>
-        <div class="tableContainer">
-        <asp:Table runat="server" CssClass="detailTables">
-            <asp:TableHeaderRow CssClass="tableHeader">
-                <asp:TableHeaderCell ColumnSpan="2" CssClass="tableHeaderCell">Camera</asp:TableHeaderCell>
-            </asp:TableHeaderRow>
-            <asp:TableRow>
-                <asp:TableCell>Make:</asp:TableCell>
-                <asp:TableCell CssClass="rightCell"><asp:Label ID="camMakeLabel" runat="server"></asp:Label></asp:TableCell>
-            </asp:TableRow>
-            <asp:TableRow>
-                <asp:TableCell>Model:</asp:TableCell>
-                <asp:TableCell CssClass="rightCell"><asp:Label ID="camModelLabel" runat="server"></asp:Label></asp:TableCell>
-            </asp:TableRow>
-            <asp:TableRow>
-                <asp:TableCell>Serial Number:</asp:TableCell>
-                <asp:TableCell CssClass="rightCell"><asp:Label ID="camSNLabel" runat="server"></asp:Label></asp:TableCell>
-            </asp:TableRow>
-        </asp:Table>
-            <br />
-          <a class="btn" id="cameraAddRemove" runat="server">Add/Remove</a><a class="btn">New Repair</a>
-            </div>
-        <div class="tableContainer">
-        <asp:Table runat="server" CssClass="detailTables">
-            <asp:TableHeaderRow CssClass="tableHeader">
-                <asp:TableHeaderCell ColumnSpan="2" CssClass="tableHeaderCell">Laptop</asp:TableHeaderCell>
-            </asp:TableHeaderRow>
-            <asp:TableRow>
-                <asp:TableCell>Make:</asp:TableCell>
-                <asp:TableCell CssClass="rightCell"><asp:Label ID="lapMakeLabel" runat="server"></asp:Label></asp:TableCell>
-            </asp:TableRow>
-            <asp:TableRow>
-                <asp:TableCell>Model:</asp:TableCell>
-                <asp:TableCell CssClass="rightCell"><asp:Label ID="lapModelLabel" runat="server"></asp:Label></asp:TableCell>
-            </asp:TableRow>
-            <asp:TableRow>
-                <asp:TableCell>Serial Number:</asp:TableCell>
-                <asp:TableCell CssClass="rightCell"><asp:Label ID="lapSNLabel" runat="server"></asp:Label></asp:TableCell>
-            </asp:TableRow>
-        </asp:Table>
-           <br />
-          <a class="btn" id="laptopAddRemove" runat="server">Add/Remove</a><a class="btn">New Repair</a>
-    </div>
-        </div>--%>
-<%--        <div class="historyContainer">
-            <asp:GridView ID="historyGridView" runat="server" CssClass="history" OnRowDataBound="historyGridView_RowDataBound">
-            </asp:GridView>
-        </div>--%>
-    
+    </div>   
 </asp:Content>
