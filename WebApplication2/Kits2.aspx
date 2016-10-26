@@ -10,66 +10,6 @@ $(document).ready(function(){
                 font-family: Ubuntu, sans-serif;
             }
 
-            .tableHeader {
-                font-size: 20px;
-                width: 100%;
-            }
-
-            .topTables {
-                text-align: center;
-                width: auto;
-            }
-
-            .tableContainer {
-                display: inline-block;
-                width: auto;
-                min-width: 25%;
-                margin: 20px;
-                padding: 0px 10px 2px 10px;
-                text-align: left;
-                background: -webkit-linear-gradient(left top, #FFF, #f7f7f7);
-                border: 1px solid Black;
-                border-radius: 5px;
-            }
-
-            .detailTables {
-                width: 100%;
-                padding: 0px;
-            }
-
-            .detailTables td {
-                padding: 2px 4px;
-            }
-
-            .tableHeaderCell {
-                padding-right: 10px;
-                width: 100%;
-                border-bottom: 2px solid black;
-            }
-
-            .rightCell {
-                padding-left: 5px;
-                padding-right: 10px;  
-                font-weight: bold;
-                width: inherit;      
-            }
-
-            .historyContainer {
-                margin-top: 40px;
-                text-align: center;
-                width: 100%;
-                height: auto;
-            }
-
-            .history {
-                text-align: left;
-                margin: 0 auto;
-            }
-
-            .history th, .history td {
-                padding: 4px;
-            }
-
             .btn {
                 padding: 3px 5px;
                 display: inline;
@@ -90,43 +30,26 @@ $(document).ready(function(){
                 border: 1px solid black;
             }
 
-            .dropdown {
-                border: 1px solid black;
-                border-radius: 4px;
+            .top20 {
+                margin-top: 20px;
             }
 
-            .kitLink {
-        position: relative;
-        display: inline-block;
-        }
-
-        .kitDrop {
-        display: none;
-        position: absolute;
-        background: -webkit-linear-gradient(left top, #FFF, #f7f7f7);
-        min-width: 160px;
-        width: auto;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        padding: 12px 16px;
-        z-index: 1;
-        border: 0;
-        border-radius: 10px;
-        }
-
-        .kitLink:hover .kitDrop {
-        display: block;
-        }
-
         </style>
-    <p>
+<%--    <p>
         &nbsp;</p>
     <div class="kitSelect">
         <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" CssClass="dropdown">
         </asp:DropDownList>
-    </div>
-
+    </div>--%>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row top20">
+            <div class="col-xs-12">
+                <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" CssClass="form-control"></asp:DropDownList>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row top20">
             <div class="col-sm-4">
                 <div class="panel panel-default" id="photogPanel" runat="server">
                     <div class="panel-heading">Photographer</div>
@@ -164,20 +87,20 @@ $(document).ready(function(){
                     <div class="panel-heading">Camera</div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-sm-5">Serial Number: </div>
-                            <div class="col-sm-7">
+                            <div class="col-xs-5 col-sm-5">Serial Number: </div>
+                            <div class="col-xs-7 col-sm-7">
                                 <asp:Label ID="camSNLabel" runat="server"></asp:Label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-5">Make: </div>
-                            <div class="col-sm-7">
+                            <div class="col-xs-5 col-sm-5">Make: </div>
+                            <div class="col-xs-7 col-sm-7">
                                 <asp:Label ID="camMakeLabel" runat="server"></asp:Label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-5">Model: </div>
-                            <div class="col-sm-7">
+                            <div class="col-xs-5 col-sm-5">Model: </div>
+                            <div class="col-xs-7 col-sm-7">
                                 <asp:Label ID="camModelLabel" runat="server"></asp:Label>
                             </div>
                         </div>
@@ -196,20 +119,20 @@ $(document).ready(function(){
                     <div class="panel-heading">Laptop</div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-sm-5">Serial Number: </div>
-                            <div class="col-sm-7">
+                            <div class="col-xs-5 col-sm-5">Serial Number: </div>
+                            <div class="col-xs-7 col-sm-7">
                                 <asp:Label ID="lapSNLabel" runat="server"></asp:Label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-5">Make: </div>
-                            <div class="col-sm-7">
+                            <div class="col-xs-5 col-sm-5">Make: </div>
+                            <div class="col-xs-7 col-sm-7">
                                 <asp:Label ID="lapMakeLabel" runat="server"></asp:Label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-5">Model: </div>
-                            <div class="col-sm-7">
+                            <div class="col-xs-5 col-sm-5">Model: </div>
+                            <div class="col-xs-7 col-sm-7">
                                 <asp:Label ID="lapModelLabel" runat="server"></asp:Label>
                             </div>
                         </div>
@@ -227,7 +150,7 @@ $(document).ready(function(){
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 table-responsive">
                 <asp:GridView ID="historyGridView" runat="server" OnRowDataBound="historyGridView_RowDataBound" CssClass="table table-striped table-hover" GridLines="None"></asp:GridView>
             </div>
         </div>

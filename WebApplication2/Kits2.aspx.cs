@@ -101,7 +101,8 @@ namespace WebApplication2
                     "LEFT JOIN Cameras ON Repairs.CameraID = Cameras.CameraID " + 
                     "LEFT JOIN Laptops ON Repairs.LaptopID = Laptops.LaptopID " +
                     "LEFT JOIN Photographers ON Repairs.PhotogID = Photographers.ID " + 
-                    "WHERE Repairs.KitID = @KitID";
+                    "WHERE Repairs.KitID = @KitID " +
+                    "ORDER BY Repairs.RepairID DESC";
                 command.Parameters.Add(new SQLiteParameter("@KitID", kitID));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
@@ -115,6 +116,14 @@ namespace WebApplication2
             }
         }
 
+        protected void ToggleTooltip(bool toggle, System.Web.UI.HtmlControls.HtmlGenericControl div, string item = "none")
+        {
+            div.Attributes["class"] = toggle ? "panel panel-danger" : "panel panel-default";
+            div.Attributes["data-toggle"] = toggle ? "tooltip" : "";
+            div.Attributes["data-title"] = toggle ? String.Format("No {0} assigned!", item) : "";
+            div.Attributes["data-placement"] = toggle ? "auto" : "";
+        }
+
         protected void RefreshDetails()
         {
             DataTable details = GetFullKitRecord(DropDownList1.SelectedValue);
@@ -123,19 +132,25 @@ namespace WebApplication2
             nameLabel.Text = details.Rows[0][3].ToString();
             initialLabel.Text = details.Rows[0][4].ToString();
             officeLabel.Text = details.Rows[0][5].ToString();
-            photogPanel.Attributes["class"] = string.IsNullOrEmpty(details.Rows[0][2].ToString()) ? "panel panel-danger" : "panel panel-default";
+            //photogPanel.Attributes["class"] = string.IsNullOrEmpty(details.Rows[0][2].ToString()) ? "panel panel-danger" : "panel panel-default";
+            if (string.IsNullOrEmpty(details.Rows[0][2].ToString())) ToggleTooltip(true, photogPanel, "photographer");
+            else ToggleTooltip(false, photogPanel);
 
             //Populate Camera details
             camMakeLabel.Text = details.Rows[0][8].ToString();
             camModelLabel.Text = details.Rows[0][9].ToString();
             camSNLabel.Text = details.Rows[0][7].ToString();
-            cameraPanel.Attributes["class"] = string.IsNullOrEmpty(details.Rows[0][6].ToString()) ? "panel panel-danger" : "panel panel-default";
+            //cameraPanel.Attributes["class"] = string.IsNullOrEmpty(details.Rows[0][6].ToString()) ? "panel panel-danger" : "panel panel-default";
+            if (string.IsNullOrEmpty(details.Rows[0][6].ToString())) ToggleTooltip(true, cameraPanel, "camera");
+            else ToggleTooltip(false, cameraPanel);
 
             //Populate Laptop details
             lapMakeLabel.Text = details.Rows[0][12].ToString();
             lapModelLabel.Text = details.Rows[0][13].ToString();
             lapSNLabel.Text = details.Rows[0][11].ToString();
-            laptopPanel.Attributes["class"] = string.IsNullOrEmpty(details.Rows[0][10].ToString()) ? "panel panel-danger" : "panel panel-default";
+            //laptopPanel.Attributes["class"] = string.IsNullOrEmpty(details.Rows[0][10].ToString()) ? "panel panel-danger" : "panel panel-default";
+            if (string.IsNullOrEmpty(details.Rows[0][10].ToString())) ToggleTooltip(true, laptopPanel, "laptop");
+            else ToggleTooltip(false, laptopPanel);
 
             //Populate History records
             try
