@@ -72,8 +72,34 @@
         display: block;
         }
 
+        .top20 {
+            margin-top: 20px;
+        }
+
     </style>
-    <div class="controls">
+
+    <div class="container-fluid">
+        <div class="row top20">
+            <div class="col-xs-12 text-center">
+                <asp:DropDownList ID="equipDrop" runat="server" AutoPostBack="true">
+                    <asp:ListItem Text="Laptops" Value="laptop"></asp:ListItem>
+                    <asp:ListItem Text="Cameras" Value="camera"></asp:ListItem>
+                </asp:DropDownList>
+            </div>
+        </div>
+        <div class="row top20">
+            <div class="col-xs-12 text-center">
+                <a id="newEquipLink" class="btn btn-primary" runat="server">Add New <asp:Label ID="equipLabel" runat="server"></asp:Label></a>
+            </div>
+        </div>
+        <div class="row top20">
+            <div class="col-xs-12 table-responsive">
+                <asp:GridView ID="equipGrid" runat="server" OnRowDataBound="equipGrid_RowDataBound" AllowSorting="true" OnSorting="equipGrid_Sorting" GridLines="None" CssClass="table table-striped table-hover"></asp:GridView>
+            </div>
+        </div>
+    </div>
+
+<%--    <div class="controls">
     
     <!--<p>
         <asp:CheckBox ID="activeBox" runat="server" AutoPostBack="True" Text="Show only active photographers" />
@@ -91,5 +117,5 @@
         <asp:GridView ID="equipGrid" runat="server" OnRowDataBound="equipGrid_RowDataBound" AllowSorting="True" OnSorting="equipGrid_Sorting">
         </asp:GridView></div>
     
-        </div>
+        </div>--%>
 </asp:Content>
