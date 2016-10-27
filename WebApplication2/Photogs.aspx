@@ -77,7 +77,26 @@
         }
 
     </style>
+
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <asp:CheckBox ID="activeBox" runat="server" AutoPostBack="true" Text=" Show only active photographers" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <a class="btn btn-primary" href="PhotogDetails.aspx?PhotogID=0">Add New Photographer</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <asp:GridView ID="GridView1" runat="server" OnRowDataBound="GridView1_RowDataBound" AllowSorting="true" OnSorting="GridView1_Sorting" GridLines="None" CssClass="table table-striped table-hover"></asp:GridView>
+            </div>
+        </div>
+    </div>
+
+<%--    <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3 text-center">
         <asp:CheckBox ID="activeBox" runat="server" AutoPostBack="True" Text="Show only active photographers" />
@@ -95,5 +114,5 @@
         </asp:GridView></div>
     </div>
         </div>
-        </div>
+        </div>--%>
 </asp:Content>
