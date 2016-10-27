@@ -37,8 +37,17 @@ $(document).ready(function(){
         </style>
 
     <div class="container-fluid">
+        <div class="row top20 hidden" id="warningDiv" runat="server">
+            <div class="alert alert-danger fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error! </strong><asp:Label ID="warningLabel" runat="server"></asp:Label>
+            </div>
+        </div>
         <div class="row top20">
-            <div class="col-xs-12">
+            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-1">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newKitModal">New Kit</button>
+            </div>
+            <div class="col-xs-8 col-sm-8 col-sm-10 col-lg-11">
                 <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" CssClass="form-control"></asp:DropDownList>
             </div>
         </div>
@@ -150,4 +159,25 @@ $(document).ready(function(){
             </div>
         </div>
     </div>   
+
+    <!--Modal Content-->
+
+    <div id="newKitModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Enter new kit PH:</h4>
+                </div>
+                <div class="modal-body">
+                    <asp:TextBox ID="newKitBox" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="modal-footer">
+                    <asp:Button ID="saveNewKit" runat="server" CssClass="btn btn-primary" Text="Save" OnClick="saveNewKit_Click" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </asp:Content>

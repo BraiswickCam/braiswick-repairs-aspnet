@@ -32,6 +32,7 @@ namespace WebApplication2
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            warningDiv.Attributes["class"] = "row top20 hidden";
             if (Request.QueryString["type"] != null)
             {
                 if(ChangeItem()) { Response.Redirect(String.Format("~/Kits2.aspx?KitID={0}", Request.QueryString["KitID"])); }
@@ -263,6 +264,39 @@ namespace WebApplication2
                 m_dbConnection.Open();
                 return command.ExecuteNonQuery() > 0;
             }
+        }
+
+        protected void saveNewKit_Click(object sender, EventArgs e)
+        {
+            string errormessage;
+            int newkit = NewKit(newKitBox.Text, out errormessage);
+            if (newkit > 0)
+            {
+                Response.Redirect("Kits2.aspx?KitID=" + newkit);
+                //DropDownList1.SelectedValue = newkit.ToString();
+            }
+            else
+            {
+                warningDiv.Attributes["class"] = "row top20";
+                warningLabel.Text = errormessage;
+            }
+        }
+
+        protected int NewKit(string kitPH, out string error)
+        {
+            error = "";
+            try
+            {
+                using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+                {
+                    SQLiteCommand command = m_dbConnection.CreateCommand();
+                    command.CommandText = "INSERT INTO Kits (KitPH) VALUES (@KitPH); SELECT last_insert_rowid();";
+                    command.Parameters.Add(new SQLiteParameter("@KitPH", kitPH));
+                    m_dbConnection.Open();
+                    return Convert.ToInt32(command.ExecuteScalar());
+                }
+            }
+            catch (SQLiteException ex) { error = ex.Message; return 0;}
         }
     }
 }
