@@ -10,7 +10,7 @@ $(document).ready(function(){
                 font-family: Ubuntu, sans-serif;
             }
 
-            .btn {
+            /*.btn {
                 padding: 3px 5px;
                 display: inline;
             }
@@ -28,7 +28,7 @@ $(document).ready(function(){
             a.btn:hover {
                 background: linear-gradient(#FFF, #f7f7f7);
                 border: 1px solid black;
-            }
+            }*/
 
             .top20 {
                 margin-top: 20px;
@@ -70,8 +70,8 @@ $(document).ready(function(){
                     </div>
                     <div class="panel-footer">
                         <div class="row">
-                            <div class="col-sm-6 col-sm-offset-6">
-                                <a class="btn" id="photogAddRemove" runat="server"></a>
+                            <div class="col-sm-12 text-right">
+                                <a class="btn btn-default" id="photogAddRemove" runat="server"></a>
                             </div>
                         </div>
                     </div>
@@ -102,8 +102,8 @@ $(document).ready(function(){
                     </div>
                     <div class="panel-footer">
                         <div class="row">
-                            <div class="col-sm-6 col-sm-offset-6">
-                                <a class="btn" id="cameraAddRemove" runat="server">Add/Remove</a>
+                            <div class="col-sm-12 text-right">
+                                <a class="btn btn-default" id="cameraAddRemove" runat="server">Add/Remove</a>
                             </div>
                         </div>
                     </div>
@@ -134,8 +134,8 @@ $(document).ready(function(){
                     </div>
                     <div class="panel-footer">
                         <div class="row">
-                            <div class="col-sm-6 col-sm-offset-6">
-                                <a class="btn" id="laptopAddRemove" runat="server">Add/Remove</a>
+                            <div class="col-sm-12 text-right">
+                                <a class="btn btn-default" id="laptopAddRemove" runat="server">Add/Remove</a>
                             </div>
                         </div>
                     </div>
