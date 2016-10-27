@@ -55,6 +55,14 @@
             margin-top: 10px;
         }
 
+        .top20 {
+           margin-top: 20px;
+        }
+
+        .top10 {
+            margin-top: 10px;
+        }
+
         .historyContainer {
                 margin-top: 40px;
                 text-align: center;
@@ -72,7 +80,63 @@
             }
 
     </style>
-    <div class="tableContainer">
+
+    <div class="container-fluid">
+        <div class="row top20">
+            <div class="col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                <div class="panel panel-default" id="mainPanel" runat="server">
+                    <div class="panel-heading">Camera ID: <asp:Label ID="idLabel" runat="server"></asp:Label></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-5">Serial Number: </div>
+                            <div class="col-xs-7">
+                                <asp:TextBox ID="snText" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="row top10">
+                            <div class="col-xs-5">Make: </div>
+                            <div class="col-xs-7">
+                                <asp:TextBox ID="makeText" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="row top10">
+                            <div class="col-xs-5">Model: </div>
+                            <div class="col-xs-7">
+                                <asp:TextBox ID="modelText" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="row top10">
+                            <div class="col-xs-5">Active?: </div>
+                            <div class="col-xs-7">
+                                <asp:CheckBox ID="activeCheck" runat="server" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-xs-6 col-xs-offset-3 col-md-6 col-md-offset-3 text-center">
+                                <asp:Button ID="saveButton" runat="server" Text="Save" OnClick="saveButton_Click" CssClass="btn btn-primary" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <asp:Literal ID="messageLabel" runat="server"></asp:Literal>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <asp:GridView ID="historyGridView" runat="server" CssClass="table table-striped table-hover" GridLines="None"></asp:GridView>
+            </div>
+        </div>
+    </div>
+
+    <%--<div class="tableContainer">
     <div class="tableMain">
     <asp:Table ID="CameraDetailsTable" runat="server">
         <asp:TableHeaderRow>
@@ -102,9 +166,9 @@
         <asp:Literal ID="messageLabel" runat="server"></asp:Literal>
     </div>
         </div>
-        </div>
-    <div class="historyContainer">
+        </div>--%>
+<%--    <div class="historyContainer">
             <asp:GridView ID="historyGridView" runat="server" CssClass="history">
             </asp:GridView>
-        </div>
+        </div>--%>
 </asp:Content>
