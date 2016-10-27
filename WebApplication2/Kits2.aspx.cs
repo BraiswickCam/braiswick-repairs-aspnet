@@ -206,13 +206,13 @@ namespace WebApplication2
             string kitID = DropDownList1.SelectedValue;
 
             photogAddRemove.HRef = details.Rows[0][2].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remPhotog&ID={1}", kitID, details.Rows[0][2].ToString()) : String.Format("Photogs.aspx?KitID={0}", kitID);
-            photogAddRemove.InnerHtml = details.Rows[0][2].ToString() != string.Empty ? "<img src=\"images/glyphicons-8-user-remove.png\"> Remove Photographer" : "<img src=\"images/glyphicons-7-user-add.png\"> Add Photographer";
+            photogAddRemove.InnerHtml = details.Rows[0][2].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Photographer" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Photographer";
 
             cameraAddRemove.HRef = details.Rows[0][6].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remCamera&ID={1}", kitID, details.Rows[0][6].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=Camera", kitID);
-            cameraAddRemove.InnerHtml = details.Rows[0][6].ToString() != string.Empty ? "<img src=\"images/glyphicons-12-camera.png\"> Remove Camera" : "<img src=\"images/glyphicons-12-camera.png\"> Add Camera";
+            cameraAddRemove.InnerHtml = details.Rows[0][6].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Camera" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Camera";
 
             laptopAddRemove.HRef = details.Rows[0][10].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remLaptop&ID={1}", kitID, details.Rows[0][10].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=Laptop", kitID);
-            laptopAddRemove.InnerHtml = details.Rows[0][10].ToString() != string.Empty ? "<img src=\"images/glyphicons-691-laptop.png\"> Remove Laptop" : "<img src=\"images/glyphicons-691-laptop.png\"> Add Laptop";
+            laptopAddRemove.InnerHtml = details.Rows[0][10].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Laptop" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Laptop";
         }
 
         protected void historyGridView_RowDataBound(object sender, GridViewRowEventArgs e)
