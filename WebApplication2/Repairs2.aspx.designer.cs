@@ -13,15 +13,6 @@ namespace WebApplication2 {
     public partial class Repairs2 {
         
         /// <summary>
-        /// IDsTable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table IDsTable;
-        
-        /// <summary>
         /// repairIDLabel control.
         /// </summary>
         /// <remarks>
@@ -67,15 +58,6 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.TextBox photogIDBox;
         
         /// <summary>
-        /// DetailsTable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table DetailsTable;
-        
-        /// <summary>
         /// dateBox control.
         /// </summary>
         /// <remarks>
@@ -119,15 +101,6 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox repairCostBox;
-        
-        /// <summary>
-        /// notesTable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table notesTable;
         
         /// <summary>
         /// notesText control.

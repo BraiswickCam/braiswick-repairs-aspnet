@@ -85,8 +85,115 @@
         .controls input:hover {
             background-color: blue;
         }
+
+        .top10 {
+            margin-top: 10px;
+        }
+
+        .top20 {
+            margin-top: 20px;
+        }
     </style>
-    <div class="mainContainer">
+
+    <div class="container-fluid">
+        <div class="row top20">
+            <div class="col-xs-6 col-sm-4 col-sm-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">IDs:</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-5">Repair ID: </div>
+                            <div class="col-xs-7">
+                                <asp:Label ID="repairIDLabel" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row top10">
+                            <div class="col-xs-5">Camera ID: </div>
+                            <div class="col-xs-7">
+                                <asp:TextBox ID="cameraIDBox" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="row top10">
+                            <div class="col-xs-5">Laptop ID:</div>
+                            <div class="col-xs-7">
+                                <asp:TextBox ID="laptopIDBox" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="row top10">
+                            <div class="col-xs-5">Kit ID: </div>
+                            <div class="col-xs-7">
+                                <asp:TextBox ID="kitIDBox" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="row top10">
+                            <div class="col-xs-5">Photographer ID: </div>
+                            <div class="col-xs-7">
+                                <asp:TextBox ID="photogIDBox" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Repair Details:</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-5">Date: </div>
+                            <div class="col-xs-7">
+                                <asp:TextBox ID="dateBox" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="row top10">
+                            <div class="col-xs-5">Fixed?: </div>
+                            <div class="col-xs-7">
+                                <asp:CheckBox ID="fixedCheck" runat="server" />
+                            </div>
+                        </div>
+                        <div class="row top10">
+                            <div class="col-xs-5">Fixed Date: </div>
+                            <div class="col-xs-7">
+                                <asp:TextBox ID="fixedDateBox" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="row top10">
+                            <div class="col-xs-5">Tech Initials: </div>
+                            <div class="col-xs-7">
+                                <asp:TextBox ID="techInitialsBox" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="row top10">
+                            <div class="col-xs-5">Repair Cost: </div>
+                            <div class="col-xs-7">
+                                <asp:TextBox ID="repairCostBox" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Notes:</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <asp:TextBox ID="notesText" TextMode="MultiLine" Rows="8" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <asp:Button runat="server" ID="saveButton" Text="Save" OnClick="saveButton_Click" CssClass="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+    <%--<div class="mainContainer">
     <div class="tableMain">
         <asp:Table ID="IDsTable" runat="server" CssClass="tableIDs">
             <asp:TableHeaderRow>
@@ -158,5 +265,5 @@
     </div>
     <div class="controls">
         <asp:Button runat="server" ID="saveButton" Text="Save" OnClick="saveButton_Click" />
-    </div>
+    </div>--%>
 </asp:Content>
