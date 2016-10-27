@@ -32,6 +32,7 @@ namespace WebApplication2
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            warningDiv.Attributes["class"] = "row top20 hidden";
             if (Request.QueryString["type"] != null)
             {
                 if(ChangeItem()) { Response.Redirect(String.Format("~/Kits2.aspx?KitID={0}", Request.QueryString["KitID"])); }
@@ -207,12 +208,15 @@ namespace WebApplication2
 
             photogAddRemove.HRef = details.Rows[0][2].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remPhotog&ID={1}", kitID, details.Rows[0][2].ToString()) : String.Format("Photogs.aspx?KitID={0}", kitID);
             photogAddRemove.InnerHtml = details.Rows[0][2].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Photographer" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Photographer";
+            photogAddRemove.Attributes["class"] = details.Rows[0][2].ToString() != string.Empty ? "btn btn-default" : "btn btn-primary";
 
             cameraAddRemove.HRef = details.Rows[0][6].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remCamera&ID={1}", kitID, details.Rows[0][6].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=Camera", kitID);
             cameraAddRemove.InnerHtml = details.Rows[0][6].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Camera" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Camera";
+            cameraAddRemove.Attributes["class"] = details.Rows[0][6].ToString() != string.Empty ? "btn btn-default" : "btn btn-primary";
 
             laptopAddRemove.HRef = details.Rows[0][10].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remLaptop&ID={1}", kitID, details.Rows[0][10].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=Laptop", kitID);
             laptopAddRemove.InnerHtml = details.Rows[0][10].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Laptop" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Laptop";
+            laptopAddRemove.Attributes["class"] = details.Rows[0][10].ToString() != string.Empty ? "btn btn-default" : "btn btn-primary";
         }
 
         protected void historyGridView_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -260,6 +264,39 @@ namespace WebApplication2
                 m_dbConnection.Open();
                 return command.ExecuteNonQuery() > 0;
             }
+        }
+
+        protected void saveNewKit_Click(object sender, EventArgs e)
+        {
+            string errormessage;
+            int newkit = NewKit(newKitBox.Text, out errormessage);
+            if (newkit > 0)
+            {
+                Response.Redirect("Kits2.aspx?KitID=" + newkit);
+                //DropDownList1.SelectedValue = newkit.ToString();
+            }
+            else
+            {
+                warningDiv.Attributes["class"] = "row top20";
+                warningLabel.Text = errormessage;
+            }
+        }
+
+        protected int NewKit(string kitPH, out string error)
+        {
+            error = "";
+            try
+            {
+                using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+                {
+                    SQLiteCommand command = m_dbConnection.CreateCommand();
+                    command.CommandText = "INSERT INTO Kits (KitPH) VALUES (@KitPH); SELECT last_insert_rowid();";
+                    command.Parameters.Add(new SQLiteParameter("@KitPH", kitPH));
+                    m_dbConnection.Open();
+                    return Convert.ToInt32(command.ExecuteScalar());
+                }
+            }
+            catch (SQLiteException ex) { error = ex.Message; return 0;}
         }
     }
 }
