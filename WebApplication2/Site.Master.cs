@@ -7,6 +7,8 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using System.Data.SQLite;
+using System.Data;
 
 namespace WebApplication2
 {
@@ -69,7 +71,19 @@ namespace WebApplication2
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            outRepairsBadge.InnerText = OutstandingRepairs();
+        }
 
+        protected string OutstandingRepairs()
+        {
+            string databaseLocation = "C:\\datatest\\2016repairhistory.sqlite";
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "SELECT count (*) FROM Repairs WHERE Fixed = 0";
+                m_dbConnection.Open();
+                return command.ExecuteScalar().ToString();
+            }
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
