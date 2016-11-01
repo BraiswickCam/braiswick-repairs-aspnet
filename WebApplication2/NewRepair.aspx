@@ -101,8 +101,8 @@ $(document).ready(function(){
                             <div class="col-xs-12"><p>Please be as descriptive as possible, mentioning any error messages that appear and what the user was doing leading up to the error.</p></div>
                         </div>
                     </div>
-                    <div class="panel-footer">
-                        <asp:Button ID="submitRepair" runat="server" Text="Submit New Repair" />
+                    <div class="panel-footer text-center">
+                        <asp:Button ID="submitRepair" runat="server" Text="Submit New Repair" CssClass="btn btn-primary" />
                     </div>
                 </div>
             </div>

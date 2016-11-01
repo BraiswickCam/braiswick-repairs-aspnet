@@ -40,6 +40,19 @@ namespace WebApplication2
                     photogInitial.InnerText = dt.Rows[0][7].ToString();
                     photogOffice.InnerText = dt.Rows[0][8].ToString();
                 }
+                if (Request.QueryString["type"] == "camera")
+                {
+                    DataTable dt = GetCameraDetails(Request.QueryString["id"]);
+                    equipPanel.InnerText = String.Format("Camera ID: {0}", dt.Rows[0][0]);
+                    equipSN.InnerText = dt.Rows[0][1].ToString();
+                    equipMake.InnerText = dt.Rows[0][2].ToString();
+                    equipModel.InnerText = dt.Rows[0][3].ToString();
+                    equipOptionalRow.Attributes["class"] = "row hidden";
+                    photogPanel.InnerText = String.Format("Photographer ID: {0}", dt.Rows[0][4]);
+                    photogName.InnerText = dt.Rows[0][5].ToString();
+                    photogInitial.InnerText = dt.Rows[0][6].ToString();
+                    photogOffice.InnerText = dt.Rows[0][7].ToString();
+                }
             }
         }
 
@@ -70,6 +83,26 @@ namespace WebApplication2
                 command.CommandText = "SELECT Kits.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS, Kits.PhotogID, Photographers.Name, Photographers.Initials, Photographers.Office FROM Kits " +
                     "LEFT JOIN Laptops ON Kits.LaptopID = Laptops.LaptopID LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID WHERE Kits.LaptopID = @LaptopID";
                 command.Parameters.Add(new SQLiteParameter("@LaptopID", laptopID));
+                using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
+                {
+                    sda.SelectCommand = command;
+                    using (DataTable dt = new DataTable())
+                    {
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        protected DataTable GetCameraDetails(string cameraID)
+        {
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "SELECT Kits.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Kits.PhotogID, Photographers.Name, Photographers.Initials, Photographers.Office FROM Kits " +
+                    "LEFT JOIN Cameras ON Kits.CameraID = Cameras.CameraID LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID WHERE Kits.CameraID = @CameraID";
+                command.Parameters.Add(new SQLiteParameter("@CameraID", cameraID));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
                     sda.SelectCommand = command;
@@ -142,6 +175,7 @@ namespace WebApplication2
                 this.Controls.Add(createDiv);
                 e.Row.Attributes["data-toggle"] = "modal";
                 e.Row.Attributes["data-target"] = String.Format("#{0}", e.Row.Cells[kitKitPH].Text);
+                e.Row.Attributes["style"] = "cursor: pointer;";
             }
         }
     }
