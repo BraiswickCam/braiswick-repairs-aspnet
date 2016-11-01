@@ -10,10 +10,6 @@ $(document).ready(function(){
         * {
             font-family: Ubuntu, sans-serif;
         }
-
-        .panel-body {
-            word-break: break-all;
-        }
     </style>
 
     <div class="container-fluid" id="stepone" runat="server">
@@ -34,10 +30,79 @@ $(document).ready(function(){
                         <asp:GridView ID="kitsGrid" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="kitsGrid_RowDataBound"></asp:GridView>
                     </div>
                     <div id="laptops" class="tab-pane fade">
+                        <p>Laptops table will go here</p>
                         <asp:GridView ID="laptopsGrid" runat="server"></asp:GridView>
                     </div>
                     <div id="cameras" class="tab-pane fade">
+                        <p>Cameras table will go here</p>
                         <asp:GridView ID="camerasGrid" runat="server"></asp:GridView>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="steptwo" runat="server" style="margin-top: 30px;">
+        <div class="row">
+            <div class="col-xs-6 col-md-4 col-md-offset-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" id="equipPanel" runat="server"></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-5">Serial Number: </div>
+                            <div class="col-xs-7" id="equipSN" runat="server"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">Make: </div>
+                            <div class="col-xs-7" id="equipMake" runat="server"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">Model: </div>
+                            <div class="col-xs-7" id="equipModel" runat="server"></div>
+                        </div>
+                        <div class="row" id="equipOptionalRow" runat="server">
+                            <div class="col-xs-5">OS: </div>
+                            <div class="col-xs-7" id="equipOption" runat="server"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" id="photogPanel" runat="server"></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-5">Name: </div>
+                            <div class="col-xs-7" id="photogName" runat="server"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">Initials: </div>
+                            <div class="col-xs-7" id="photogInitial" runat="server"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">Office: </div>
+                            <div class="col-xs-7" id="photogOffice" runat="server"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-md-offset-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Issues:</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <asp:TextBox ID="notesText" TextMode="MultiLine" Rows="8" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12"><p>Please be as descriptive as possible, mentioning any error messages that appear and what the user was doing leading up to the error.</p></div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <asp:Button ID="submitRepair" runat="server" Text="Submit New Repair" />
                     </div>
                 </div>
             </div>
