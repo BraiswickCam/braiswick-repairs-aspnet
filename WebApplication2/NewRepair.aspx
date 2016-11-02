@@ -12,6 +12,14 @@ $(document).ready(function(){
         }
     </style>
 
+    <div class="alert alert-success" id="successAlert" runat="server">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> New repair entry submitted. <a href="#">Click here to print a repair sheet</a>
+    </div>
+    <div class="alert alert-danger" id="failAlert" runat="server">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong> Repair not added to database.
+    </div>
     <div class="container-fluid" id="stepone" runat="server">
         <div class="row">
             <div class="col-xs-12">
@@ -102,7 +110,7 @@ $(document).ready(function(){
                         </div>
                     </div>
                     <div class="panel-footer text-center">
-                        <asp:Button ID="submitRepair" runat="server" Text="Submit New Repair" CssClass="btn btn-primary" />
+                        <asp:Button ID="submitRepair" runat="server" Text="Submit New Repair" CssClass="btn btn-primary" OnClick="submitRepair_Click" />
                     </div>
                 </div>
             </div>

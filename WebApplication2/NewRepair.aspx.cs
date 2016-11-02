@@ -15,8 +15,11 @@ namespace WebApplication2
         string databaseLocation = "C:\\datatest\\2016repairhistory.sqlite";
         int kitKitPH = 0, kitPhotogName = 1, kitLaptopID = 2, kitLaptopSN = 3, kitLaptopMake = 4, kitLaptopModel = 5, kitCameraID = 6, kitCameraSN = 7, kitCameraMake = 8, kitCameraModel = 9;
 
+        DataTable dt;
         protected void Page_Load(object sender, EventArgs e)
         {
+            successAlert.Visible = false;
+            failAlert.Visible = false;
             if (Request.QueryString["type"] == null)
             {
                 steptwo.Attributes["class"] = "hidden";
@@ -29,7 +32,7 @@ namespace WebApplication2
                 stepone.Attributes["class"] = "hidden";
                 if (Request.QueryString["type"] == "laptop")
                 {
-                    DataTable dt = GetLaptopDetails(Request.QueryString["id"]);
+                    dt = GetLaptopDetails(Request.QueryString["id"]);
                     equipPanel.InnerText = String.Format("Laptop ID: {0}", dt.Rows[0][0]);
                     equipSN.InnerText = dt.Rows[0][1].ToString();
                     equipMake.InnerText = dt.Rows[0][2].ToString();
@@ -42,7 +45,7 @@ namespace WebApplication2
                 }
                 if (Request.QueryString["type"] == "camera")
                 {
-                    DataTable dt = GetCameraDetails(Request.QueryString["id"]);
+                    dt = GetCameraDetails(Request.QueryString["id"]);
                     equipPanel.InnerText = String.Format("Camera ID: {0}", dt.Rows[0][0]);
                     equipSN.InnerText = dt.Rows[0][1].ToString();
                     equipMake.InnerText = dt.Rows[0][2].ToString();
@@ -80,7 +83,7 @@ namespace WebApplication2
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT Kits.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS, Kits.PhotogID, Photographers.Name, Photographers.Initials, Photographers.Office FROM Kits " +
+                command.CommandText = "SELECT Kits.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS, Kits.PhotogID, Photographers.Name, Photographers.Initials, Photographers.Office, Kits.KitID FROM Kits " +
                     "LEFT JOIN Laptops ON Kits.LaptopID = Laptops.LaptopID LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID WHERE Kits.LaptopID = @LaptopID";
                 command.Parameters.Add(new SQLiteParameter("@LaptopID", laptopID));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
@@ -100,7 +103,7 @@ namespace WebApplication2
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT Kits.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Kits.PhotogID, Photographers.Name, Photographers.Initials, Photographers.Office FROM Kits " +
+                command.CommandText = "SELECT Kits.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Kits.PhotogID, Photographers.Name, Photographers.Initials, Photographers.Office, Kits.KitID FROM Kits " +
                     "LEFT JOIN Cameras ON Kits.CameraID = Cameras.CameraID LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID WHERE Kits.CameraID = @CameraID";
                 command.Parameters.Add(new SQLiteParameter("@CameraID", cameraID));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
@@ -113,6 +116,30 @@ namespace WebApplication2
                     }
                 }
             }
+        }
+
+        protected bool NewRepairCreate()
+        {
+            string type = Request.QueryString["type"];
+            int kitIDIndex, photogIDIndex;
+            if (type == "laptop") { type = "Laptop"; kitIDIndex = 9; photogIDIndex = 5; }
+            else if (type == "camera") { type = "Camera"; kitIDIndex = 8; photogIDIndex = 4; }
+            else return false;
+
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = String.Format("INSERT INTO Repairs ({0}ID, KitID, PhotogID, Date, Fixed, Notes) VALUES (@equipID, @kitID, @photogID, @date, @fixed, @notes)", type);
+                command.Parameters.Add(new SQLiteParameter("@equipID", dt.Rows[0][0]));
+                command.Parameters.Add(new SQLiteParameter("@kitID", dt.Rows[0][kitIDIndex]));
+                command.Parameters.Add(new SQLiteParameter("@photogID", dt.Rows[0][photogIDIndex]));
+                command.Parameters.Add(new SQLiteParameter("@date", DateTime.Now.ToString()));
+                command.Parameters.Add(new SQLiteParameter("@fixed", false));
+                command.Parameters.Add(new SQLiteParameter("@notes", "ISSUES: " + notesText.Text));
+                m_dbConnection.Open();
+                command.ExecuteNonQuery();
+            }
+            return true;
         }
 
         protected void AddLinks()
@@ -144,7 +171,6 @@ namespace WebApplication2
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 //Creates a modal for each row that displays that kits laptop and camera details and gives the option for a new repair
-
                 System.Web.UI.HtmlControls.HtmlGenericControl createDiv = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
                 createDiv.ID = e.Row.Cells[kitKitPH].Text;
                 createDiv.Attributes["class"] = "modal fade";
@@ -173,10 +199,18 @@ namespace WebApplication2
                     "<h4 class=\"modal-title\">New Repair for kit {0}</h4></div><div class=\"modal-body\">{1}</div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button></div></div></div>", e.Row.Cells[kitKitPH].Text, panels);
 
                 this.Controls.Add(createDiv);
+
+                //Adds a link to the modal to the entire row
                 e.Row.Attributes["data-toggle"] = "modal";
                 e.Row.Attributes["data-target"] = String.Format("#{0}", e.Row.Cells[kitKitPH].Text);
                 e.Row.Attributes["style"] = "cursor: pointer;";
             }
+        }
+
+        protected void submitRepair_Click(object sender, EventArgs e)
+        {
+            if (NewRepairCreate()) successAlert.Visible = true;
+            else failAlert.Visible = true;
         }
     }
 }

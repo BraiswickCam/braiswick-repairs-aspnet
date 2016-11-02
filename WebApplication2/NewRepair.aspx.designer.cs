@@ -13,6 +13,24 @@ namespace WebApplication2 {
     public partial class NewRepair {
         
         /// <summary>
+        /// successAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl successAlert;
+        
+        /// <summary>
+        /// failAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl failAlert;
+        
+        /// <summary>
         /// stepone control.
         /// </summary>
         /// <remarks>
