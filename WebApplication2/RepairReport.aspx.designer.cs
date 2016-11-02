@@ -10,88 +10,79 @@
 namespace WebApplication2 {
     
     
-    public partial class NewRepair {
+    public partial class RepairReport {
         
         /// <summary>
-        /// successAlert control.
+        /// repairHead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl successAlert;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl repairHead;
         
         /// <summary>
-        /// printLink control.
+        /// kitHead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor printLink;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl kitHead;
         
         /// <summary>
-        /// failAlert control.
+        /// dateHead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl failAlert;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dateHead;
         
         /// <summary>
-        /// stepone control.
+        /// photogPanelHead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl stepone;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl photogPanelHead;
         
         /// <summary>
-        /// kitsGrid control.
+        /// photogName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView kitsGrid;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl photogName;
         
         /// <summary>
-        /// laptopsGrid control.
+        /// photogInitials control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView laptopsGrid;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl photogInitials;
         
         /// <summary>
-        /// camerasGrid control.
+        /// photogOffice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView camerasGrid;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl photogOffice;
         
         /// <summary>
-        /// steptwo control.
+        /// equipPanelHead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl steptwo;
-        
-        /// <summary>
-        /// equipPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl equipPanel;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl equipPanelHead;
         
         /// <summary>
         /// equipSN control.
@@ -121,13 +112,13 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl equipModel;
         
         /// <summary>
-        /// equipOptionalRow control.
+        /// optionalRow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl equipOptionalRow;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl optionalRow;
         
         /// <summary>
         /// equipOption control.
@@ -139,57 +130,12 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl equipOption;
         
         /// <summary>
-        /// photogPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl photogPanel;
-        
-        /// <summary>
-        /// photogName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl photogName;
-        
-        /// <summary>
-        /// photogInitial control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl photogInitial;
-        
-        /// <summary>
-        /// photogOffice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl photogOffice;
-        
-        /// <summary>
         /// notesText control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox notesText;
-        
-        /// <summary>
-        /// submitRepair control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button submitRepair;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl notesText;
     }
 }

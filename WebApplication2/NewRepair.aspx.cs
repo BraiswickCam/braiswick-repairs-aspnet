@@ -118,13 +118,18 @@ namespace WebApplication2
             }
         }
 
-        protected bool NewRepairCreate()
+        protected bool NewRepairCreate(out string equipType)
         {
-            string type = Request.QueryString["type"];
+            string typeIn = Request.QueryString["type"];
+            string type;
             int kitIDIndex, photogIDIndex;
-            if (type == "laptop") { type = "Laptop"; kitIDIndex = 9; photogIDIndex = 5; }
-            else if (type == "camera") { type = "Camera"; kitIDIndex = 8; photogIDIndex = 4; }
-            else return false;
+            if (typeIn == "laptop") { type = "Laptop"; kitIDIndex = 9; photogIDIndex = 5; }
+            else if (typeIn == "camera") { type = "Camera"; kitIDIndex = 8; photogIDIndex = 4; }
+            else
+            {
+                equipType = "";
+                return false;
+            }
 
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
             {
@@ -139,6 +144,7 @@ namespace WebApplication2
                 m_dbConnection.Open();
                 command.ExecuteNonQuery();
             }
+            equipType = typeIn;
             return true;
         }
 
@@ -209,7 +215,8 @@ namespace WebApplication2
 
         protected void submitRepair_Click(object sender, EventArgs e)
         {
-            if (NewRepairCreate()) successAlert.Visible = true;
+            string type;
+            if (NewRepairCreate(out type)) { printLink.HRef = String.Format("RepairReport.aspx?type={0}&id={1}", type, dt.Rows[0][0]); successAlert.Visible = true; }
             else failAlert.Visible = true;
         }
     }

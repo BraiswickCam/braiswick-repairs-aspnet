@@ -14,7 +14,7 @@ $(document).ready(function(){
 
     <div class="alert alert-success" id="successAlert" runat="server">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Success!</strong> New repair entry submitted. <a href="#">Click here to print a repair sheet</a>
+        <strong>Success!</strong> New repair entry submitted. <a href="#" id="printLink" runat="server">Click here to print a repair sheet</a>
     </div>
     <div class="alert alert-danger" id="failAlert" runat="server">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
