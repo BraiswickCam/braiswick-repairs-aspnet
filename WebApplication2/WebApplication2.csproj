@@ -227,8 +227,10 @@
     <Content Include="images\small_up.png" />
     <Content Include="Kits2.aspx" />
     <Content Include="Laptops.aspx" />
+    <Content Include="NewRepair.aspx" />
     <Content Include="PhotogDetails.aspx" />
     <Content Include="Photogs.aspx" />
+    <Content Include="RepairReport.aspx" />
     <Content Include="Repairs2.aspx" />
     <Content Include="Reports.aspx" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
@@ -446,6 +448,13 @@
       <DependentUpon>Laptops.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="NewRepair.aspx.cs">
+      <DependentUpon>NewRepair.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewRepair.aspx.designer.cs">
+      <DependentUpon>NewRepair.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PhotogDetails.aspx.cs">
       <DependentUpon>PhotogDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -461,6 +470,13 @@
       <DependentUpon>Photogs.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepairReport.aspx.cs">
+      <DependentUpon>RepairReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RepairReport.aspx.designer.cs">
+      <DependentUpon>RepairReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Repairs2.aspx.cs">
       <DependentUpon>Repairs2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
