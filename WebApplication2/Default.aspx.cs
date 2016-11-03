@@ -19,6 +19,10 @@ namespace WebApplication2
             outRepairsGrid.DataBind();
             AddTooltipsLinks();
             outRepairsBadge.InnerText = OutstandingRepairsCount();
+
+            recentGrid.DataSource = GetRecentActivity();
+            recentGrid.DataBind();
+            recentBadge.InnerText = recentGrid.Rows.Count.ToString();
         }
 
         protected DataTable GetOutstandingRepairs()
@@ -111,6 +115,28 @@ namespace WebApplication2
                 command.CommandText = "SELECT count (*) FROM Repairs WHERE Fixed = 0";
                 m_dbConnection.Open();
                 return command.ExecuteScalar().ToString();
+            }
+        }
+
+        protected DataTable GetRecentActivity()
+        {
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "SELECT * FROM Repairs WHERE substr(FixedDate,7,4)||substr(FixedDate,4,2)||substr(FixedDate,1,2) BETWEEN @DatePrev AND @DateToday ORDER BY RepairID DESC";
+                command.Parameters.Add(new SQLiteParameter("@DateToday", DateTime.Today.Year.ToString() + DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString()));
+                DateTime previousDate = DateTime.Today.AddDays(-3);
+                string prevDateString = previousDate.Year.ToString() + previousDate.Month.ToString() + previousDate.Day.ToString();
+                command.Parameters.Add(new SQLiteParameter("@DatePrev", prevDateString));
+                using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
+                {
+                    sda.SelectCommand = command;
+                    using (DataTable dt = new DataTable())
+                    {
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
             }
         }
     }

@@ -57,8 +57,22 @@ $(document).ready(function(){
                     </div>
                     <div class="panel-collapse collapse" id="outcollapse">
                         <div class="panel-body">
-                        <asp:GridView ID="outRepairsGrid" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="outRepairsGrid_RowDataBound"></asp:GridView>
+                            <asp:GridView ID="outRepairsGrid" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="outRepairsGrid_RowDataBound"></asp:GridView>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#recentcollapse" style="cursor: pointer;">
+                        <h4 class="panel-title collapsed" data-toggle="collapse" data-target="#recentcollapse"><span class="glyphicon glyphicon-time"></span> Recent Activity (last 3 days) <span class="badge" id="recentBadge" runat="server"></span></h4>
+                    </div>
+                    <div class="panel-collapse collapse" id="recentcollapse">
+                        <div class="panel-body">
+                            <asp:GridView ID="recentGrid" runat="server" GridLines="None" CssClass="table table-striped table-hover"></asp:GridView>
+                        </div>
                     </div>
                 </div>
             </div>
