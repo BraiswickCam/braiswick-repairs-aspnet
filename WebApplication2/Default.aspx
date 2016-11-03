@@ -41,9 +41,9 @@ $(document).ready(function(){
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <div class="btn-group btn-group-justified">
-                            <a href="NewRepair.aspx" class="btn btn-primary">Submit Repair</a>
-                            <a href="#" class="btn btn-primary">New Equipment</a>
-                            <a href="#" class="btn btn-primary">New Photographer</a>
+                            <a href="NewRepair.aspx" class="btn btn-primary"><span class="glyphicon glyphicon-wrench"></span> Submit Repair</a>
+                            <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-camera"></span> New Equipment</a>
+                            <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> New Photographer</a>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@ $(document).ready(function(){
             <div class="col-xs-12 col-md-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading" data-toggle="collapse" data-target="#outcollapse" style="cursor: pointer;">
-                        <h4 class="panel-title collapsed" data-toggle="collapse" data-target='#collapse1'>Outstanding Repairs <span class="badge" id="outRepairsBadge" runat="server"></span></h4>
+                        <h4 class="panel-title collapsed" data-toggle="collapse" data-target='#outcollapse'><span class="glyphicon glyphicon-wrench"></span> Outstanding Repairs <span class="badge" id="outRepairsBadge" runat="server"></span></h4>
                     </div>
                     <div class="panel-collapse collapse" id="outcollapse">
                         <div class="panel-body">
