@@ -55,7 +55,7 @@ $(document).ready(function(){
     <div class="container-fluid">
         <div class="row top20">
             <div class="col-sm-4">
-                <div class="panel panel-default" id="photogPanel" runat="server">
+                <div class="panel panel-default" id="photogPanel" runat="server" style="margin-top: 42px;">
                     <div class="panel-heading">Photographer</div>
                     <div class="panel-body">
                         <div class="row">
@@ -87,6 +87,12 @@ $(document).ready(function(){
                 </div>
             </div>
             <div class="col-sm-4">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#mainCam">Main</a></li>
+                    <li><a data-toggle="tab" href="#spareCam">Spare</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="mainCam">
                 <div class="panel panel-default" id="cameraPanel" runat="server">
                     <div class="panel-heading">Camera</div>
                     <div class="panel-body">
@@ -118,7 +124,26 @@ $(document).ready(function(){
                     </div>
                 </div>
             </div>
+                    <div class="tab-pane fade" id="spareCam">
+                        <div class="panel panel-default" id="spareCameraPanel" runat="server">
+                            <div class="panel-heading">Spare Camera</div>
+                            <div class="panel-body">
+                                CONTENT HERE
+                            </div>
+                            <div class="panel-footer">
+                                BUTTONS HERE
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </div>
             <div class="col-sm-4">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#mainLap">Main</a></li>
+                    <li><a data-toggle="tab" href="#spareLap">Spare</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="mainLap">
                 <div class="panel panel-default" id="laptopPanel" runat="server">
                     <div class="panel-heading">Laptop</div>
                     <div class="panel-body">
@@ -149,6 +174,19 @@ $(document).ready(function(){
                         </div>
                     </div>
                 </div>
+                        </div>
+                    <div class="tab-pane fade" id="spareLap">
+                        <div class="panel panel-default" id="spareLaptopPanel" runat="server">
+                            <div class="panel-heading">Spare Laptop</div>
+                            <div class="panel-body">
+                                CONTENT HERE
+                            </div>
+                            <div class="panel-footer">
+                                BUTTONS HERE
+                            </div>
+                        </div>
+                    </div>
+                    </div>
             </div>
         </div>
     </div>
