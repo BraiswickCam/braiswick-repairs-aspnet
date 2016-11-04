@@ -71,7 +71,7 @@ $(document).ready(function(){
                     </div>
                     <div class="panel-collapse collapse" id="recentcollapse">
                         <div class="panel-body">
-                            <asp:GridView ID="recentGrid" runat="server" GridLines="None" CssClass="table table-striped table-hover"></asp:GridView>
+                            <asp:GridView ID="recentGrid" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="recentGrid_RowDataBound" ></asp:GridView>
                         </div>
                     </div>
                 </div>
