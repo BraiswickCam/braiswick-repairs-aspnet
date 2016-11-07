@@ -234,6 +234,14 @@ namespace WebApplication2
             laptopAddRemove.HRef = details.Rows[0][10].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remLaptop&ID={1}", kitID, details.Rows[0][10].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=Laptop", kitID);
             laptopAddRemove.InnerHtml = details.Rows[0][10].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Laptop" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Laptop";
             laptopAddRemove.Attributes["class"] = details.Rows[0][10].ToString() != string.Empty ? "btn btn-default" : "btn btn-primary";
+
+            spareCamAddRemove.HRef = details.Rows[0][15].ToString() != string.Empty ? String.Format("#removelink") : String.Format("#addlink");
+            spareCamAddRemove.InnerHtml = details.Rows[0][15].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Spare Camera" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Spare Camera";
+            spareCamAddRemove.Attributes["class"] = details.Rows[0][15].ToString() != string.Empty ? "btn btn-default" : "btn btn-primary";
+
+            spareLapAddRemove.HRef = details.Rows[0][19].ToString() != string.Empty ? String.Format("#removelink") : String.Format("#addlink");
+            spareLapAddRemove.InnerHtml = details.Rows[0][19].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Spare Laptop" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Spare Laptop";
+            spareLapAddRemove.Attributes["class"] = details.Rows[0][19].ToString() != string.Empty ? "btn btn-default" : "btn btn-primary";
         }
 
         protected void historyGridView_RowDataBound(object sender, GridViewRowEventArgs e)
