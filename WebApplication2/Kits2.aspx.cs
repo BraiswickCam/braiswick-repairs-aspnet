@@ -156,15 +156,15 @@ namespace WebApplication2
             spareCamSN.Text = details.Rows[0][16].ToString();
             spareCamMake.Text = details.Rows[0][17].ToString();
             spareCamModel.Text = details.Rows[0][18].ToString();
-            if (string.IsNullOrEmpty(details.Rows[0][15].ToString())) ToggleTooltip(true, spareCameraPanel, "spare camera");
-            else ToggleTooltip(false, spareCameraPanel);
+            if (string.IsNullOrEmpty(details.Rows[0][15].ToString())) { ToggleTooltip(true, spareCameraPanel, "spare camera"); spareCamTab.InnerHtml = "Spare <span class=\"glyphicon glyphicon-remove-circle\"></span>"; }
+            else { ToggleTooltip(false, spareCameraPanel); spareCamTab.InnerHtml = "Spare <span class=\"glyphicon glyphicon-ok-circle\"></span>"; }
 
             //Populate Spare Laptop details
             spareLapSN.Text = details.Rows[0][20].ToString();
             spareLapMake.Text = details.Rows[0][21].ToString();
             spareLapModel.Text = details.Rows[0][22].ToString();
-            if (string.IsNullOrEmpty(details.Rows[0][19].ToString())) ToggleTooltip(true, spareLaptopPanel, "spare laptop");
-            else ToggleTooltip(false, spareLaptopPanel);
+            if (string.IsNullOrEmpty(details.Rows[0][19].ToString())) { ToggleTooltip(true, spareLaptopPanel, "spare laptop"); spareLapTab.InnerHtml = "Spare <span class=\"glyphicon glyphicon-remove-circle\"></span>"; }
+            else { ToggleTooltip(false, spareLaptopPanel); spareLapTab.InnerHtml = "Spare <span class=\"glyphicon glyphicon-ok-circle\"></span>"; }
 
             //Populate History records
             try

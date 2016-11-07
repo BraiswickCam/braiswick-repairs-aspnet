@@ -89,7 +89,7 @@ $(document).ready(function(){
             <div class="col-sm-4">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#mainCam">Main</a></li>
-                    <li><a data-toggle="tab" href="#spareCam">Spare</a></li>
+                    <li><a data-toggle="tab" href="#spareCam" id="spareCamTab" runat="server">Spare</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="mainCam">
@@ -161,7 +161,7 @@ $(document).ready(function(){
             <div class="col-sm-4">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#mainLap">Main</a></li>
-                    <li><a data-toggle="tab" href="#spareLap">Spare</a></li>
+                    <li><a data-toggle="tab" href="#spareLap" id="spareLapTab" runat="server">Spare</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="mainLap">

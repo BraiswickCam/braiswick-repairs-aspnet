@@ -85,6 +85,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor photogAddRemove;
         
         /// <summary>
+        /// spareCamTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor spareCamTab;
+        
+        /// <summary>
         /// cameraPanel control.
         /// </summary>
         /// <remarks>
@@ -173,6 +182,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor spareCamAddRemove;
+        
+        /// <summary>
+        /// spareLapTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor spareLapTab;
         
         /// <summary>
         /// laptopPanel control.
