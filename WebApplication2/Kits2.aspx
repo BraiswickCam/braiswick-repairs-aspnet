@@ -150,6 +150,7 @@ $(document).ready(function(){
                             <div class="panel-footer">
                                 <div class="row">
                             <div class="col-sm-12 text-right">
+                                <a class="btn btn-info" id="spareCamToMain" runat="server"><span class="glyphicon glyphicon-repeat"></span> Set as main</a>
                                 <a class="btn btn-default" id="spareCamAddRemove" runat="server">Add/Remove</a>
                             </div>
                         </div>
@@ -222,6 +223,7 @@ $(document).ready(function(){
                             <div class="panel-footer">
                                 <div class="row">
                             <div class="col-sm-12 text-right">
+                                <a class="btn btn-info" id="spareLapToMain" runat="server"><span class="glyphicon glyphicon-repeat"></span> Set as main</a>
                                 <a class="btn btn-default" id="spareLapAddRemove" runat="server">Add/Remove</a>
                             </div>
                         </div>
