@@ -139,6 +139,42 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl spareCameraPanel;
         
         /// <summary>
+        /// spareCamSN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label spareCamSN;
+        
+        /// <summary>
+        /// spareCamMake control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label spareCamMake;
+        
+        /// <summary>
+        /// spareCamModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label spareCamModel;
+        
+        /// <summary>
+        /// spareCamAddRemove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor spareCamAddRemove;
+        
+        /// <summary>
         /// laptopPanel control.
         /// </summary>
         /// <remarks>
@@ -191,6 +227,42 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl spareLaptopPanel;
+        
+        /// <summary>
+        /// spareLapSN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label spareLapSN;
+        
+        /// <summary>
+        /// spareLapMake control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label spareLapMake;
+        
+        /// <summary>
+        /// spareLapModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label spareLapModel;
+        
+        /// <summary>
+        /// spareLapAddRemove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor spareLapAddRemove;
         
         /// <summary>
         /// historyGridView control.

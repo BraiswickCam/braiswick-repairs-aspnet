@@ -128,10 +128,31 @@ $(document).ready(function(){
                         <div class="panel panel-default" id="spareCameraPanel" runat="server">
                             <div class="panel-heading">Spare Camera</div>
                             <div class="panel-body">
-                                CONTENT HERE
+                                <div class="row">
+                            <div class="col-xs-5 col-sm-5">Serial Number: </div>
+                            <div class="col-xs-7 col-sm-7">
+                                <asp:Label ID="spareCamSN" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5 col-sm-5">Make: </div>
+                            <div class="col-xs-7 col-sm-7">
+                                <asp:Label ID="spareCamMake" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5 col-sm-5">Model: </div>
+                            <div class="col-xs-7 col-sm-7">
+                                <asp:Label ID="spareCamModel" runat="server"></asp:Label>
+                            </div>
+                        </div>
                             </div>
                             <div class="panel-footer">
-                                BUTTONS HERE
+                                <div class="row">
+                            <div class="col-sm-12 text-right">
+                                <a class="btn btn-default" id="spareCamAddRemove" runat="server">Add/Remove</a>
+                            </div>
+                        </div>
                             </div>
                         </div>
                     </div>
@@ -179,10 +200,31 @@ $(document).ready(function(){
                         <div class="panel panel-default" id="spareLaptopPanel" runat="server">
                             <div class="panel-heading">Spare Laptop</div>
                             <div class="panel-body">
-                                CONTENT HERE
+                                <div class="row">
+                            <div class="col-xs-5 col-sm-5">Serial Number: </div>
+                            <div class="col-xs-7 col-sm-7">
+                                <asp:Label ID="spareLapSN" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5 col-sm-5">Make: </div>
+                            <div class="col-xs-7 col-sm-7">
+                                <asp:Label ID="spareLapMake" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5 col-sm-5">Model: </div>
+                            <div class="col-xs-7 col-sm-7">
+                                <asp:Label ID="spareLapModel" runat="server"></asp:Label>
+                            </div>
+                        </div>
                             </div>
                             <div class="panel-footer">
-                                BUTTONS HERE
+                                <div class="row">
+                            <div class="col-sm-12 text-right">
+                                <a class="btn btn-default" id="spareLapAddRemove" runat="server">Add/Remove</a>
+                            </div>
+                        </div>
                             </div>
                         </div>
                     </div>

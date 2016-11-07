@@ -55,9 +55,12 @@ namespace WebApplication2
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT Kits.KitID, Kits.KitPH, Photographers.ID, Photographers.Name, Photographers.Initials, Photographers.Office, Cameras.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Laptops.LaptopID, " +
-                    "Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS FROM Kits LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID LEFT JOIN Cameras ON Kits.CameraID = Cameras.CameraID " +
-                    "LEFT JOIN Laptops ON Kits.LaptopID = Laptops.LaptopID WHERE KitID = @KitID";
+                command.CommandText = "SELECT Kits.KitID, Kits.KitPH, Photographers.ID, Photographers.Name, Photographers.Initials, Photographers.Office, Cameras.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Laptops.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS, " +
+                    "cam2.CameraID, cam2.SerialNumber, cam2.Make, cam2.Model, lap2.LaptopID, lap2.SerialNumber, lap2.Make, lap2.Model, lap2.OS FROM Kits " +
+                    "LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID " +
+                    "LEFT JOIN Cameras ON Kits.CameraID = Cameras.CameraID LEFT JOIN Cameras AS cam2 ON Kits.SpareCameraID = cam2.CameraID " +
+                    "LEFT JOIN Laptops ON Kits.LaptopID = Laptops.LaptopID LEFT JOIN Laptops AS lap2 ON Kits.SpareLaptopID = lap2.LaptopID " +
+                    "WHERE Kits.KitID = @KitID";
                 command.Parameters.Add(new SQLiteParameter("@KitID", kitID));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
@@ -148,6 +151,20 @@ namespace WebApplication2
             lapSNLabel.Text = details.Rows[0][11].ToString();
             if (string.IsNullOrEmpty(details.Rows[0][10].ToString())) ToggleTooltip(true, laptopPanel, "laptop");
             else ToggleTooltip(false, laptopPanel);
+
+            //Populate Spare Camera details
+            spareCamSN.Text = details.Rows[0][16].ToString();
+            spareCamMake.Text = details.Rows[0][17].ToString();
+            spareCamModel.Text = details.Rows[0][18].ToString();
+            if (string.IsNullOrEmpty(details.Rows[0][15].ToString())) ToggleTooltip(true, spareCameraPanel, "spare camera");
+            else ToggleTooltip(false, spareCameraPanel);
+
+            //Populate Spare Laptop details
+            spareLapSN.Text = details.Rows[0][20].ToString();
+            spareLapMake.Text = details.Rows[0][21].ToString();
+            spareLapModel.Text = details.Rows[0][22].ToString();
+            if (string.IsNullOrEmpty(details.Rows[0][19].ToString())) ToggleTooltip(true, spareLaptopPanel, "spare laptop");
+            else ToggleTooltip(false, spareLaptopPanel);
 
             //Populate History records
             try
