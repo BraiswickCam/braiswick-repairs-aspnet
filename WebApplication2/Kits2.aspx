@@ -223,7 +223,7 @@ $(document).ready(function(){
                             <div class="panel-footer">
                                 <div class="row">
                             <div class="col-sm-12 text-right">
-                                <a class="btn btn-info" id="spareLapToMain" runat="server"><span class="glyphicon glyphicon-repeat"></span> Set as main</a>
+                                <a class="btn btn-info" id="spareLapToMain" runat="server" data-toggle="modal" data-target="#lapMainModal"><span class="glyphicon glyphicon-repeat"></span> Set as main</a>
                                 <a class="btn btn-default" id="spareLapAddRemove" runat="server">Add/Remove</a>
                             </div>
                         </div>
@@ -264,7 +264,7 @@ $(document).ready(function(){
 
     <!--Spare to Main Camera modal-->
     <div id="camMainModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -321,6 +321,74 @@ $(document).ready(function(){
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <a class="btn btn-primary" id="spareCamConfirmA" runat="server">Confirm</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Spare to Main Laptop modal-->
+    <div id="lapMainModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Set spare laptop as main</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p><strong>Set spare laptop as new main laptop?</strong> This will remove the main laptop from the kit and replace it with the spare laptop assigned to the kit. Do <strong>NOT</strong> use if the main laptop is in for repair and the spare is a temporary replacement.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading" id="lapReplaceMainHead" runat="server"></div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-xs-5">Serial Number: </div>
+                                        <div class="col-xs-7" id="lapReplaceMainSN" runat="server"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-5">Make: </div>
+                                        <div class="col-xs-7" id="lapReplaceMainMake" runat="server"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-5">Model: </div>
+                                        <div class="col-xs-7" id="lapReplaceMainModel" runat="server"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 text-center" style="font-size: 4em;">
+                            <span class="glyphicon glyphicon-arrow-left" style="vertical-align: middle;"></span>
+                        </div>
+                        <div class="col-xs-5">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" id="lapReplaceSpareHead" runat="server"></div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-xs-5">Serial Number: </div>
+                                        <div class="col-xs-7" id="lapReplaceSpareSN" runat="server"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-5">Make: </div>
+                                        <div class="col-xs-7" id="lapReplaceSpareMake" runat="server"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-5">Model: </div>
+                                        <div class="col-xs-7" id="lapReplaceSpareModel" runat="server"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" id="spareLapConfirmA" runat="server">Confirm</a>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
