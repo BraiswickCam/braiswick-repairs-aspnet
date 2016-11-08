@@ -140,8 +140,12 @@ namespace WebApplication2
 
             //Populate Camera details
             camMakeLabel.Text = details.Rows[0][8].ToString();
+            camReplaceMainMake.InnerText = details.Rows[0][8].ToString();
             camModelLabel.Text = details.Rows[0][9].ToString();
+            camReplaceMainModel.InnerText = details.Rows[0][9].ToString();
             camSNLabel.Text = details.Rows[0][7].ToString();
+            camReplaceMainSN.InnerText = details.Rows[0][7].ToString();
+            mainCamReplaceHead.InnerText = String.Format("Main Camera: {0}", details.Rows[0][6]);
             if (string.IsNullOrEmpty(details.Rows[0][6].ToString())) ToggleTooltip(true, cameraPanel, "camera");
             else ToggleTooltip(false, cameraPanel);
 
@@ -154,8 +158,12 @@ namespace WebApplication2
 
             //Populate Spare Camera details
             spareCamSN.Text = details.Rows[0][16].ToString();
+            camReplaceSpareSN.InnerText = details.Rows[0][16].ToString();
             spareCamMake.Text = details.Rows[0][17].ToString();
+            camReplaceSpareMake.InnerText = details.Rows[0][17].ToString();
             spareCamModel.Text = details.Rows[0][18].ToString();
+            camReplaceSpareModel.InnerText = details.Rows[0][18].ToString();
+            spareCamReplaceHead.InnerText = String.Format("Spare Camera: {0}", details.Rows[0][15]);
             if (string.IsNullOrEmpty(details.Rows[0][15].ToString()))
             {
                 ToggleTooltip(true, spareCameraPanel, "spare camera");

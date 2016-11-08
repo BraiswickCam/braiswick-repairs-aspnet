@@ -150,7 +150,7 @@ $(document).ready(function(){
                             <div class="panel-footer">
                                 <div class="row">
                             <div class="col-sm-12 text-right">
-                                <a class="btn btn-info" id="spareCamToMain" runat="server"><span class="glyphicon glyphicon-repeat"></span> Set as main</a>
+                                <a class="btn btn-info" id="spareCamToMain" runat="server" data-toggle="modal" data-target="#camMainModal"><span class="glyphicon glyphicon-repeat"></span> Set as main</a>
                                 <a class="btn btn-default" id="spareCamAddRemove" runat="server">Add/Remove</a>
                             </div>
                         </div>
@@ -257,6 +257,71 @@ $(document).ready(function(){
                 <div class="modal-footer">
                     <asp:Button ID="saveNewKit" runat="server" CssClass="btn btn-primary" Text="Save" OnClick="saveNewKit_Click" />
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Spare to Main Camera modal-->
+    <div id="camMainModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Set spare camera as main</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p><strong>Set spare camera as new main camera?</strong> This will remove the main camera from the kit and replace it with the spare camera assigned to the kit. Do <strong>NOT</strong> use if the main camera is in for repair and the spare is a temporary replacement.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading" id="mainCamReplaceHead" runat="server"></div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-xs-5">Serial Number: </div>
+                                        <div class="col-xs-7" id="camReplaceMainSN" runat="server"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-5">Make: </div>
+                                        <div class="col-xs-7" id="camReplaceMainMake" runat="server"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-5">Model: </div>
+                                        <div class="col-xs-7" id="camReplaceMainModel" runat="server"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 text-center" style="font-size: 4em;">
+                            <span class="glyphicon glyphicon-arrow-left" style="vertical-align: middle;"></span>
+                        </div>
+                        <div class="col-xs-5">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" id="spareCamReplaceHead" runat="server"></div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-xs-5">Serial Number: </div>
+                                        <div class="col-xs-7" id="camReplaceSpareSN" runat="server"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-5">Make: </div>
+                                        <div class="col-xs-7" id="camReplaceSpareMake" runat="server"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-5">Model: </div>
+                                        <div class="col-xs-7" id="camReplaceSpareModel" runat="server"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
