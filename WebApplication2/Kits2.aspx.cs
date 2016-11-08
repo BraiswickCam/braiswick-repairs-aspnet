@@ -55,9 +55,12 @@ namespace WebApplication2
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT Kits.KitID, Kits.KitPH, Photographers.ID, Photographers.Name, Photographers.Initials, Photographers.Office, Cameras.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Laptops.LaptopID, " +
-                    "Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS FROM Kits LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID LEFT JOIN Cameras ON Kits.CameraID = Cameras.CameraID " +
-                    "LEFT JOIN Laptops ON Kits.LaptopID = Laptops.LaptopID WHERE KitID = @KitID";
+                command.CommandText = "SELECT Kits.KitID, Kits.KitPH, Photographers.ID, Photographers.Name, Photographers.Initials, Photographers.Office, Cameras.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Laptops.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS, " +
+                    "cam2.CameraID, cam2.SerialNumber, cam2.Make, cam2.Model, lap2.LaptopID, lap2.SerialNumber, lap2.Make, lap2.Model, lap2.OS FROM Kits " +
+                    "LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID " +
+                    "LEFT JOIN Cameras ON Kits.CameraID = Cameras.CameraID LEFT JOIN Cameras AS cam2 ON Kits.SpareCameraID = cam2.CameraID " +
+                    "LEFT JOIN Laptops ON Kits.LaptopID = Laptops.LaptopID LEFT JOIN Laptops AS lap2 ON Kits.SpareLaptopID = lap2.LaptopID " +
+                    "WHERE Kits.KitID = @KitID";
                 command.Parameters.Add(new SQLiteParameter("@KitID", kitID));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
@@ -137,17 +140,69 @@ namespace WebApplication2
 
             //Populate Camera details
             camMakeLabel.Text = details.Rows[0][8].ToString();
+            camReplaceMainMake.InnerText = details.Rows[0][8].ToString();
             camModelLabel.Text = details.Rows[0][9].ToString();
+            camReplaceMainModel.InnerText = details.Rows[0][9].ToString();
             camSNLabel.Text = details.Rows[0][7].ToString();
+            camReplaceMainSN.InnerText = details.Rows[0][7].ToString();
+            mainCamReplaceHead.InnerText = String.Format("Main Camera: {0}", details.Rows[0][6]);
             if (string.IsNullOrEmpty(details.Rows[0][6].ToString())) ToggleTooltip(true, cameraPanel, "camera");
             else ToggleTooltip(false, cameraPanel);
 
             //Populate Laptop details
             lapMakeLabel.Text = details.Rows[0][12].ToString();
+            lapReplaceMainMake.InnerText = details.Rows[0][12].ToString();
             lapModelLabel.Text = details.Rows[0][13].ToString();
+            lapReplaceMainModel.InnerText = details.Rows[0][13].ToString();
             lapSNLabel.Text = details.Rows[0][11].ToString();
+            lapReplaceMainSN.InnerText = details.Rows[0][11].ToString();
+            lapReplaceMainHead.InnerText = String.Format("Main Laptop: {0}", details.Rows[0][10].ToString());
             if (string.IsNullOrEmpty(details.Rows[0][10].ToString())) ToggleTooltip(true, laptopPanel, "laptop");
             else ToggleTooltip(false, laptopPanel);
+
+            //Populate Spare Camera details
+            spareCamSN.Text = details.Rows[0][16].ToString();
+            camReplaceSpareSN.InnerText = details.Rows[0][16].ToString();
+            spareCamMake.Text = details.Rows[0][17].ToString();
+            camReplaceSpareMake.InnerText = details.Rows[0][17].ToString();
+            spareCamModel.Text = details.Rows[0][18].ToString();
+            camReplaceSpareModel.InnerText = details.Rows[0][18].ToString();
+            spareCamReplaceHead.InnerText = String.Format("Spare Camera: {0}", details.Rows[0][15]);
+            spareCamConfirmA.HRef = String.Format("Kits2.aspx?KitID={0}&type=spareCamera&ID={1}&oldID={2}", details.Rows[0][0], details.Rows[0][15], string.IsNullOrEmpty(details.Rows[0][6].ToString()) ? "0" : details.Rows[0][6]);
+            if (string.IsNullOrEmpty(details.Rows[0][15].ToString()))
+            {
+                ToggleTooltip(true, spareCameraPanel, "spare camera");
+                spareCamTab.InnerHtml = "Spare <span class=\"glyphicon glyphicon-remove-circle\"></span>";
+                spareCamToMain.Attributes["class"] = "btn btn-info disabled";
+            }
+            else
+            {
+                ToggleTooltip(false, spareCameraPanel);
+                spareCamTab.InnerHtml = "Spare <span class=\"glyphicon glyphicon-ok-circle\"></span>";
+                spareCamToMain.Attributes["class"] = "btn btn-info";
+            }
+
+            //Populate Spare Laptop details
+            spareLapSN.Text = details.Rows[0][20].ToString();
+            lapReplaceSpareSN.InnerText = details.Rows[0][20].ToString();
+            spareLapMake.Text = details.Rows[0][21].ToString();
+            lapReplaceSpareMake.InnerText = details.Rows[0][21].ToString();
+            spareLapModel.Text = details.Rows[0][22].ToString();
+            lapReplaceSpareModel.InnerText = details.Rows[0][22].ToString();
+            lapReplaceSpareHead.InnerText = String.Format("Spare Laptop: {0}", details.Rows[0][19]);
+            spareLapConfirmA.HRef = String.Format("Kits2.aspx?KitID={0}&type=spareLaptop&ID={1}&oldID={2}", details.Rows[0][0], details.Rows[0][19], string.IsNullOrEmpty(details.Rows[0][10].ToString()) ? "0" : details.Rows[0][10]);
+            if (string.IsNullOrEmpty(details.Rows[0][19].ToString()))
+            {
+                ToggleTooltip(true, spareLaptopPanel, "spare laptop");
+                spareLapTab.InnerHtml = "Spare <span class=\"glyphicon glyphicon-remove-circle\"></span>";
+                spareLapToMain.Attributes["class"] = "btn btn-info disabled";
+            }
+            else
+            {
+                ToggleTooltip(false, spareLaptopPanel);
+                spareLapTab.InnerHtml = "Spare <span class=\"glyphicon glyphicon-ok-circle\"></span>";
+                spareLapToMain.Attributes["class"] = "btn btn-info";
+            }
 
             //Populate History records
             try
@@ -217,6 +272,14 @@ namespace WebApplication2
             laptopAddRemove.HRef = details.Rows[0][10].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remLaptop&ID={1}", kitID, details.Rows[0][10].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=Laptop", kitID);
             laptopAddRemove.InnerHtml = details.Rows[0][10].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Laptop" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Laptop";
             laptopAddRemove.Attributes["class"] = details.Rows[0][10].ToString() != string.Empty ? "btn btn-default" : "btn btn-primary";
+
+            spareCamAddRemove.HRef = details.Rows[0][15].ToString() != string.Empty ? String.Format("#removelink") : String.Format("#addlink");
+            spareCamAddRemove.InnerHtml = details.Rows[0][15].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Spare Camera" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Spare Camera";
+            spareCamAddRemove.Attributes["class"] = details.Rows[0][15].ToString() != string.Empty ? "btn btn-default" : "btn btn-primary";
+
+            spareLapAddRemove.HRef = details.Rows[0][19].ToString() != string.Empty ? String.Format("#removelink") : String.Format("#addlink");
+            spareLapAddRemove.InnerHtml = details.Rows[0][19].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Spare Laptop" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Spare Laptop";
+            spareLapAddRemove.Attributes["class"] = details.Rows[0][19].ToString() != string.Empty ? "btn btn-default" : "btn btn-primary";
         }
 
         protected void historyGridView_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -249,6 +312,16 @@ namespace WebApplication2
             else if (type == "remLaptop") { type = "LaptopID"; itemID = 0; }
             else if (type == "remCamera") { type = "CameraID"; itemID = 0; }
             else if (type == "remPhotog") { type = "PhotogID"; itemID = 0; }
+            else if (type == "spareCamera")
+            {
+                if (SpareToMain("CameraID", itemID, kitID)) { return true; }
+                else { return false; }
+            }
+            else if (type == "spareLaptop")
+            {
+                if (SpareToMain("LaptopID", itemID, kitID)) { return true; }
+                else { return false; }
+            }
             else { return false; }
 
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
@@ -258,6 +331,24 @@ namespace WebApplication2
                     type,
                     DateTime.Now,
                     itemID > 0 ? String.Format("{0} added to kit.", type) : String.Format("{0} removed from kit.", type));
+                command.Parameters.Add(new SQLiteParameter("@newID", itemID));
+                command.Parameters.Add(new SQLiteParameter("@KitID", kitID));
+                command.Parameters.Add(new SQLiteParameter("@oldID", oldID));
+                m_dbConnection.Open();
+                return command.ExecuteNonQuery() > 0;
+            }
+        }
+
+        protected bool SpareToMain(string type, int itemID, int kitID)
+        {
+            int oldID;
+            try { oldID = Convert.ToInt32(Request.QueryString["oldID"]); }
+            catch (System.FormatException) { return false; }
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = String.Format("UPDATE Kits SET Spare{0}=null, {0}=@newID WHERE KitID=@KitID; INSERT INTO Repairs ({0}, KitID, Date, Fixed, FixedDate, Notes) VALUES (@oldID, @KitID, \"{1}\", 1, \"{1}\", \"{0} removed from kit and replaced by spare\"); " +
+                    "INSERT INTO Repairs ({0}, KitID, Date, Fixed, FixedDate, Notes) VALUES (@newID, @KitID, \"{1}\", 1, \"{1}\", \"{0} replaced with Spare{0}\");", type, DateTime.Now.ToString());
                 command.Parameters.Add(new SQLiteParameter("@newID", itemID));
                 command.Parameters.Add(new SQLiteParameter("@KitID", kitID));
                 command.Parameters.Add(new SQLiteParameter("@oldID", oldID));
