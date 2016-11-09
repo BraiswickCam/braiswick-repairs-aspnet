@@ -114,9 +114,9 @@ namespace WebApplication2
                 command.Parameters.Add(new SQLiteParameter("@laptopID", dt.Rows[1][2]));
                 command.Parameters.Add(new SQLiteParameter("@kitID", dt.Rows[1][3]));
                 command.Parameters.Add(new SQLiteParameter("@photogID", dt.Rows[1][4]));
-                command.Parameters.Add(new SQLiteParameter("@date", dt.Rows[1][5]));
+                command.Parameters.Add(new SQLiteParameter("@date", dt.Rows[1][5].ToString())); //.ToString() keeps dd/mm/yyyy date formatting. This could be changed for better compatiblity with SQL but would require changes elsewhere
                 command.Parameters.Add(new SQLiteParameter("@fixed", dt.Rows[1][6]));
-                command.Parameters.Add(new SQLiteParameter("@fixedDate", dt.Rows[1][7]));
+                command.Parameters.Add(new SQLiteParameter("@fixedDate", dt.Rows[1][7].ToString()));
                 command.Parameters.Add(new SQLiteParameter("@techInitials", dt.Rows[1][8]));
                 command.Parameters.Add(new SQLiteParameter("@notes", dt.Rows[1][9]));
                 command.Parameters.Add(new SQLiteParameter("@repairCost", dt.Rows[1][10]));
