@@ -118,6 +118,13 @@ $(document).ready(function(){
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-sm-12 text-right">
+                                <div class="btn-group" id="camCogDrop" runat="server">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" id="cameraEditDetails" runat="server"><span class="glyphicon glyphicon-edit"></span> Edit details</a></li>
+                                        <li><a href="#" id="cameraSubmitRepair" runat="server"><span class="glyphicon glyphicon-wrench"></span> Submit repair</a></li>
+                                    </ul>
+                                </div>
                                 <a class="btn btn-default" id="cameraAddRemove" runat="server">Add/Remove</a>
                             </div>
                         </div>
@@ -191,6 +198,13 @@ $(document).ready(function(){
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-sm-12 text-right">
+                                <div class="btn-group" id="lapCogDrop" runat="server">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" id="laptopEditDetails" runat="server"><span class="glyphicon glyphicon-edit"></span> Edit details</a></li>
+                                        <li><a href="#" id="laptopSubmitRepair" runat="server"><span class="glyphicon glyphicon-wrench"></span> Submit repair</a></li>
+                                    </ul>
+                                </div>
                                 <a class="btn btn-default" id="laptopAddRemove" runat="server">Add/Remove</a>
                             </div>
                         </div>

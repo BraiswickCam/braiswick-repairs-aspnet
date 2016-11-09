@@ -130,6 +130,33 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.Label camModelLabel;
         
         /// <summary>
+        /// camCogDrop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl camCogDrop;
+        
+        /// <summary>
+        /// cameraEditDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor cameraEditDetails;
+        
+        /// <summary>
+        /// cameraSubmitRepair control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor cameraSubmitRepair;
+        
+        /// <summary>
         /// cameraAddRemove control.
         /// </summary>
         /// <remarks>
@@ -236,6 +263,33 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lapModelLabel;
+        
+        /// <summary>
+        /// lapCogDrop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lapCogDrop;
+        
+        /// <summary>
+        /// laptopEditDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor laptopEditDetails;
+        
+        /// <summary>
+        /// laptopSubmitRepair control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor laptopSubmitRepair;
         
         /// <summary>
         /// laptopAddRemove control.

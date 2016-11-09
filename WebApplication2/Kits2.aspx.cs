@@ -266,10 +266,16 @@ namespace WebApplication2
             cameraAddRemove.HRef = details.Rows[0][6].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remCamera&ID={1}", kitID, details.Rows[0][6].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=Camera", kitID);
             cameraAddRemove.InnerHtml = details.Rows[0][6].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Camera" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Camera";
             cameraAddRemove.Attributes["class"] = details.Rows[0][6].ToString() != string.Empty ? "btn btn-default" : "btn btn-primary";
+            camCogDrop.Attributes["class"] = details.Rows[0][6].ToString() != string.Empty ? "btn-group" : "btn-group hidden";
+            cameraEditDetails.HRef = details.Rows[0][6].ToString() != string.Empty ? String.Format("Cameras.aspx?CameraID={0}", details.Rows[0][6]) : "";
+            cameraSubmitRepair.HRef = details.Rows[0][6].ToString() != string.Empty ? String.Format("NewRepair.aspx?type=camera&id={0}", details.Rows[0][6]) : "";
 
             laptopAddRemove.HRef = details.Rows[0][10].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remLaptop&ID={1}", kitID, details.Rows[0][10].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=Laptop", kitID);
             laptopAddRemove.InnerHtml = details.Rows[0][10].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Laptop" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Laptop";
             laptopAddRemove.Attributes["class"] = details.Rows[0][10].ToString() != string.Empty ? "btn btn-default" : "btn btn-primary";
+            lapCogDrop.Attributes["class"] = details.Rows[0][10].ToString() != string.Empty ? "btn-group" : "btn-group hidden";
+            laptopEditDetails.HRef = details.Rows[0][10].ToString() != string.Empty ? String.Format("Laptops.aspx?LaptopID={0}", details.Rows[0][10]) : "";
+            laptopSubmitRepair.HRef = details.Rows[0][10].ToString() != string.Empty ? String.Format("NewRepair.aspx?type=laptop&id={0}", details.Rows[0][10]) : "";
 
             spareCamAddRemove.HRef = details.Rows[0][15].ToString() != string.Empty ? String.Format("#removelink") : String.Format("#addlink");
             spareCamAddRemove.InnerHtml = details.Rows[0][15].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Spare Camera" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Spare Camera";
