@@ -12,7 +12,7 @@ namespace WebApplication2
 {
     public partial class PhotogDetails : System.Web.UI.Page
     {
-        SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", "C:\\datatest\\2016repairhistory.sqlite"));
+        SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation));
         string photogID;
         int photogIntID;
         protected void Page_Load(object sender, EventArgs e)
@@ -35,6 +35,7 @@ namespace WebApplication2
 
         protected DataTable GetDetails(string photogID)
         {
+            m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation));
             SQLiteCommand command = m_dbConnection.CreateCommand();
             command.CommandText = "SELECT * FROM Photographers WHERE ID = @ID";
             command.Parameters.Add(new SQLiteParameter("@ID", photogID));
@@ -51,6 +52,7 @@ namespace WebApplication2
 
         protected bool UpdateDetails(out string errorMessage)
         {
+            m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation));
             try
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
@@ -76,6 +78,7 @@ namespace WebApplication2
 
         protected bool NewRecord(out string errorMessage)
         {
+            m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation));
             try
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();

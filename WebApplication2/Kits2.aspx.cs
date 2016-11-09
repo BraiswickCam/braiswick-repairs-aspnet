@@ -12,8 +12,6 @@ namespace WebApplication2
 {
     public partial class Kits2 : System.Web.UI.Page
     {
-        //Database Location
-        string databaseLocation = "C:\\datatest\\2016repairhistory.sqlite";
 
         //History table index references
         int repairID = 0;
@@ -52,7 +50,7 @@ namespace WebApplication2
 
         protected DataTable GetFullKitRecord(string kitID)
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT Kits.KitID, Kits.KitPH, Photographers.ID, Photographers.Name, Photographers.Initials, Photographers.Office, Cameras.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Laptops.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS, " +
@@ -76,7 +74,7 @@ namespace WebApplication2
 
         protected DataTable GetKits()
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 string sql = String.Format("SELECT KitPH, KitID FROM Kits ORDER BY KitPH ASC");
                 using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
@@ -97,7 +95,7 @@ namespace WebApplication2
 
         protected DataTable GetHistory(string kitID)
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT Repairs.RepairID, Repairs.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Repairs.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Repairs.PhotogID, Photographers.Initials, Photographers.Name, Photographers.Office, Repairs.Date, Repairs.Fixed, Repairs.FixedDate, Repairs.TechInitials, Repairs.Notes, Repairs.RepairCost FROM Repairs " + 
@@ -324,7 +322,7 @@ namespace WebApplication2
             }
             else { return false; }
 
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = String.Format("UPDATE Kits SET {0}=@newID WHERE KitID=@KitID; INSERT INTO Repairs ({0}, KitID, Date, Fixed, FixedDate, Notes) VALUES (@oldID, @KitID, \"{1}\", 1, \"{1}\", \"{2}\");", 
@@ -344,7 +342,7 @@ namespace WebApplication2
             int oldID;
             try { oldID = Convert.ToInt32(Request.QueryString["oldID"]); }
             catch (System.FormatException) { return false; }
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = String.Format("UPDATE Kits SET Spare{0}=null, {0}=@newID WHERE KitID=@KitID; INSERT INTO Repairs ({0}, KitID, Date, Fixed, FixedDate, Notes) VALUES (@oldID, @KitID, \"{1}\", 1, \"{1}\", \"{0} removed from kit and replaced by spare\"); " +
@@ -378,7 +376,7 @@ namespace WebApplication2
             error = "";
             try
             {
-                using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+                using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
                 {
                     SQLiteCommand command = m_dbConnection.CreateCommand();
                     command.CommandText = "INSERT INTO Kits (KitPH) VALUES (@KitPH); SELECT last_insert_rowid();";

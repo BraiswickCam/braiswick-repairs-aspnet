@@ -12,7 +12,6 @@ namespace WebApplication2
 {
     public partial class RepairReport : System.Web.UI.Page
     {
-        string databaseLocation = "C:\\datatest\\2016repairhistory.sqlite";
         protected void Page_Load(object sender, EventArgs e)
         {
             Populate();
@@ -59,7 +58,7 @@ namespace WebApplication2
 
         protected DataTable GetDetails(string type, string id)
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 if (type == "laptop")

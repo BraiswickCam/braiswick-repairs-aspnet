@@ -12,7 +12,6 @@ namespace WebApplication2
 {
     public partial class NewRepair : System.Web.UI.Page
     {
-        string databaseLocation = "C:\\datatest\\2016repairhistory.sqlite";
         int kitKitPH = 0, kitPhotogName = 1, kitLaptopID = 2, kitLaptopSN = 3, kitLaptopMake = 4, kitLaptopModel = 5, kitCameraID = 6, kitCameraSN = 7, kitCameraMake = 8, kitCameraModel = 9;
 
         DataTable dt;
@@ -61,7 +60,7 @@ namespace WebApplication2
 
         protected DataTable GetKitList()
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT Kits.KitPH, Photographers.Name, Laptops.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Cameras.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model FROM Kits " + 
@@ -80,7 +79,7 @@ namespace WebApplication2
 
         protected DataTable GetLaptopDetails(string laptopID)
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT Kits.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS, Kits.PhotogID, Photographers.Name, Photographers.Initials, Photographers.Office, Kits.KitID FROM Kits " +
@@ -100,7 +99,7 @@ namespace WebApplication2
 
         protected DataTable GetCameraDetails(string cameraID)
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT Kits.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Kits.PhotogID, Photographers.Name, Photographers.Initials, Photographers.Office, Kits.KitID FROM Kits " +
@@ -131,7 +130,7 @@ namespace WebApplication2
                 return false;
             }
 
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = String.Format("INSERT INTO Repairs ({0}ID, KitID, PhotogID, Date, Fixed, Notes) VALUES (@equipID, @kitID, @photogID, @date, @fixed, @notes)", type);

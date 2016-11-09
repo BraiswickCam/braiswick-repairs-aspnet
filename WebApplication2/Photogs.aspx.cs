@@ -12,7 +12,7 @@ namespace WebApplication2
 {
     public partial class Photogs : System.Web.UI.Page
     {
-        SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", "C:\\datatest\\2016repairhistory.sqlite"));
+        SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation));
         string addToKit;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -70,7 +70,7 @@ namespace WebApplication2
 
         protected DataTable GetPhotogList(bool active)
         {
-            using (m_dbConnection)
+            using (m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT Photographers.ID, Photographers.Name, Photographers.Initials, Photographers.Active, Photographers.Office, Kits.KitID, Kits.KitPH, Kits.CameraID, Kits.LaptopID FROM Photographers LEFT JOIN Kits ON Photographers.ID=Kits.PhotogID WHERE Photographers.Active = @Active OR Photographers.Active = @Active2";
@@ -95,6 +95,7 @@ namespace WebApplication2
             dt.Columns.Add("KitPH", typeof(string));
             dt.Columns.Add("CameraID", typeof(int));
             dt.Columns.Add("LaptopID", typeof(int));
+            m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation));
             foreach (DataRow dr in dt.Rows)
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();

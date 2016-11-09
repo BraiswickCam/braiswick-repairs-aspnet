@@ -76,8 +76,7 @@ namespace WebApplication2
 
         protected string OutstandingRepairs()
         {
-            string databaseLocation = "C:\\datatest\\2016repairhistory.sqlite";
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT count (*) FROM Repairs WHERE Fixed = 0";

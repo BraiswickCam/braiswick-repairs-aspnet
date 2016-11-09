@@ -12,7 +12,7 @@ namespace WebApplication2
 {
     public partial class Equipment : System.Web.UI.Page
     {
-        SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", "C:\\datatest\\2016repairhistory.sqlite"));
+        SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation));
         int activeCol, kitIdCol, kitPhCol, photogIdCol, photogInitialCol, otherIdCol;
         string addToKit, addToType;
 
@@ -53,7 +53,7 @@ namespace WebApplication2
 
         protected DataTable GetLaptopList()
         {
-            using (m_dbConnection)
+            using (m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT Laptops.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS, Laptops.Active, Kits.KitID, Kits.KitPH, Kits.PhotogID, Photographers.Initials, Kits.CameraID FROM Laptops LEFT JOIN Kits ON Laptops.LaptopID = Kits.LaptopID LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID";
@@ -71,7 +71,7 @@ namespace WebApplication2
 
         protected DataTable GetCameraList()
         {
-            using (m_dbConnection)
+            using (m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT Cameras.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Cameras.Active, Kits.KitID, Kits.KitPH, Kits.PhotogID, Photographers.Initials, Kits.LaptopID FROM Cameras LEFT JOIN Kits ON Cameras.CameraID = Kits.CameraID LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID";

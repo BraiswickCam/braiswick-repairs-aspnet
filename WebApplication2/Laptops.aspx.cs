@@ -89,7 +89,6 @@ namespace WebApplication2
 
     public class Laptop
     {
-        private string databaseLocation = "C:\\datatest\\2016repairhistory.sqlite";
         private string laptopID, serialNumber, make, model, os;
         private bool active;
 
@@ -143,7 +142,7 @@ namespace WebApplication2
         private void GetLaptopDetails()
         {
             DataTable dt = new DataTable();
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT * FROM Laptops WHERE LaptopID = @ID";
@@ -172,7 +171,7 @@ namespace WebApplication2
 
         public bool UpdateLaptopDatabase()
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "UPDATE Laptops SET Make=@Make, Model=@Model, SerialNumber=@SN, OS=@OS, Active=@Active WHERE LaptopID=@ID";
@@ -189,7 +188,7 @@ namespace WebApplication2
 
         public int NewLaptopRecord()
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "INSERT INTO Laptops (Make, Model, SerialNumber, OS, Active) VALUES(@Make, @Model, @SN, @OS, @Active); SELECT last_insert_rowid();";
@@ -205,7 +204,7 @@ namespace WebApplication2
 
         public DataTable GetLaptopHistory()
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT * FROM Repairs WHERE LaptopID = @LaptopID";

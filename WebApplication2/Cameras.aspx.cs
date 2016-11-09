@@ -88,7 +88,6 @@ namespace WebApplication2
 
     public class Camera
     {
-        private string databaseLocation = "C:\\datatest\\2016repairhistory.sqlite";
         private string cameraID, serialNumber, make, model;
         private bool active;
 
@@ -136,7 +135,7 @@ namespace WebApplication2
         private void GetCameraDetails()
         {
             DataTable dt = new DataTable();
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT * FROM Cameras WHERE CameraID = @ID";
@@ -163,7 +162,7 @@ namespace WebApplication2
 
         public bool UpdateCameraDatabase()
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "UPDATE Cameras SET Make=@Make, Model=@Model, SerialNumber=@SN, Active=@Active WHERE CameraID=@ID";
@@ -179,7 +178,7 @@ namespace WebApplication2
 
         public int NewCameraRecord()
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "INSERT INTO Cameras (Make, Model, SerialNumber, Active) VALUES(@Make, @Model, @SN, @Active); SELECT last_insert_rowid();";
@@ -194,7 +193,7 @@ namespace WebApplication2
 
         public DataTable GetCameraHistory()
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT * FROM Repairs WHERE CameraID = @CameraID";

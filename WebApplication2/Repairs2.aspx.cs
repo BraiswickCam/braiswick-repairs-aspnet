@@ -12,7 +12,6 @@ namespace WebApplication2
 {
     public partial class Repairs2 : System.Web.UI.Page
     {
-        string databaseLocation = "C:\\datatest\\2016repairhistory.sqlite";
         string repair;
         DataTable details;
         protected void Page_Load(object sender, EventArgs e)
@@ -54,7 +53,7 @@ namespace WebApplication2
 
         protected DataTable GetRepairDetails(string ID)
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 string sql = String.Format("SELECT * FROM Repairs WHERE RepairID = {0}", ID);
                 using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
@@ -75,7 +74,7 @@ namespace WebApplication2
 
         protected DataTable NewGetRepairDetails(string ID) //Uses SQLiteParameters to prevent SQL injection
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT * FROM Repairs WHERE RepairID = @ID";
@@ -106,7 +105,7 @@ namespace WebApplication2
 
         protected void SaveDetails(DataTable dt)
         {
-            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", databaseLocation)))
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "UPDATE Repairs SET CameraID = @cameraID, LaptopID = @laptopID, KitID = @kitID, PhotogID = @photogID, Date = @date, Fixed = @fixed, FixedDate = @fixedDate, TechInitials = @techInitials, Notes = @notes, RepairCost = @repairCost WHERE RepairID = @repairID";

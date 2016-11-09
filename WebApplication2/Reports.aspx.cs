@@ -24,7 +24,7 @@ namespace WebApplication2
 
         protected DataTable RepairCost()
         {
-            using (m_dbConnection)
+            using (m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT Photographers.ID, Photographers.Name, Photographers.Initials, Photographers.Active, Photographers.Office, sum(Repairs.RepairCost) AS \"Total Repair Cost\" FROM Photographers LEFT JOIN Repairs ON Photographers.ID = Repairs.PhotogID GROUP BY Photographers.ID ORDER BY \"Total Repair Cost\" DESC";
