@@ -66,6 +66,15 @@ namespace WebApplication2
                     hp.NavigateUrl = "~/PhotogDetails.aspx?PhotogID=" + gr.Cells[0].Text;
                     gr.Cells[0].Controls.Add(hp);
                 }
+
+                if (addToKit != null)
+                {
+                    if (gr.Cells[5].Text == "&nbsp;")
+                    {
+                        gr.Cells[5].Controls.Clear();
+                        gr.Cells[5].Text = String.Format("<a class=\"btn btn-success\" href=Kits2.aspx?KitID={0}&type=addPhotog&ID={1}><span class=\"glyphicon glyphicon-plus\"></span> Add to kit</a>", addToKit, gr.Cells[0].Text);
+                    }
+                }
             }
         }
 
@@ -138,15 +147,15 @@ namespace WebApplication2
             }
             else
             {
-                if (Request.QueryString["KitID"] != null)
-                {
-                    if (e.Row.Cells[5].Text == "&nbsp;")
-                    {
-                        TableCell tc = new TableCell();
-                        tc.Text = String.Format("<a href=Kits2.aspx?KitID={0}&type=addPhotog&ID={1}><span class=\"glyphicon glyphicon-plus\"></span> Add to kit</a>", addToKit, e.Row.Cells[0].Text);
-                        e.Row.Cells.Add(tc);
-                    }
-                }
+                //if (Request.QueryString["KitID"] != null)
+                //{
+                //    if (e.Row.Cells[5].Text == "&nbsp;")
+                //    {
+                //        TableCell tc = new TableCell();
+                //        tc.Text = String.Format("<a href=Kits2.aspx?KitID={0}&type=addPhotog&ID={1}><span class=\"glyphicon glyphicon-plus\"></span> Add to kit</a>", addToKit, e.Row.Cells[0].Text);
+                //        e.Row.Cells.Add(tc);
+                //    }
+                //}
             }
         }
 
