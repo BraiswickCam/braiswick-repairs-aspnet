@@ -45,6 +45,7 @@ namespace WebApplication2
                     hp.Target = "_blank";
                     hp.ToolTip = "Open repair record for RepairID " + gr.Cells[0].Text;
                     hp.Text = gr.Cells[0].Text;
+                    hp.CssClass = "btn btn-primary";
                     hp.NavigateUrl = "~/Repairs2.aspx?repairID=" + hp.Text;
                     gr.Cells[0].Controls.Add(hp);
                 }
