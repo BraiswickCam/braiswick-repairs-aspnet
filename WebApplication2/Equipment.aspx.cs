@@ -129,6 +129,15 @@ namespace WebApplication2
                     hp.NavigateUrl = String.Format("~/{0}s.aspx?{0}ID={1}", equipDrop.SelectedValue == "laptop" ? "Laptop" : "Camera", gr.Cells[0].Text);
                     gr.Cells[0].Controls.Add(hp);
                 }
+
+                if (Request.QueryString["type"] != null)
+                {
+                    if (gr.Cells[kitIdCol].Text == "&nbsp;")
+                    {
+                        gr.Cells[kitIdCol].Controls.Clear();
+                        gr.Cells[kitIdCol].Text = String.Format("<a class=\"btn btn-success\" href=Kits2.aspx?KitID={0}&type=add{1}&ID={2}><span class=\"glyphicon glyphicon-plus\"></span> Add to kit</a>", addToKit, addToType, gr.Cells[0].Text);
+                    }
+                }
             }
         }
 
@@ -159,15 +168,17 @@ namespace WebApplication2
             }
             else
             {
-                if (Request.QueryString["type"] != null)
-                {
-                    if (e.Row.Cells[kitIdCol].Text == "&nbsp;")
-                    {
-                        TableCell tc = new TableCell();
-                        tc.Text = String.Format("<a href=Kits2.aspx?KitID={0}&type=add{1}&ID={2}>Add to kit</a>", addToKit, addToType, e.Row.Cells[0].Text);
-                        e.Row.Cells.Add(tc);
-                    }
-                }
+                //if (Request.QueryString["type"] != null)
+                //{
+                //    if (e.Row.Cells[kitIdCol].Text == "&nbsp;")
+                //    {
+                //        //TableCell tc = new TableCell();
+                //        //tc.Text = String.Format("<a class=\"btn btn-success\" href=Kits2.aspx?KitID={0}&type=add{1}&ID={2}><span class=\"glyphicon glyphicon-plus\"></span> Add to kit</a>", addToKit, addToType, e.Row.Cells[0].Text);
+                //        //e.Row.Cells.Add(tc);
+                //        e.Row.Cells[kitIdCol].Controls.Clear();
+                //        e.Row.Cells[kitIdCol].Text = String.Format("<a class=\"btn btn-success\" href=Kits2.aspx?KitID={0}&type=add{1}&ID={2}><span class=\"glyphicon glyphicon-plus\"></span> Add to kit</a>", addToKit, addToType, e.Row.Cells[0].Text);
+                //    }
+                //}
             }
 
             
