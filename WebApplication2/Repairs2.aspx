@@ -94,7 +94,10 @@
             margin-top: 20px;
         }
     </style>
-
+    <div class="alert alert-success hidden" id="mainAlert" runat="server">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <p id="mainAlertText" runat="server"><strong>Success!</strong> Repair entry updated </p>
+    </div>
     <div class="container-fluid">
         <div class="row top20">
             <div class="col-xs-6 col-sm-4 col-sm-offset-2">

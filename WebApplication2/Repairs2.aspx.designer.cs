@@ -13,6 +13,24 @@ namespace WebApplication2 {
     public partial class Repairs2 {
         
         /// <summary>
+        /// mainAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mainAlert;
+        
+        /// <summary>
+        /// mainAlertText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mainAlertText;
+        
+        /// <summary>
         /// repairIDLabel control.
         /// </summary>
         /// <remarks>

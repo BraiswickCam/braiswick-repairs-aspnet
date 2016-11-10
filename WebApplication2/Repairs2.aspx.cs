@@ -16,6 +16,7 @@ namespace WebApplication2
         DataTable details;
         protected void Page_Load(object sender, EventArgs e)
         {
+            mainAlert.Attributes["class"] = "alert alert-success hidden";
             repair = Request.QueryString["repairID"];
             details = NewGetRepairDetails(repair);
             if (!IsPostBack)
@@ -101,6 +102,8 @@ namespace WebApplication2
             }
             details.Rows.Add(details.Rows[0][0], detailsOutList[0], detailsOutList[1], detailsOutList[2], detailsOutList[3], detailsOutList[4], detailsOutList[5], detailsOutList[6], detailsOutList[7], detailsOutList[8], detailsOutList[9]);
             SaveDetails(details);
+            mainAlert.Attributes["class"] = "alert alert-success";
+            mainAlertText.InnerHtml = String.Format("<strong>Success!</strong> Repair entry updated {0}", DateTime.Now.ToString());
         }
 
         protected void SaveDetails(DataTable dt)
