@@ -14,11 +14,15 @@ $(document).ready(function(){
 
     <div class="alert alert-success" id="successAlert" runat="server">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Success!</strong> New repair entry submitted. <a href="#" id="printLink" runat="server">Click here to print a repair sheet</a>
+        <strong>Success!</strong> New repair entry submitted. <a href="#" id="printLink" runat="server" target="_blank">Click here to print a repair sheet</a>
     </div>
     <div class="alert alert-danger" id="failAlert" runat="server">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Error!</strong> Repair not added to database.
+    </div>
+    <div class="alert alert-warning" id="spareAlert" runat="server">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Important!</strong> AFTER printing a repair sheet <a href="#" id="spareLink" runat="server">click here to assign spare equipment to the kit!</a>
     </div>
     <div class="container-fluid" id="stepone" runat="server">
         <div class="row">

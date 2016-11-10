@@ -19,6 +19,7 @@ namespace WebApplication2
         {
             successAlert.Visible = false;
             failAlert.Visible = false;
+            spareAlert.Visible = false;
             if (Request.QueryString["type"] == null)
             {
                 steptwo.Attributes["class"] = "hidden";
@@ -215,7 +216,13 @@ namespace WebApplication2
         protected void submitRepair_Click(object sender, EventArgs e)
         {
             string type;
-            if (NewRepairCreate(out type)) { printLink.HRef = String.Format("RepairReport.aspx?type={0}&id={1}", type, dt.Rows[0][0]); successAlert.Visible = true; }
+            if (NewRepairCreate(out type))
+            {
+                printLink.HRef = String.Format("RepairReport.aspx?type={0}&id={1}", type, dt.Rows[0][0]);
+                successAlert.Visible = true;
+                if (type == "camera") { spareLink.HRef = String.Format("Equipment.aspx?KitID={0}&type=spareCamera", dt.Rows[0][8]); spareAlert.Visible = true; }
+                if (type == "laptop") { spareLink.HRef = String.Format("Equipment.aspx?KitID={0}&type=spareLaptop", dt.Rows[0][9]); spareAlert.Visible = true; }
+            }
             else failAlert.Visible = true;
         }
     }

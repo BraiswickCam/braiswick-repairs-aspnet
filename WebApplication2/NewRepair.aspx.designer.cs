@@ -40,6 +40,24 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl failAlert;
         
         /// <summary>
+        /// spareAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spareAlert;
+        
+        /// <summary>
+        /// spareLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor spareLink;
+        
+        /// <summary>
         /// stepone control.
         /// </summary>
         /// <remarks>
