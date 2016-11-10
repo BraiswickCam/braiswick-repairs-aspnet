@@ -58,7 +58,7 @@ namespace WebApplication2
             using (m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT Laptops.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS, Laptops.Active, Kits.KitID, Kits.KitPH, Kits.PhotogID, Photographers.Initials, Kits.CameraID FROM Laptops LEFT JOIN Kits ON Laptops.LaptopID = Kits.LaptopID LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID";
+                command.CommandText = "SELECT Laptops.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS, Laptops.Active, Kits.KitID, Kits.KitPH, Kits.PhotogID, Photographers.Initials, Kits.CameraID FROM Laptops LEFT JOIN Kits ON Laptops.LaptopID = Kits.LaptopID OR Laptops.LaptopID = Kits.SpareLaptopID LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID";
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
                     sda.SelectCommand = command;
@@ -76,7 +76,7 @@ namespace WebApplication2
             using (m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT Cameras.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Cameras.Active, Kits.KitID, Kits.KitPH, Kits.PhotogID, Photographers.Initials, Kits.LaptopID FROM Cameras LEFT JOIN Kits ON Cameras.CameraID = Kits.CameraID LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID";
+                command.CommandText = "SELECT Cameras.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Cameras.Active, Kits.KitID, Kits.KitPH, Kits.PhotogID, Photographers.Initials, Kits.LaptopID FROM Cameras LEFT JOIN Kits ON Cameras.CameraID = Kits.CameraID OR Cameras.CameraID = Kits.SpareCameraID LEFT JOIN Photographers ON Kits.PhotogID = Photographers.ID";
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
                     sda.SelectCommand = command;
@@ -102,7 +102,7 @@ namespace WebApplication2
                     if (gr.Cells[photogIdCol].Text == "&nbsp;") photogIDHolder = "none";
                     else photogIDHolder = gr.Cells[photogIdCol].Text;
 
-                    if (gr.Cells[otherIdCol].Text == "&nbsp;") otherIDHolder = "none";
+                    if (gr.Cells[otherIdCol].Text == "&nbsp;" || gr.Cells[otherIdCol].Text == "0") otherIDHolder = "none";
                     else otherIDHolder = gr.Cells[otherIdCol].Text;
 
                     if (gr.Cells[photogInitialCol].Text == "&nbsp;") photogInitialHolder = "none";
