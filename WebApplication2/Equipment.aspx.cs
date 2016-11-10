@@ -31,6 +31,8 @@ namespace WebApplication2
                 string type = Request.QueryString["type"];
                 if (type == "Laptop") { equipDrop.SelectedValue = "laptop"; equipDrop.Visible = false; addToType = "Laptop"; }
                 if (type == "Camera") { equipDrop.SelectedValue = "camera"; equipDrop.Visible = false; addToType = "Camera"; }
+                if (type == "spareLaptop") { equipDrop.SelectedValue = "laptop"; equipDrop.Visible = false; addToType = "SpareLaptop"; }
+                if (type == "spareCamera") { equipDrop.SelectedValue = "camera"; equipDrop.Visible = false; addToType = "SpareCamera"; }
             }
 
             if (equipDrop.SelectedValue == "laptop")

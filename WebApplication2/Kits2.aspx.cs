@@ -277,11 +277,11 @@ namespace WebApplication2
             laptopEditDetails.HRef = details.Rows[0][10].ToString() != string.Empty ? String.Format("Laptops.aspx?LaptopID={0}", details.Rows[0][10]) : "";
             laptopSubmitRepair.HRef = details.Rows[0][10].ToString() != string.Empty ? String.Format("NewRepair.aspx?type=laptop&id={0}", details.Rows[0][10]) : "";
 
-            spareCamAddRemove.HRef = details.Rows[0][15].ToString() != string.Empty ? String.Format("#removelink") : String.Format("#addlink");
+            spareCamAddRemove.HRef = details.Rows[0][15].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remSpareCamera&ID={1}", kitID, details.Rows[0][15].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=spareCamera", kitID);
             spareCamAddRemove.InnerHtml = details.Rows[0][15].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Spare Camera" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Spare Camera";
             spareCamAddRemove.Attributes["class"] = details.Rows[0][15].ToString() != string.Empty ? "btn btn-default" : "btn btn-primary";
 
-            spareLapAddRemove.HRef = details.Rows[0][19].ToString() != string.Empty ? String.Format("#removelink") : String.Format("#addlink");
+            spareLapAddRemove.HRef = details.Rows[0][19].ToString() != string.Empty ? String.Format("Kits2.aspx?KitID={0}&type=remSpareLaptop&ID={1}", kitID, details.Rows[0][19].ToString()) : String.Format("Equipment.aspx?KitID={0}&type=spareLaptop", kitID);
             spareLapAddRemove.InnerHtml = details.Rows[0][19].ToString() != string.Empty ? "<span class=\"glyphicon glyphicon-minus\"></span> Remove Spare Laptop" : "<span class=\"glyphicon glyphicon-plus\"></span> Add Spare Laptop";
             spareLapAddRemove.Attributes["class"] = details.Rows[0][19].ToString() != string.Empty ? "btn btn-default" : "btn btn-primary";
         }
@@ -309,13 +309,18 @@ namespace WebApplication2
             int kitID;
             try { kitID = Convert.ToInt32(Request.QueryString["KitID"]); }
             catch (System.FormatException) { return false; }
+            string repairType;
 
-            if (type == "addLaptop") { type = "LaptopID"; }
-            else if (type == "addCamera") { type = "CameraID"; }
-            else if (type == "addPhotog") { type = "PhotogID"; }
-            else if (type == "remLaptop") { type = "LaptopID"; itemID = 0; }
-            else if (type == "remCamera") { type = "CameraID"; itemID = 0; }
-            else if (type == "remPhotog") { type = "PhotogID"; itemID = 0; }
+            if (type == "addLaptop") { type = "LaptopID"; repairType = type; }
+            else if (type == "addCamera") { type = "CameraID"; repairType = type; }
+            else if (type == "addPhotog") { type = "PhotogID"; repairType = type; }
+            else if (type == "addSpareCamera") { type = "SpareCameraID"; repairType = "CameraID"; }
+            else if (type == "addSpareLaptop") { type = "SpareLaptopID"; repairType = "LaptopID"; }
+            else if (type == "remLaptop") { type = "LaptopID"; itemID = 0; repairType = type; }
+            else if (type == "remCamera") { type = "CameraID"; itemID = 0; repairType = type; }
+            else if (type == "remPhotog") { type = "PhotogID"; itemID = 0; repairType = type; }
+            else if (type == "remSpareCamera") { type = "SpareCameraID"; itemID = 0; repairType = "CameraID"; }
+            else if (type == "remSpareLaptop") { type = "SpareLaptopID"; itemID = 0; repairType = "LaptopID"; }
             else if (type == "spareCamera")
             {
                 if (SpareToMain("CameraID", itemID, kitID)) { return true; }
@@ -331,10 +336,11 @@ namespace WebApplication2
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = String.Format("UPDATE Kits SET {0}=@newID WHERE KitID=@KitID; INSERT INTO Repairs ({0}, KitID, Date, Fixed, FixedDate, Notes) VALUES (@oldID, @KitID, \"{1}\", 1, \"{1}\", \"{2}\");", 
+                command.CommandText = String.Format("UPDATE Kits SET {0}=@newID WHERE KitID=@KitID; INSERT INTO Repairs ({3}, KitID, Date, Fixed, FixedDate, Notes) VALUES (@oldID, @KitID, \"{1}\", 1, \"{1}\", \"{2}\");", 
                     type,
                     DateTime.Now,
-                    itemID > 0 ? String.Format("{0} added to kit.", type) : String.Format("{0} removed from kit.", type));
+                    itemID > 0 ? String.Format("{0} added to kit.", type) : String.Format("{0} removed from kit.", type),
+                    repairType);
                 command.Parameters.Add(new SQLiteParameter("@newID", itemID));
                 command.Parameters.Add(new SQLiteParameter("@KitID", kitID));
                 command.Parameters.Add(new SQLiteParameter("@oldID", oldID));
