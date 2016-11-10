@@ -106,14 +106,17 @@ namespace WebApplication2
                     if (gr.Cells[photogInitialCol].Text == "&nbsp;") photogInitialHolder = "none";
                     else photogInitialHolder = gr.Cells[photogInitialCol].Text;
 
-                    gr.Cells[kitIdCol].Text =
-                        String.Format("<div class=\"kitLink\"><a href=\"Kits2.aspx?KitID={0}\">{1}</a><div class=\"kitDrop\"><a href=\"PhotogDetails.aspx?PhotogID={2}\">Photog ID = {3}</a></br><a href=\"{4}s.aspx?{4}ID={5}\">{4} ID = {5}</a></div></div>",
-                        kitIDHolder,
-                        gr.Cells[kitPhCol].Text,
-                        photogIDHolder,
-                        photogInitialHolder,
-                        otherType,
-                        otherIDHolder);
+                    if (gr.Cells[kitIdCol].Text != "&nbsp;")
+                    {
+                        gr.Cells[kitIdCol].Text =
+                            String.Format("<div class=\"kitLink\"><a class=\"btn btn-default btn-sm\" href=\"Kits2.aspx?KitID={0}\">{1}</a><div class=\"kitDrop\"><a href=\"PhotogDetails.aspx?PhotogID={2}\">Photog ID = {3}</a></br><a href=\"{4}s.aspx?{4}ID={5}\">{4} ID = {5}</a></div></div>",
+                            kitIDHolder,
+                            gr.Cells[kitPhCol].Text,
+                            photogIDHolder,
+                            photogInitialHolder,
+                            otherType,
+                            otherIDHolder);
+                    }
                 }
 
                 if (gr.Cells[0] != null)
@@ -121,7 +124,8 @@ namespace WebApplication2
                     HyperLink hp = new HyperLink();
                     hp.Target = "_blank";
                     hp.ToolTip = "Edit details for " + gr.Cells[1].Text;
-                    hp.Text = gr.Cells[0].Text;
+                    hp.Text = String.Format("<span class=\"glyphicon glyphicon-edit\"></span> {0}", gr.Cells[0].Text);
+                    hp.CssClass = "btn btn-primary btn-sm";
                     hp.NavigateUrl = String.Format("~/{0}s.aspx?{0}ID={1}", equipDrop.SelectedValue == "laptop" ? "Laptop" : "Camera", gr.Cells[0].Text);
                     gr.Cells[0].Controls.Add(hp);
                 }
@@ -143,9 +147,12 @@ namespace WebApplication2
                 {
                     if (headers[i] == lastSort)
                     {
-                        Image img = new Image();
-                        img.ImageUrl = dir == SortDirection.Ascending ? "images/small_up.png" : "images/small_down.png";
-                        e.Row.Cells[i].Controls.Add(img);
+                        //Image img = new Image();
+                        //img.ImageUrl = dir == SortDirection.Ascending ? "images/small_up.png" : "images/small_down.png";
+                        //e.Row.Cells[i].Controls.Add(img);
+                        System.Web.UI.HtmlControls.HtmlGenericControl arrow = new System.Web.UI.HtmlControls.HtmlGenericControl("span");
+                        arrow.Attributes["class"] = dir == SortDirection.Ascending ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down";
+                        e.Row.Cells[i].Controls.Add(arrow);
                     }
 
                 }

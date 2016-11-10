@@ -44,12 +44,15 @@ namespace WebApplication2
                     if (gr.Cells[8].Text == "&nbsp;") laptopIDHolder = "none";
                     else laptopIDHolder = gr.Cells[8].Text;
 
-                    gr.Cells[5].Text =
-                        String.Format("<div class=\"kitLink\"><a href=\"Kits2.aspx?KitID={0}\">{1}</a><div class=\"kitDrop\"><a href=\"Cameras.aspx?CameraID={2}\">Camera ID = {2}</a></br><a href=\"Laptops.aspx?LaptopID={3}\">Laptop ID = {3}</a></div></div>",
-                        kitIDHolder,
-                        gr.Cells[6].Text,
-                        cameraIDHolder,
-                        laptopIDHolder);
+                    if (gr.Cells[5].Text != "&nbsp;")
+                    {
+                        gr.Cells[5].Text =
+                            String.Format("<div class=\"kitLink\"><a class=\"btn btn-default btn-sm\" href=\"Kits2.aspx?KitID={0}\">{1}</a><div class=\"kitDrop\"><a href=\"Cameras.aspx?CameraID={2}\">Camera ID = {2}</a></br><a href=\"Laptops.aspx?LaptopID={3}\">Laptop ID = {3}</a></div></div>",
+                            kitIDHolder,
+                            gr.Cells[6].Text,
+                            cameraIDHolder,
+                            laptopIDHolder);
+                    }
                 }
 
                 if (gr.Cells[0] != null)
@@ -57,13 +60,11 @@ namespace WebApplication2
                     HyperLink hp = new HyperLink();
                     hp.Target = "_blank";
                     hp.ToolTip = "Edit details for " + gr.Cells[1].Text;
-                    hp.Text = gr.Cells[0].Text;
-                    //hp.ImageUrl = "~/edit-icon-1901.png";
+                    //hp.Text = gr.Cells[0].Text;
+                    hp.Text = String.Format("<span class=\"glyphicon glyphicon-edit\"></span> {0}", gr.Cells[0].Text);
+                    hp.CssClass = "btn btn-primary btn-sm";
                     hp.NavigateUrl = "~/PhotogDetails.aspx?PhotogID=" + gr.Cells[0].Text;
                     gr.Cells[0].Controls.Add(hp);
-                    //Image editImg = new Image();
-                    //editImg.ImageUrl = "~/edit-icon-1901.png";
-                    //gr.Cells[0].Controls.Add(editImg);
                 }
             }
         }
