@@ -150,7 +150,7 @@
                         <div class="row top10">
                             <div class="col-xs-5">Fixed?: </div>
                             <div class="col-xs-7">
-                                <asp:CheckBox ID="fixedCheck" runat="server" />
+                                <asp:CheckBox ID="fixedCheck" runat="server" OnCheckedChanged="fixedCheck_CheckedChanged" AutoPostBack="True" />
                             </div>
                         </div>
                         <div class="row top10">

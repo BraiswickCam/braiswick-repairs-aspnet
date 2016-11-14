@@ -127,5 +127,11 @@ namespace WebApplication2
                 command.ExecuteNonQuery();
             }
         }
+
+        protected void fixedCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (fixedCheck.Checked) fixedDateBox.Text = DateTime.Now.ToString();
+            else fixedDateBox.Text = string.Empty;
+        }
     }
 }
