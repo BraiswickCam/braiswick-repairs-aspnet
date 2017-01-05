@@ -51,6 +51,11 @@ namespace WebApplication2
             newEquipLink.HRef = equipDrop.SelectedValue == "laptop" ? "Laptops.aspx" : "Cameras.aspx";
             newEquipLink.InnerText = equipDrop.SelectedValue == "laptop" ? "Add New Laptop" : "Add New Camera";
             lastEquip = equipDrop.SelectedValue;
+
+            if (Request.QueryString["show"] != null)
+            {
+                equipDrop.SelectedValue = Request.QueryString["show"];
+            }
         }
 
         protected DataTable GetLaptopList()

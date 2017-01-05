@@ -3,6 +3,9 @@
         <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
+    $('.photogButtons').hide();
+    $('.lapButtons').hide();
+    $('.camButtons').hide();
 });
 
 </script>
@@ -37,6 +40,15 @@ $(document).ready(function(){
             border-radius: 50%;
             padding: 20px 22px;
         }
+
+        .round-btn-sm {
+            border-radius: 50%;
+            padding: 10px 13px;
+        }
+
+        .marginBottom {
+            margin-bottom: 5px;
+        }
     </style>
 
     <div class="container-fluid">
@@ -46,17 +58,48 @@ $(document).ready(function(){
                 <div class="panel panel-primary" style="text-align: center;">
                     <div class="panel-heading"><h4 class="panel-title"><!--<span class="glyphicon glyphicon-dashboard"></span> -->Dashboard</h4></div>
                     <div class="panel-body">
-                        <div class="col-xs-3">
+                        <div class="col-xs-2 col-xs-offset-1">
                             <a href="NewRepair.aspx" class="btn btn-primary round-btn"><span class="glyphicon glyphicon-wrench large-icon"></span></a><p>Submit Repair</p>
                         </div>
-                        <div class="col-xs-3">
-                            <a href="Kits2.aspx" class="btn btn-primary round-btn"><span class="glyphicon glyphicon-briefcase large-icon"></span></a><p>Kits</p>
+                        <div class="col-xs-2">
+                            <a href="Kits2.aspx" class="btn btn-primary round-btn"><span class="glyphicon glyphicon-briefcase large-icon"></span></a>
+                            <p>Kits</p>
                         </div>
-                        <div class="col-xs-3">
-                            <a href="Equipment.aspx" class="btn btn-primary round-btn"><span class="glyphicon glyphicon-camera large-icon"></span></a><p>Equipment</p>
+                        <div class="col-xs-2">
+                            <button class="btn btn-primary round-btn" onclick="showButtons('.lapButtons'); return false;"><span class="glyphicon glyphicon-hdd large-icon"></span></button>
+                            <p>Laptops</p>
+                            <div class="row lapButtons">
+                                <div class="col-xs-6">
+                                    <a href="Laptops.aspx" class="btn btn-default round-btn-sm"><span class="glyphicon glyphicon-plus"></span></a>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="Equipment.aspx?show=laptop" class="btn btn-default round-btn-sm"><span class="glyphicon glyphicon-list"></span></a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-xs-3">
-                            <a href="Photogs.aspx" class="btn btn-primary round-btn"><span class="glyphicon glyphicon-user large-icon"></span></a><p>Photographers</p>
+                        <div class="col-xs-2">
+                            <button class="btn btn-primary round-btn" onclick="showButtons('.camButtons'); return false;"><span class="glyphicon glyphicon-camera large-icon"></span></button>
+                            <p>Cameras</p>
+                            <div class="row camButtons">
+                                <div class="col-xs-6">
+                                    <a href="Cameras.aspx" class="btn btn-default round-btn-sm"><span class="glyphicon glyphicon-plus"></span></a>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="Equipment.aspx?show=camera" class="btn btn-default round-btn-sm"><span class="glyphicon glyphicon-list"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <button class="btn btn-primary round-btn" onclick="showButtons('.photogButtons'); return false;"><span class="glyphicon glyphicon-user large-icon"></span></button>
+                            <p>Photographers</p>
+                            <div class="row photogButtons">
+                                <div class="col-xs-6">
+                                    <a href="PhotogDetails.aspx" class="btn btn-default round-btn-sm"><span class="glyphicon glyphicon-plus"></span></a>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="Photogs.aspx" class="btn btn-default round-btn-sm"><span class="glyphicon glyphicon-list"></span></a>
+                                </div>
+                            </div>
                         </div>
                    </div>
                </div>
@@ -91,5 +134,17 @@ $(document).ready(function(){
             </div>
         </div>
     </div>
+
+    <script>
+        function showButtons(inClass) {
+            var classes = [".lapButtons", ".camButtons", ".photogButtons"];
+            $(inClass).slideToggle();
+            for (var cls in classes) {
+                if (classes[cls] != inClass) {
+                    $(classes[cls]).slideUp();
+                }
+            }
+        }
+    </script>
 
 </asp:Content>
