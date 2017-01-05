@@ -49,6 +49,7 @@ namespace WebApplication2
                     hp.NavigateUrl = "~/Repairs2.aspx?repairID=" + hp.Text;
                     gr.Cells[0].Controls.Add(hp);
                 }
+                saveButton.Text = "Update";
             }
         }
 
