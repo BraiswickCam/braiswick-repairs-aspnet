@@ -29,6 +29,15 @@ namespace WebApplication2
                     initialText.Text = dt.Rows[0][2].ToString();
                     activeCheck.Checked = (bool)dt.Rows[0][3];
                     officeList.SelectedValue = (string)dt.Rows[0][4];
+                    if (Request.QueryString["msg"] != null)
+                    {
+                        if (Request.QueryString["msg"] == "new")
+                        {
+                            updateLabel.Text = "Record added successfully. " + DateTime.Now.ToString();
+                        }
+                    }
+                    saveButton.Text = "Update";
+                    idHolder.InnerText = photogIntID.ToString();
                 }
             }
         }
@@ -76,28 +85,28 @@ namespace WebApplication2
             }
         }
 
-        protected bool NewRecord(out string errorMessage)
+        protected int NewRecord(out string errorMessage)
         {
             m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation));
             try
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "INSERT INTO Photographers (Name, Initials, Active, Office) VALUES (@name, @initials, @active, @office)";
+                command.CommandText = "INSERT INTO Photographers (Name, Initials, Active, Office) VALUES (@name, @initials, @active, @office); SELECT last_insert_rowid();";
                 command.Parameters.Add(new SQLiteParameter("@name", nameText.Text));
                 command.Parameters.Add(new SQLiteParameter("@initials", initialText.Text));
                 command.Parameters.Add(new SQLiteParameter("@active", activeCheck.Checked));
                 command.Parameters.Add(new SQLiteParameter("@office", officeList.SelectedValue));
                 m_dbConnection.Open();
-                command.ExecuteNonQuery();
+                int insertID = Convert.ToInt32(command.ExecuteScalar());
                 m_dbConnection.Close();
                 errorMessage = "";
-                return true;
+                return insertID;
             }
             catch (SQLiteException ex)
             {
                 errorMessage = ex.Message;
                 m_dbConnection.Close();
-                return false;
+                return 0;
             }
         }
 
@@ -110,7 +119,12 @@ namespace WebApplication2
             }
             else
             {
-                updateLabel.Text = NewRecord(out errorMessage) ? "Record added successfully. " + DateTime.Now.ToString() : "An error occured adding the record! " + DateTime.Now.ToString() + "\n" + errorMessage;
+                //updateLabel.Text = NewRecord(out errorMessage) > 0 ? "Record added successfully. " + DateTime.Now.ToString() : "An error occured adding the record! " + DateTime.Now.ToString() + "\n" + errorMessage;
+                int insertRow = NewRecord(out errorMessage);
+                if (insertRow > 0)
+                {
+                    Response.Redirect(String.Format("PhotogDetails.aspx?PhotogID={0}&msg=new", insertRow));
+                }
             }
         }
     }
