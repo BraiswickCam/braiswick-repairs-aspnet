@@ -1,11 +1,21 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebApplication2._Default" %>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <script src="Scripts/purl.js"></script>
         <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
     $('.photogButtons').hide();
     $('.lapButtons').hide();
     $('.camButtons').hide();
+    var viewParam = $.url(window.location.href).param('view');
+    if (viewParam == 'repairs') {
+        $('#outcollapse').collapse("show");
+    } else if (viewParam == 'recent') {
+        $('#recentcollapse').collapse("show");
+    } else if (viewParam == 'all') {
+        $('#outcollapse').collapse("show");
+        $('#recentcollapse').collapse("show");
+    }
 });
 
 </script>
