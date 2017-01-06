@@ -90,7 +90,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 table-responsive">
+            <div class="col-xs-12">
                 <asp:GridView ID="GridView1" runat="server" OnRowDataBound="GridView1_RowDataBound" AllowSorting="true" OnSorting="GridView1_Sorting" GridLines="None" CssClass="table table-striped table-hover"></asp:GridView>
             </div>
         </div>
