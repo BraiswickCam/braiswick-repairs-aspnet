@@ -1,5 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PhotogDetails.aspx.cs" Inherits="WebApplication2.PhotogDetails" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+            <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
     <style>
         * {
             font-family: Ubuntu, sans-serif;
@@ -62,6 +67,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <asp:GridView ID="historyGridView" runat="server" CssClass="table table-striped table-hover" GridLines="None" OnRowDataBound="historyGridView_RowDataBound"></asp:GridView>
             </div>
         </div>
     </div>
