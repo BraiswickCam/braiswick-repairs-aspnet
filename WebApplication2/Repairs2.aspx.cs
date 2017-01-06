@@ -27,6 +27,7 @@ namespace WebApplication2
             {
                 dc.AllowDBNull = true;
             }
+            if (repair != null) saveButton.Text = "Update";
         }
 
         protected void LoadRepair(string ID)
