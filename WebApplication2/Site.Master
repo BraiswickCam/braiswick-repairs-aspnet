@@ -80,7 +80,8 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                <p>&copy; <%: DateTime.Now.Year %> - Braiswick Photographic</p>
+                <p>For support, email <a href="mailto:a.dunne@braiswick.co.uk?subject=Repairs%20help">a.dunne@braiswick.co.uk</a></p>
             </footer>
         </div>
     </form>
