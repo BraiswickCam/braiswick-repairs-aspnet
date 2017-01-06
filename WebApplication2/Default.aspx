@@ -7,6 +7,10 @@ $(document).ready(function(){
     $('.photogButtons').hide();
     $('.lapButtons').hide();
     $('.camButtons').hide();
+
+    $('.outHead').animate({ fontSize: '+=10px' });
+    $('.recHead').animate({ fontSize: '+=10px' });
+
     var viewParam = $.url(window.location.href).param('view');
     if (viewParam == 'repairs') {
         $('#outcollapse').collapse("show");
@@ -16,6 +20,19 @@ $(document).ready(function(){
         $('#outcollapse').collapse("show");
         $('#recentcollapse').collapse("show");
     }
+
+    //$('#outcollapse').on('hide.bs.collapse', function () {
+    //    $('.outHead').animate({ fontSize: '+=10px' });
+    //});
+    //$('#outcollapse').on('show.bs.collapse', function () {
+    //    $('.outHead').animate({ fontSize: '-=10px' });
+    //});
+    //$('#recentcollapse').on('hide.bs.collapse', function () {
+    //    $('.recHead').animate({ fontSize: '+=10px' });
+    //});
+    //$('#recentcollapse').on('show.bs.collapse', function () {
+    //    $('.recHead').animate({ fontSize: '-=10px' });
+    //});
 });
 
 </script>
@@ -119,7 +136,7 @@ $(document).ready(function(){
             <div class="col-xs-12 col-md-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading" data-toggle="collapse" data-target="#outcollapse" style="cursor: pointer;">
-                        <h4 class="panel-title panel-title2 collapsed" data-toggle="collapse" data-target='#outcollapse'><span class="glyphicon glyphicon-wrench"></span> Outstanding Repairs <span class="badge" id="outRepairsBadge" runat="server"></span></h4>
+                        <h4 class="panel-title panel-title2 collapsed outHead" data-toggle="collapse" data-target='#outcollapse'><span class="glyphicon glyphicon-wrench outHead"></span> Outstanding Repairs <span class="badge outHead" id="outRepairsBadge" runat="server"></span></h4>
                     </div>
                     <div class="panel-collapse collapse" id="outcollapse">
                         <div class="panel-body">
@@ -133,7 +150,7 @@ $(document).ready(function(){
             <div class="col-xs-12 col-md-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading" data-toggle="collapse" data-target="#recentcollapse" style="cursor: pointer;">
-                        <h4 class="panel-title panel-title2 collapsed" data-toggle="collapse" data-target="#recentcollapse"><span class="glyphicon glyphicon-time"></span> Recent Activity (last 3 days) <span class="badge" id="recentBadge" runat="server"></span></h4>
+                        <h4 class="panel-title panel-title2 collapsed recHead" data-toggle="collapse" data-target="#recentcollapse"><span class="glyphicon glyphicon-time recHead"></span> Recent Activity (last 3 days) <span class="badge recHead" id="recentBadge" runat="server"></span></h4>
                     </div>
                     <div class="panel-collapse collapse" id="recentcollapse">
                         <div class="panel-body">
