@@ -48,8 +48,53 @@ namespace WebApplication2
                     hp.CssClass = "btn btn-primary";
                     hp.NavigateUrl = "~/Repairs2.aspx?repairID=" + hp.Text;
                     gr.Cells[0].Controls.Add(hp);
+
+                    if (!IsPostBack)
+                    {
+                        int camID = 1, camSerial = 11, camMake = 12, camModel = 13, lapID = 2, lapSerial = 14, lapMake = 15, lapModel = 16,
+                            photogID = 4, photogInitials = 19, photogName = 18, photogOffice = 20, kitID = 3, kitPH = 17;
+
+                        if (gr.Cells[camID].Text != "0" && gr.Cells[camID].Text != "&nbsp;")
+                        {
+                            string idHolder = gr.Cells[camID].Text;
+                            gr.Cells[camID].Text = String.Format("<a href=\"Cameras.aspx?CameraID={0}\" class=\"btn btn-default\" data-toggle=\"tooltip\" data-placement=\"right\" data-html=\"true\" title=\"{1}</br>{2}</br>{3}\">{0}</a>",
+                                idHolder,
+                                gr.Cells[camSerial].Text,
+                                gr.Cells[camMake].Text,
+                                gr.Cells[camModel].Text);
+                        }
+
+                        if (gr.Cells[lapID].Text != "0" && gr.Cells[lapID].Text != "&nbsp;")
+                        {
+                            string idHolder = gr.Cells[lapID].Text;
+                            gr.Cells[lapID].Text = String.Format("<a href=\"Laptops.aspx?LaptopID={0}\" class=\"btn btn-default\" data-toggle=\"tooltip\" data-placement=\"right\" data-html=\"true\" title=\"{1}</br>{2}</br>{3}\">{0}</a>",
+                                idHolder,
+                                gr.Cells[lapSerial].Text,
+                                gr.Cells[lapMake].Text,
+                                gr.Cells[lapModel].Text);
+                        }
+
+                        if (gr.Cells[photogID].Text != "0" && gr.Cells[photogID].Text != "&nbsp;")
+                        {
+                            string idHolder = gr.Cells[photogID].Text;
+                            gr.Cells[photogID].Text = String.Format("<a href=\"PhotogDetails.aspx?PhotogID={0}\" class=\"btn btn-default\" data-toggle=\"tooltip\" data-placement=\"right\" data-html=\"true\" title=\"{1}</br>{2}</br>{3}\">{0}</a>",
+                                idHolder,
+                                gr.Cells[photogInitials].Text,
+                                gr.Cells[photogName].Text,
+                                gr.Cells[photogOffice].Text);
+                        }
+
+                        if (gr.Cells[kitID].Text != "0" && gr.Cells[kitPH].Text != "&nbsp;")
+                        {
+                            string idHolder = gr.Cells[kitID].Text;
+                            gr.Cells[kitID].Text = String.Format("<a class=\"btn btn-default\" href=\"Kits2.aspx?KitID={0}\">{1}</a>", idHolder, gr.Cells[kitPH].Text);
+                        }
+                    }
+
                 }
                 saveButton.Text = "Update";
+
+
             }
         }
 
@@ -87,6 +132,13 @@ namespace WebApplication2
             else NewDetails();
         }
 
+        protected void historyGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            for (int i = 11; i <= 20; i++)
+            {
+                e.Row.Cells[i].Visible = false;
+            }
+        }
     }
 
     public class Laptop
@@ -209,7 +261,12 @@ namespace WebApplication2
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT * FROM Repairs WHERE LaptopID = @LaptopID ORDER BY RepairID DESC";
+                command.CommandText = "SELECT Repairs.*, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Kits.KitPH, Photographers.Name, Photographers.Initials, Photographers.Office FROM Repairs " +
+                    "LEFT JOIN Cameras ON Repairs.CameraID = Cameras.CameraID " +
+                    "LEFT JOIN Laptops ON Repairs.LaptopID = Laptops.LaptopID " + 
+                    "LEFT JOIN Kits ON Repairs.KitID = Kits.KitID " + 
+                    "LEFT JOIN Photographers ON Repairs.PhotogID = Photographers.ID " + 
+                    "WHERE Repairs.LaptopID = @LaptopID ORDER BY RepairID DESC";
                 command.Parameters.Add(new SQLiteParameter("@LaptopID", this.LaptopID));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
