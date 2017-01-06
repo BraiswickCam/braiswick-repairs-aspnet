@@ -198,7 +198,7 @@ namespace WebApplication2
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT * FROM Repairs WHERE CameraID = @CameraID";
+                command.CommandText = "SELECT * FROM Repairs WHERE CameraID = @CameraID ORDER BY RepairID DESC";
                 command.Parameters.Add(new SQLiteParameter("@CameraID", this.CameraID));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {

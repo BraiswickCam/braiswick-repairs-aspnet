@@ -209,7 +209,7 @@ namespace WebApplication2
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT * FROM Repairs WHERE LaptopID = @LaptopID";
+                command.CommandText = "SELECT * FROM Repairs WHERE LaptopID = @LaptopID ORDER BY RepairID DESC";
                 command.Parameters.Add(new SQLiteParameter("@LaptopID", this.LaptopID));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
