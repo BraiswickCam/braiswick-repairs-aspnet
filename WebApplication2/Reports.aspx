@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <asp:GridView ID="resultsGrid" runat="server"></asp:GridView>
+                <asp:GridView ID="resultsGrid" runat="server" CssClass="table table-striped" GridLines="None"></asp:GridView>
             </div>
         </div>
     </div>
