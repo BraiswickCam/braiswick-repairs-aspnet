@@ -78,6 +78,30 @@
 
     </style>
 
+    <script>
+function searchEquip() {
+  // Declare variables
+  var input, filter, table, tr, td, i, ii;
+  input = document.getElementById("equipSearch");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("<%= equipGrid.ClientID %>");
+  tr = table.getElementsByTagName("tr");
+  ii = document.getElementById("searchDrop").value;
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[ii];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
     <div class="container-fluid">
         <div class="row top20">
             <div class="col-xs-12 text-center">
@@ -90,6 +114,17 @@
         <div class="row top20">
             <div class="col-xs-12 text-center">
                 <a id="newEquipLink" class="btn btn-primary" runat="server">Add New <asp:Label ID="equipLabel" runat="server"></asp:Label></a>
+            </div>
+        </div>
+        <div class="row top20">
+            <div class="col-xs-12">
+                <input type="text" id="equipSearch" onkeyup="searchEquip()" placeholder="Search for equipment..">
+                <select name="searchOptions" id="searchDrop" onchange="searchEquip()">
+                    <option value="1">Serial Number</option>
+                    <option value="2">Make</option>
+                    <option value="3">Model</option>
+                    <option value="4">OS</option>
+                </select>
             </div>
         </div>
         <div class="row top20">
