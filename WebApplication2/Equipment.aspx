@@ -101,35 +101,36 @@
     <script>
         function searchEquip() {
           // Declare variables
-          var input, filter, table, tr, td, i, ii;
+          var input, filter, table, tr, td, i, ii, current;
           input = document.getElementById("equipSearch");
           filter = input.value.toUpperCase();
           table = document.getElementById("<%= equipGrid.ClientID %>");
           tr = table.getElementsByTagName("tr");
-          ii = document.getElementById("searchDrop").value;
+          current = document.getElementById("<%= equipDrop.ClientID %>");
+            if (current.value == "camera") {
+                ii = 4;
+            } else {
+                ii = 5;
+            }
 
           // Loop through all table rows, and hide those who don't match the search query
-          for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[ii];
-            if (td) {
-              if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
+          for (i = 1; i < tr.length; i++) {
+              var count = 0;
+              for (j = 1; j < ii; j++) {
+                  td = tr[i].getElementsByTagName("td")[j];
+                  if (td) {
+                      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                          count = count + 1;
+                      }
+                  }
+              }
+              if (count > 0) {
+                  tr[i].style.display = "";
               } else {
-                tr[i].style.display = "none";
+                  tr[i].style.display = "none";
               }
             }
           }
-        }
-
-        function equipCheck() {
-            var current = document.getElementById("<%= equipDrop.ClientID %>");
-            if (current.value == "camera") {
-                document.getElementById("optOS").hidden = true;
-            }
-            if (current.value == "laptop") {
-                document.getElementById("optOS").hidden = false;
-            }
-        }
     </script>
 
     <div class="container-fluid">
@@ -151,12 +152,6 @@
                 <div class="inner-addon left-addon">
                     <i class="glyphicon glyphicon-search"></i>
                     <input type="text" id="equipSearch" onkeyup="searchEquip()" placeholder="Search for equipment.." class="form-control">
-                    <select name="searchOptions" id="searchDrop" onchange="searchEquip()" class="form-control" style="max-width: 250px;" onclick="equipCheck()">
-                        <option value="1">Serial Number</option>
-                        <option value="2">Make</option>
-                        <option value="3">Model</option>
-                        <option value="4" id="optOS">OS</option>
-                    </select>
                 </div>
             </div>
         </div>
