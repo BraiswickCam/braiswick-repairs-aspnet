@@ -106,11 +106,21 @@
           filter = input.value.toUpperCase();
           table = document.getElementById("<%= equipGrid.ClientID %>");
           tr = table.getElementsByTagName("tr");
-          current = document.getElementById("<%= equipDrop.ClientID %>");
-            if (current.value == "camera") {
-                ii = 4;
+          <%--current = document.getElementById("<%= equipDrop.ClientID %>");
+            if (current != null) {
+                if (current.value == "laptop") {
+                    ii = 5;
+                } else {
+                    ii = 4;
+                }
             } else {
+                ii = 4;
+            }--%>
+
+            if (tr[0].getElementsByTagName("th")[4].getElementsByTagName("a")[0].innerHTML == "OS") {
                 ii = 5;
+            } else {
+                ii = 4;
             }
 
           // Loop through all table rows, and hide those who don't match the search query
