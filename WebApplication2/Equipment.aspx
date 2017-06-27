@@ -126,11 +126,20 @@
           // Loop through all table rows, and hide those who don't match the search query
           for (i = 1; i < tr.length; i++) {
               var count = 0;
-              for (j = 1; j < ii; j++) {
-                  td = tr[i].getElementsByTagName("td")[j];
-                  if (td) {
-                      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                          count = count + 1;
+              for (j = 0; j < ii; j++) {
+                  if (j == 0) {
+                      td = tr[i].getElementsByTagName("td")[0].getElementsByTagName("a")[0];
+                      if (td) {
+                          if (td.innerText.toUpperCase().indexOf(filter) > -1) {
+                              count = count + 1;
+                          }
+                      }
+                  } else {
+                      td = tr[i].getElementsByTagName("td")[j];
+                      if (td) {
+                          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                              count = count + 1;
+                          }
                       }
                   }
               }
