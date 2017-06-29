@@ -76,7 +76,65 @@
             margin-top: 15px;
         }
 
+        /* enable absolute positioning */
+        .inner-addon { 
+            position: relative; 
+        }
+
+        /* style icon */
+        .inner-addon .glyphicon {
+          position: absolute;
+          padding: 10px;
+          pointer-events: none;
+        }
+
+        /* align icon */
+        .left-addon .glyphicon  { left:  0px;}
+        .right-addon .glyphicon { right: 0px;}
+
+        /* add padding  */
+        .left-addon input  { padding-left:  30px; }
+        .right-addon input { padding-right: 30px; }
+
     </style>
+
+    <script>
+        function searchEquip() {
+          // Declare variables
+          var input, filter, table, tr, td, i, ii, current;
+          input = document.getElementById("equipSearch");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("<%= GridView1.ClientID %>");
+          tr = table.getElementsByTagName("tr");
+
+          // Loop through all table rows, and hide those who don't match the search query
+          for (i = 1; i < tr.length; i++) {
+              var count = 0;
+              for (j = 0; j < 3; j++) {
+                  if (j == 0) {
+                      td = tr[i].getElementsByTagName("td")[0].getElementsByTagName("a")[0];
+                      if (td) {
+                          if (td.innerText.toUpperCase().indexOf(filter) > -1) {
+                              count = count + 1;
+                          }
+                      }
+                  } else {
+                      td = tr[i].getElementsByTagName("td")[j];
+                      if (td) {
+                          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                              count = count + 1;
+                          }
+                      }
+                  }
+              }
+              if (count > 0) {
+                  tr[i].style.display = "";
+              } else {
+                  tr[i].style.display = "none";
+              }
+            }
+          }
+    </script>
 
     <div class="container-fluid">
         <div class="row">
@@ -87,6 +145,14 @@
         <div class="row">
             <div class="col-xs-12 text-center">
                 <a class="btn btn-primary" href="PhotogDetails.aspx?PhotogID=0">Add New Photographer</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 form-inline">
+                <div class="inner-addon left-addon">
+                    <i class="glyphicon glyphicon-search"></i>
+                    <input type="text" id="equipSearch" onkeyup="searchEquip()" placeholder="Search for photographers.." class="form-control">
+                </div>
             </div>
         </div>
         <div class="row">
