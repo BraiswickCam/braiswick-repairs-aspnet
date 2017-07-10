@@ -8,8 +8,8 @@ $(document).ready(function(){
     $('.lapButtons').hide();
     $('.camButtons').hide();
 
-    $('.outHead').animate({ fontSize: '+=10px' });
-    $('.recHead').animate({ fontSize: '+=10px' });
+    //$('.outHead').animate({ fontSize: '+=10px' });
+    //$('.recHead').animate({ fontSize: '+=10px' });
 
     var viewParam = $.url(window.location.href).param('view');
     if (viewParam == 'repairs') {
