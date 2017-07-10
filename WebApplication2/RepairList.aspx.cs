@@ -17,6 +17,13 @@ namespace WebApplication2
         {
             if (!IsPostBack)
             {
+                if (Request.QueryString["view"] != null)
+                {
+                    string view = Request.QueryString["view"];
+                    if (view == "repairsOnly") { repairFilter.Checked = true; }
+                    else if (view == "all") { repairFilter.Checked = false; }
+                    else { repairFilter.Checked = false; }
+                }
                 LoadData();
             }
         }
