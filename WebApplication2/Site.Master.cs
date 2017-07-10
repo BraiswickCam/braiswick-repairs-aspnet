@@ -71,7 +71,7 @@ namespace WebApplication2
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            outRepairsBadge.InnerText = OutstandingRepairs();
+            //outRepairsBadge.InnerText = OutstandingRepairs();
         }
 
         protected string OutstandingRepairs()
