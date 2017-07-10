@@ -23,7 +23,7 @@ namespace WebApplication2
 
         protected void LoadData()
         {
-            DataTable dt = GetRepairList();
+            DataTable dt = GetRepairList(repairFilter.Checked);
             repairListGrid.DataSource = dt;
             repairListGrid.DataBind();
             AddLinks();
@@ -38,15 +38,16 @@ namespace WebApplication2
             }
         }
 
-        protected DataTable GetRepairList()
+        protected DataTable GetRepairList(bool filter)
         {
+            string filterText = filter ? " WHERE Repairs.Date IS NOT Repairs.FixedDate " : " ";
             SQLiteCommand command = m_dbConnection.CreateCommand();
-            command.CommandText = "SELECT Repairs.*, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS, Kits.KitPH, Photographers.Name, Photographers.Initials, Photographers.Office FROM Repairs "
+            command.CommandText = String.Format("SELECT Repairs.*, Cameras.SerialNumber, Cameras.Make, Cameras.Model, Laptops.SerialNumber, Laptops.Make, Laptops.Model, Laptops.OS, Kits.KitPH, Photographers.Name, Photographers.Initials, Photographers.Office FROM Repairs "
                 + "LEFT JOIN Cameras ON Repairs.CameraID = Cameras.CameraID "
                 + "LEFT JOIN Laptops ON Repairs.LaptopID = Laptops.LaptopID "
                 + "LEFT JOIN Kits ON Repairs.KitID = Kits.KitID "
-                + "LEFT JOIN Photographers ON Repairs.PhotogID = Photographers.ID "
-                + "ORDER BY RepairID DESC";
+                + "LEFT JOIN Photographers ON Repairs.PhotogID = Photographers.ID{0}"
+                + "ORDER BY RepairID DESC", filterText);
             using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
             {
                 sda.SelectCommand = command;
@@ -118,6 +119,11 @@ namespace WebApplication2
         protected void repairListGrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             repairListGrid.PageIndex = e.NewPageIndex;
+            LoadData();
+        }
+
+        protected void repairFilter_CheckedChanged(object sender, EventArgs e)
+        {
             LoadData();
         }
     }
