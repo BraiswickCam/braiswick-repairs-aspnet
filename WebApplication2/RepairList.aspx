@@ -13,7 +13,7 @@
     </style>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12 text-center">
                 <asp:CheckBox ID="repairFilter" runat="server" Text="Repairs only" OnCheckedChanged="repairFilter_CheckedChanged" AutoPostBack="true" CssClass="checkbox" />
             </div>
         </div>
