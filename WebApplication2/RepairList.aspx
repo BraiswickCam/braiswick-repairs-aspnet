@@ -13,7 +13,7 @@
     </style>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-12 text-center">
+            <div class="col-xs-12">
                 <asp:GridView ID="repairListGrid" runat="server" GridLines="None" CssClass="table table-striped table-hover" AllowPaging="true" PageSize="50" OnPageIndexChanging="repairListGrid_PageIndexChanging" PagerSettings-Position="TopAndBottom" PagerStyle-HorizontalAlign="Center" PagerSettings-Mode="Numeric" PagerStyle-CssClass="cssPager"></asp:GridView>
             </div>
         </div>
