@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="WebApplication2.Reports" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script src="Scripts/purl.js"></script>
+    <script src="https://use.fontawesome.com/1acc7e1b75.js"></script>
     <script>
         $(document).ready(function () {
             var viewParam = $.url(window.location.href).param('rep');
@@ -44,16 +45,16 @@
                             <div class="col-sm-6">
                                 <h4><span class="glyphicon glyphicon-user"></span> Photographers</h4>
                                 <ul style="list-style: none; padding-left: 0;">
-                                    <li><a href="Reports.aspx?rep=repairCost">Repair cost per photographer</a></li>
-                                    <li><a href="Reports.aspx?rep=RepairCount">Repairs per photographer</a></li>
-                                    <li><a href="Reports.aspx?rep=OfficeCountCost">Repairs per office</a></li>
+                                    <li><a href="Reports.aspx?rep=repairCost"><i class="fa fa-wrench"></i> Repair cost per photographer</a></li>
+                                    <li><a href="Reports.aspx?rep=RepairCount"><i class="fa fa-wrench"></i> Repairs per photographer</a></li>
+                                    <li><a href="Reports.aspx?rep=OfficeCountCost"><i class="fa fa-wrench"></i> Repairs per office</a></li>
                                 </ul>
                             </div>
                             <div class="col-sm-6">
                                 <h4><span class="glyphicon glyphicon-camera"></span> Equipment</h4>
                                 <ul style="list-style: none; padding-left: 0;">
-                                    <li><a href="Reports.aspx?rep=OSCount">Laptop operating systems</a></li>
-                                    <li><a href="Reports.aspx?rep=MakeCount">Laptop manufacturers</a></li>
+                                    <li><a href="Reports.aspx?rep=OSCount"><i class="fa fa-laptop"></i> Laptop operating systems</a></li>
+                                    <li><a href="Reports.aspx?rep=MakeCount"><i class="fa fa-laptop"></i> Laptop manufacturers</a></li>
                                 </ul>
                             </div>
                         </div>
