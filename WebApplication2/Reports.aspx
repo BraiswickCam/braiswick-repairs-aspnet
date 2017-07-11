@@ -1,5 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="WebApplication2.Reports" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <script src="Scripts/purl.js"></script>
+    <script>
+        $(document).ready(function () {
+            var viewParam = $.url(window.location.href).param('rep');
+            if (typeof viewParam === "undefined") {
+                $('#reportCollapse').collapse("show");
+            }
+        });
+    </script>
     <style>
         * {
             font-family: Ubuntu, sans-serif;
