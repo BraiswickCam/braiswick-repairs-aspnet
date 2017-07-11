@@ -15,11 +15,41 @@ namespace WebApplication2
         SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", "C:\\datatest\\2016repairhistory.sqlite"));
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["rep"] == "repairCost")
-            {
-                BindData(RepairCost());
-            }
+            LoadReport();
+        }
 
+        protected void LoadReport()
+        {
+            if (Request.QueryString["rep"] != null)
+            {
+                string report = Request.QueryString["rep"];
+
+                if (report == "repairCost")
+                {
+                    BindData(RepairCost());
+                    foreach (GridViewRow gvr in resultsGrid.Rows)
+                    {
+                        int totalCol = gvr.Cells.Count - 1;
+                        if (gvr.Cells[totalCol].Text != "0" && gvr.Cells[totalCol].Text != "&nbsp;")
+                        {
+                            string hold = gvr.Cells[totalCol].Text;
+                            gvr.Cells[totalCol].Text = String.Format("£{0}", hold);
+                        }
+                        else
+                        {
+                            gvr.Cells[totalCol].Text = "&nbsp;";
+                        }
+                    }
+                }
+                else if (report == "OSCount")
+                {
+                    BindData(OSCount());
+                }
+                else if (report == "MakeCount")
+                {
+                    BindData(MakeCount());
+                }
+            }
         }
 
         protected DataTable RepairCost()
@@ -28,6 +58,42 @@ namespace WebApplication2
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT Photographers.ID, Photographers.Name, Photographers.Initials, Photographers.Active, Photographers.Office, sum(Repairs.RepairCost) AS \"Total Repair Cost\" FROM Photographers LEFT JOIN Repairs ON Photographers.ID = Repairs.PhotogID GROUP BY Photographers.ID ORDER BY \"Total Repair Cost\" DESC";
+                using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
+                {
+                    sda.SelectCommand = command;
+                    using (DataTable dt = new DataTable())
+                    {
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        protected DataTable OSCount()
+        {
+            using (m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "SELECT OS, count(OS) AS \"Count\" FROM Laptops WHERE Active = 1 GROUP BY OS ORDER BY count(OS) DESC";
+                using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
+                {
+                    sda.SelectCommand = command;
+                    using (DataTable dt = new DataTable())
+                    {
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        protected DataTable MakeCount()
+        {
+            using (m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "SELECT Make, count(Make) AS \"Count\" FROM Laptops WHERE Active = 1 GROUP BY Make ORDER BY count(Make) DESC";
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
                     sda.SelectCommand = command;
