@@ -35,7 +35,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <div class="panel panel-primary">
+                <div class="panel panel-primary" style="margin-top: 20px;">
                     <div class="panel-heading" data-toggle="collapse" data-target="#reportCollapse" style="cursor: pointer;">
                         <h4 class="panel-title panel-title2 collapsed" data-toggle="collapse" data-target="#reportCollapse">Reports</h4>
                     </div>
@@ -45,6 +45,8 @@
                                 <h4><span class="glyphicon glyphicon-user"></span> Photographers</h4>
                                 <ul style="list-style: none; padding-left: 0;">
                                     <li><a href="Reports.aspx?rep=repairCost">Repair cost per photographer</a></li>
+                                    <li><a href="Reports.aspx?rep=RepairCount">Repairs per photographer</a></li>
+                                    <li><a href="Reports.aspx?rep=OfficeCountCost">Repairs per office</a></li>
                                 </ul>
                             </div>
                             <div class="col-sm-6">
