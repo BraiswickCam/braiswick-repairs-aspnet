@@ -12,7 +12,7 @@ namespace WebApplication2
 {
     public partial class Reports : System.Web.UI.Page
     {
-        SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", "C:\\datatest\\2016repairhistory.sqlite"));
+        SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation));
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadReport();
