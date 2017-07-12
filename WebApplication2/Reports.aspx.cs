@@ -48,6 +48,10 @@ namespace WebApplication2
                 {
                     AssignedLaptopPercent();
                 }
+                else if (report == "AssignedCameraPercent")
+                {
+                    AssignedCameraPercent();
+                }
             }
         }
 
@@ -99,9 +103,26 @@ namespace WebApplication2
 
         protected void AssignedLaptopPercent()
         {
-            BindData(QueryDatabase("SELECT count(Laptops.LaptopID) AS \"Total Laptops\", count(Kits.LaptopID) + count(Kits.SpareLaptopID) AS \"Assigned Laptops\", " +
-                    "round(((count(Kits.LaptopID) + count(Kits.SpareLaptopID) + 0.0) / count(Laptops.LaptopID) + 0.0) * 100.0, 2) AS \"Assigned Percentage\" FROM Laptops " +
+            BindData(QueryDatabase("SELECT count(Laptops.LaptopID) AS \"Total Laptops\", count(distinct Kits.LaptopID) + count(distinct Kits.SpareLaptopID) AS \"Assigned Laptops\", " +
+                    "round(((count(distinct Kits.LaptopID) + count(distinct Kits.SpareLaptopID) + 0.0) / count(Laptops.LaptopID) + 0.0) * 100.0, 2) AS \"Assigned Percentage\" FROM Laptops " +
                     "LEFT JOIN Kits ON Kits.LaptopID = Laptops.LaptopID OR Kits.SpareLaptopID = Laptops.LaptopID"));
+
+            foreach (GridViewRow gvr in resultsGrid.Rows)
+            {
+                int totalCol = gvr.Cells.Count - 1;
+                if (gvr.Cells[totalCol].Text != "0" && gvr.Cells[totalCol].Text != "&nbsp;")
+                {
+                    string hold = gvr.Cells[totalCol].Text;
+                    gvr.Cells[totalCol].Text = String.Format("{0}%", hold);
+                }
+            }
+        }
+
+        protected void AssignedCameraPercent()
+        {
+            BindData(QueryDatabase("SELECT count(Cameras.CameraID) AS \"Total Cameras\", count(distinct Kits.CameraID) + count(distinct Kits.SpareCameraID) AS \"Assigned Cameras\", " +
+                "round(((count(distinct Kits.CameraID) + count(distinct Kits.SpareCameraID) + 0.0) / count(Cameras.CameraID) + 0.0) * 100.0, 2) AS \"Assigned Percentage\" FROM Cameras " +
+                "LEFT JOIN Kits ON Kits.CameraID = Cameras.CameraID OR Kits.SpareCameraID = Cameras.CameraID"));
 
             foreach (GridViewRow gvr in resultsGrid.Rows)
             {
