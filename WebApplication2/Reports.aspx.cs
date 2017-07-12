@@ -44,6 +44,10 @@ namespace WebApplication2
                 {
                     OfficeCountCost();
                 }
+                else if (report == "AssignedLaptopPercent")
+                {
+                    AssignedLaptopPercent();
+                }
             }
         }
 
@@ -83,6 +87,7 @@ namespace WebApplication2
         {
             BindData(QueryDatabase("SELECT Photographers.ID, Photographers.Name, Photographers.Initials, Photographers.Office, count(Repairs.RepairID) AS \"Repair Count\" FROM Photographers " +
                     "LEFT JOIN Repairs ON Photographers.ID = Repairs.PhotogID WHERE Repairs.Date IS NOT Repairs.FixedDate GROUP BY Repairs.PhotogID ORDER BY count(Repairs.RepairID) DESC"));
+
             AddPhotogIDLinks(0, 1);
         }
 
@@ -97,6 +102,16 @@ namespace WebApplication2
             BindData(QueryDatabase("SELECT count(Laptops.LaptopID) AS \"Total Laptops\", count(Kits.LaptopID) + count(Kits.SpareLaptopID) AS \"Assigned Laptops\", " +
                     "round(((count(Kits.LaptopID) + count(Kits.SpareLaptopID) + 0.0) / count(Laptops.LaptopID) + 0.0) * 100.0, 2) AS \"Assigned Percentage\" FROM Laptops " +
                     "LEFT JOIN Kits ON Kits.LaptopID = Laptops.LaptopID OR Kits.SpareLaptopID = Laptops.LaptopID"));
+
+            foreach (GridViewRow gvr in resultsGrid.Rows)
+            {
+                int totalCol = gvr.Cells.Count - 1;
+                if (gvr.Cells[totalCol].Text != "0" && gvr.Cells[totalCol].Text != "&nbsp;")
+                {
+                    string hold = gvr.Cells[totalCol].Text;
+                    gvr.Cells[totalCol].Text = String.Format("{0}%", hold);
+                }
+            }
         }
 
         protected DataTable QueryDatabase(string query)

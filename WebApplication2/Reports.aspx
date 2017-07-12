@@ -55,6 +55,7 @@
                                 <ul style="list-style: none; padding-left: 0;">
                                     <li><a href="Reports.aspx?rep=OSCount"><i class="fa fa-laptop"></i> Laptop operating systems</a></li>
                                     <li><a href="Reports.aspx?rep=MakeCount"><i class="fa fa-laptop"></i> Laptop manufacturers</a></li>
+                                    <li><a href="Reports.aspx?rep=AssignedLaptopPercent"><i class="fa fa-laptop"></i> % of Laptops assigned to kits</a></li>
                                 </ul>
                             </div>
                         </div>
