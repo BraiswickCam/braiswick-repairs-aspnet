@@ -52,6 +52,10 @@ namespace WebApplication2
                 {
                     AssignedCameraPercent();
                 }
+                else if (report == "LaptopRepairCount")
+                {
+                    LaptopRepairCount();
+                }
             }
         }
 
@@ -133,6 +137,12 @@ namespace WebApplication2
                     gvr.Cells[totalCol].Text = String.Format("{0}%", hold);
                 }
             }
+        }
+
+        protected void LaptopRepairCount()
+        {
+            BindData(QueryDatabase("SELECT Laptops.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, count(Repairs.RepairID) AS \"Repairs Total\" FROM Laptops " +
+                "LEFT JOIN Repairs ON Laptops.LaptopID = Repairs.LaptopID WHERE Repairs.Date IS NOT Repairs.FixedDate AND Laptops.Active = 1 GROUP BY Laptops.LaptopID ORDER BY \"Repairs Total\" DESC"));
         }
 
         protected DataTable QueryDatabase(string query)
