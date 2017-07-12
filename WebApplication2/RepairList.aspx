@@ -6,6 +6,9 @@
         });
     </script>
     <style>
+        * {
+            font-family: Ubuntu, sans-serif;
+        }
         .cssPager td {
             padding-left: 4px;
             padding-right: 4px;
