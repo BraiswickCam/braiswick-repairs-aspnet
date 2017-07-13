@@ -144,7 +144,6 @@ namespace WebApplication2
                     HyperLink hp = new HyperLink();
                     hp.Target = "_blank";
                     hp.ToolTip = "Edit details for " + gvr.Cells[colIndexName].Text;
-                    //hp.Text = gr.Cells[0].Text;
                     hp.Text = String.Format("<span class=\"glyphicon glyphicon-edit\"></span> {0}", gvr.Cells[0].Text);
                     hp.CssClass = "btn btn-primary btn-sm";
                     hp.NavigateUrl = "~/PhotogDetails.aspx?PhotogID=" + gvr.Cells[0].Text;
