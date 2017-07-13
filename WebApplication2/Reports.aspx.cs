@@ -64,19 +64,7 @@ namespace WebApplication2
             BindData(QueryDatabase("SELECT Photographers.ID, Photographers.Name, Photographers.Initials, Photographers.Active, Photographers.Office, sum(Repairs.RepairCost) AS \"Total Repair Cost\" FROM Photographers " + 
                 "LEFT JOIN Repairs ON Photographers.ID = Repairs.PhotogID WHERE Repairs.RepairCost > 0 GROUP BY Photographers.ID ORDER BY \"Total Repair Cost\" DESC"));
 
-            foreach (GridViewRow gvr in resultsGrid.Rows)
-            {
-                int totalCol = gvr.Cells.Count - 1;
-                if (gvr.Cells[totalCol].Text != "0" && gvr.Cells[totalCol].Text != "&nbsp;")
-                {
-                    string hold = gvr.Cells[totalCol].Text;
-                    gvr.Cells[totalCol].Text = String.Format("£{0}", hold);
-                }
-                else
-                {
-                    gvr.Cells[totalCol].Text = "&nbsp;";
-                }
-            }
+            AddChars("£", "", 5);
 
             AddPhotogIDLinks(0, 1);
         }
@@ -111,15 +99,7 @@ namespace WebApplication2
                     "round(((count(distinct Kits.LaptopID) + count(distinct Kits.SpareLaptopID) + 0.0) / count(Laptops.LaptopID) + 0.0) * 100.0, 2) AS \"Assigned Percentage\" FROM Laptops " +
                     "LEFT JOIN Kits ON Kits.LaptopID = Laptops.LaptopID OR Kits.SpareLaptopID = Laptops.LaptopID"));
 
-            foreach (GridViewRow gvr in resultsGrid.Rows)
-            {
-                int totalCol = gvr.Cells.Count - 1;
-                if (gvr.Cells[totalCol].Text != "0" && gvr.Cells[totalCol].Text != "&nbsp;")
-                {
-                    string hold = gvr.Cells[totalCol].Text;
-                    gvr.Cells[totalCol].Text = String.Format("{0}%", hold);
-                }
-            }
+            AddChars("", "%", 2);
         }
 
         protected void AssignedCameraPercent()
@@ -128,15 +108,7 @@ namespace WebApplication2
                 "round(((count(distinct Kits.CameraID) + count(distinct Kits.SpareCameraID) + 0.0) / count(Cameras.CameraID) + 0.0) * 100.0, 2) AS \"Assigned Percentage\" FROM Cameras " +
                 "LEFT JOIN Kits ON Kits.CameraID = Cameras.CameraID OR Kits.SpareCameraID = Cameras.CameraID"));
 
-            foreach (GridViewRow gvr in resultsGrid.Rows)
-            {
-                int totalCol = gvr.Cells.Count - 1;
-                if (gvr.Cells[totalCol].Text != "0" && gvr.Cells[totalCol].Text != "&nbsp;")
-                {
-                    string hold = gvr.Cells[totalCol].Text;
-                    gvr.Cells[totalCol].Text = String.Format("{0}%", hold);
-                }
-            }
+            AddChars("", "%", 2);
         }
 
         protected void LaptopRepairCount()
@@ -177,6 +149,18 @@ namespace WebApplication2
                     hp.CssClass = "btn btn-primary btn-sm";
                     hp.NavigateUrl = "~/PhotogDetails.aspx?PhotogID=" + gvr.Cells[0].Text;
                     gvr.Cells[0].Controls.Add(hp);
+                }
+            }
+        }
+
+        protected void AddChars(string preString, string postString, int index)
+        {
+            foreach (GridViewRow gvr in resultsGrid.Rows)
+            {
+                if (gvr.Cells[index].Text != "0" && gvr.Cells[index].Text != "&nbsp;")
+                {
+                    string hold = gvr.Cells[index].Text;
+                    gvr.Cells[index].Text = String.Format("{1}{0}{2}", hold, preString, postString);
                 }
             }
         }
