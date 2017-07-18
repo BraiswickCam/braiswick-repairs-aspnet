@@ -56,6 +56,10 @@ namespace WebApplication2
                 {
                     LaptopRepairCount();
                 }
+                else if (report == "CameraRepairCount")
+                {
+                    CameraRepairCount();
+                }
             }
         }
 
