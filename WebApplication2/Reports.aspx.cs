@@ -115,6 +115,16 @@ namespace WebApplication2
         {
             BindData(QueryDatabase("SELECT Laptops.LaptopID, Laptops.SerialNumber, Laptops.Make, Laptops.Model, count(Repairs.RepairID) AS \"Repairs Total\" FROM Laptops " +
                 "LEFT JOIN Repairs ON Laptops.LaptopID = Repairs.LaptopID WHERE Repairs.Date IS NOT Repairs.FixedDate AND Laptops.Active = 1 GROUP BY Laptops.LaptopID ORDER BY \"Repairs Total\" DESC"));
+
+            AddEquipmentIDLinks(0, 2, 3, "Laptop");
+        }
+
+        protected void CameraRepairCount()
+        {
+            BindData(QueryDatabase("SELECT Cameras.CameraID, Cameras.SerialNumber, Cameras.Make, Cameras.Model, count(Repairs.RepairID) AS \"Repairs Total\" FROM Cameras " +
+                "LEFT JOIN Repairs ON Cameras.CameraID = Repairs.CameraID WHERE Repairs.Date IS NOT Repairs.FixedDate AND Cameras.Active = 1 GROUP BY Cameras.CameraID ORDER BY \"Repairs Total\" DESC"));
+
+            AddEquipmentIDLinks(0, 2, 3, "Camera");
         }
 
         protected DataTable QueryDatabase(string query)
@@ -139,15 +149,32 @@ namespace WebApplication2
         {
             foreach (GridViewRow gvr in resultsGrid.Rows)
             {
-                if (gvr.Cells[0].Text != "0" && gvr.Cells[0].Text != "&nbsp;")
+                if (gvr.Cells[colIndexID].Text != "0" && gvr.Cells[colIndexID].Text != "&nbsp;")
                 {
                     HyperLink hp = new HyperLink();
                     hp.Target = "_blank";
                     hp.ToolTip = "Edit details for " + gvr.Cells[colIndexName].Text;
-                    hp.Text = String.Format("<span class=\"glyphicon glyphicon-edit\"></span> {0}", gvr.Cells[0].Text);
+                    hp.Text = String.Format("<span class=\"glyphicon glyphicon-edit\"></span> {0}", gvr.Cells[colIndexID].Text);
                     hp.CssClass = "btn btn-primary btn-sm";
-                    hp.NavigateUrl = "~/PhotogDetails.aspx?PhotogID=" + gvr.Cells[0].Text;
-                    gvr.Cells[0].Controls.Add(hp);
+                    hp.NavigateUrl = "~/PhotogDetails.aspx?PhotogID=" + gvr.Cells[colIndexID].Text;
+                    gvr.Cells[colIndexID].Controls.Add(hp);
+                }
+            }
+        }
+
+        protected void AddEquipmentIDLinks(int colIndexID, int colIndexMake, int colIndexModel, string equipmentType)
+        {
+            foreach (GridViewRow gvr in resultsGrid.Rows)
+            {
+                if (gvr.Cells[colIndexID].Text != "0" && gvr.Cells[colIndexID].Text != "&nbsp;")
+                {
+                    HyperLink hp = new HyperLink();
+                    hp.Target = "_blank";
+                    hp.ToolTip = String.Format("Edit details for {0} {1}", gvr.Cells[colIndexMake].Text, gvr.Cells[colIndexModel].Text);
+                    hp.Text = String.Format("<span class=\"glyphicon glyphicon-edit\"></span> {0}", gvr.Cells[colIndexID].Text);
+                    hp.CssClass = "btn btn-primary btn-sm";
+                    hp.NavigateUrl = String.Format("~/{1}s.aspx?{1}ID={0}", gvr.Cells[colIndexID].Text, equipmentType);
+                    gvr.Cells[colIndexID].Controls.Add(hp);
                 }
             }
         }
