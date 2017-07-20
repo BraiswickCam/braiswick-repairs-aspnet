@@ -101,7 +101,7 @@ namespace WebApplication2
         {
             BindData(QueryDatabase("SELECT count(Laptops.LaptopID) AS \"Total Laptops\", count(distinct Kits.LaptopID) + count(distinct Kits.SpareLaptopID) AS \"Assigned Laptops\", " +
                     "round(((count(distinct Kits.LaptopID) + count(distinct Kits.SpareLaptopID) + 0.0) / count(Laptops.LaptopID) + 0.0) * 100.0, 2) AS \"Assigned Percentage\" FROM Laptops " +
-                    "LEFT JOIN Kits ON Kits.LaptopID = Laptops.LaptopID OR Kits.SpareLaptopID = Laptops.LaptopID"));
+                    "LEFT JOIN Kits ON Kits.LaptopID = Laptops.LaptopID OR Kits.SpareLaptopID = Laptops.LaptopID WHERE Laptops.Active = 1"));
 
             AddChars("", "%", 2);
         }
@@ -110,7 +110,7 @@ namespace WebApplication2
         {
             BindData(QueryDatabase("SELECT count(Cameras.CameraID) AS \"Total Cameras\", count(distinct Kits.CameraID) + count(distinct Kits.SpareCameraID) AS \"Assigned Cameras\", " +
                 "round(((count(distinct Kits.CameraID) + count(distinct Kits.SpareCameraID) + 0.0) / count(Cameras.CameraID) + 0.0) * 100.0, 2) AS \"Assigned Percentage\" FROM Cameras " +
-                "LEFT JOIN Kits ON Kits.CameraID = Cameras.CameraID OR Kits.SpareCameraID = Cameras.CameraID"));
+                "LEFT JOIN Kits ON Kits.CameraID = Cameras.CameraID OR Kits.SpareCameraID = Cameras.CameraID WHERE Cameras.Active = 1"));
 
             AddChars("", "%", 2);
         }
