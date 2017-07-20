@@ -133,8 +133,17 @@ namespace WebApplication2
             nameLabel.Text = details.Rows[0][3].ToString();
             initialLabel.Text = details.Rows[0][4].ToString();
             officeLabel.Text = details.Rows[0][5].ToString();
-            if (string.IsNullOrEmpty(details.Rows[0][2].ToString())) ToggleTooltip(true, photogPanel, "photographer");
-            else ToggleTooltip(false, photogPanel);
+            if (string.IsNullOrEmpty(details.Rows[0][2].ToString()))
+            {
+                ToggleTooltip(true, photogPanel, "photographer");
+                labelPhotographer.Attributes["class"] = "hidden";
+            }
+            else
+            {
+                ToggleTooltip(false, photogPanel);
+                labelPhotographer.Attributes["class"] = "label label-default";
+                labelPhotographer.InnerText = String.Format("P-{0}", details.Rows[0][2].ToString());
+            }
 
             //Populate Camera details
             camMakeLabel.Text = details.Rows[0][8].ToString();
@@ -144,8 +153,17 @@ namespace WebApplication2
             camSNLabel.Text = details.Rows[0][7].ToString();
             camReplaceMainSN.InnerText = details.Rows[0][7].ToString();
             mainCamReplaceHead.InnerText = String.Format("Main Camera: {0}", details.Rows[0][6]);
-            if (string.IsNullOrEmpty(details.Rows[0][6].ToString())) ToggleTooltip(true, cameraPanel, "camera");
-            else ToggleTooltip(false, cameraPanel);
+            if (string.IsNullOrEmpty(details.Rows[0][6].ToString()))
+            {
+                ToggleTooltip(true, cameraPanel, "camera");
+                labelCameraMain.Attributes["class"] = "hidden";
+            }
+            else
+            {
+                ToggleTooltip(false, cameraPanel);
+                labelCameraMain.Attributes["class"] = "label label-default";
+                labelCameraMain.InnerText = String.Format("C-{0}", details.Rows[0][6].ToString());
+            }
 
             //Populate Laptop details
             lapMakeLabel.Text = details.Rows[0][12].ToString();
@@ -155,8 +173,17 @@ namespace WebApplication2
             lapSNLabel.Text = details.Rows[0][11].ToString();
             lapReplaceMainSN.InnerText = details.Rows[0][11].ToString();
             lapReplaceMainHead.InnerText = String.Format("Main Laptop: {0}", details.Rows[0][10].ToString());
-            if (string.IsNullOrEmpty(details.Rows[0][10].ToString())) ToggleTooltip(true, laptopPanel, "laptop");
-            else ToggleTooltip(false, laptopPanel);
+            if (string.IsNullOrEmpty(details.Rows[0][10].ToString()))
+            {
+                ToggleTooltip(true, laptopPanel, "laptop");
+                labelLaptopMain.Attributes["class"] = "hidden";
+            }
+            else
+            {
+                ToggleTooltip(false, laptopPanel);
+                labelLaptopMain.Attributes["class"] = "label label-default";
+                labelLaptopMain.InnerText = String.Format("L-{0}", details.Rows[0][10].ToString());
+            }
 
             //Populate Spare Camera details
             spareCamSN.Text = details.Rows[0][16].ToString();
@@ -172,12 +199,15 @@ namespace WebApplication2
                 ToggleTooltip(true, spareCameraPanel, "spare camera");
                 spareCamTab.InnerHtml = "Spare <span class=\"glyphicon glyphicon-remove-circle\"></span>";
                 spareCamToMain.Attributes["class"] = "btn btn-info disabled";
+                labelCameraSpare.Attributes["class"] = "hidden";
             }
             else
             {
                 ToggleTooltip(false, spareCameraPanel);
                 spareCamTab.InnerHtml = "Spare <span class=\"glyphicon glyphicon-ok-circle\"></span>";
                 spareCamToMain.Attributes["class"] = "btn btn-info";
+                labelCameraSpare.Attributes["class"] = "label label-default";
+                labelCameraSpare.InnerText = String.Format("C-{0}", details.Rows[0][15].ToString());
             }
 
             //Populate Spare Laptop details
@@ -194,12 +224,15 @@ namespace WebApplication2
                 ToggleTooltip(true, spareLaptopPanel, "spare laptop");
                 spareLapTab.InnerHtml = "Spare <span class=\"glyphicon glyphicon-remove-circle\"></span>";
                 spareLapToMain.Attributes["class"] = "btn btn-info disabled";
+                labelLaptopSpare.Attributes["class"] = "hidden";
             }
             else
             {
                 ToggleTooltip(false, spareLaptopPanel);
                 spareLapTab.InnerHtml = "Spare <span class=\"glyphicon glyphicon-ok-circle\"></span>";
                 spareLapToMain.Attributes["class"] = "btn btn-info";
+                labelLaptopSpare.Attributes["class"] = "label label-default";
+                labelLaptopSpare.InnerText = String.Format("L-{0}", details.Rows[0][19].ToString());
             }
 
             //Populate History records

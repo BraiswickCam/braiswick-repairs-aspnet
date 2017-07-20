@@ -56,7 +56,7 @@ $(document).ready(function(){
         <div class="row top20">
             <div class="col-sm-4">
                 <div class="panel panel-default" id="photogPanel" runat="server" style="margin-top: 42px;">
-                    <div class="panel-heading">Photographer</div>
+                    <div class="panel-heading">Photographer <span class="label label-default hidden" style="float:right;" runat="server" id="labelPhotographer"></span></div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-xs-5 col-sm-5">Name: </div>
@@ -94,7 +94,7 @@ $(document).ready(function(){
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="mainCam">
                 <div class="panel panel-default" id="cameraPanel" runat="server">
-                    <div class="panel-heading">Camera</div>
+                    <div class="panel-heading">Camera <span class="label label-default hidden" style="float:right;" runat="server" id="labelCameraMain"></span></div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-xs-5 col-sm-5">Serial Number: </div>
@@ -133,7 +133,7 @@ $(document).ready(function(){
             </div>
                     <div class="tab-pane fade" id="spareCam">
                         <div class="panel panel-default" id="spareCameraPanel" runat="server">
-                            <div class="panel-heading">Spare Camera</div>
+                            <div class="panel-heading">Spare Camera <span class="label label-default hidden" style="float:right;" runat="server" id="labelCameraSpare"></span></div>
                             <div class="panel-body">
                                 <div class="row">
                             <div class="col-xs-5 col-sm-5">Serial Number: </div>
@@ -174,7 +174,7 @@ $(document).ready(function(){
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="mainLap">
                 <div class="panel panel-default" id="laptopPanel" runat="server">
-                    <div class="panel-heading">Laptop</div>
+                    <div class="panel-heading">Laptop <span class="label label-default hidden" style="float:right;" runat="server" id="labelLaptopMain"></span></div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-xs-5 col-sm-5">Serial Number: </div>
@@ -213,7 +213,7 @@ $(document).ready(function(){
                         </div>
                     <div class="tab-pane fade" id="spareLap">
                         <div class="panel panel-default" id="spareLaptopPanel" runat="server">
-                            <div class="panel-heading">Spare Laptop</div>
+                            <div class="panel-heading">Spare Laptop <span class="label label-default hidden" style="float:right;" runat="server" id="labelLaptopSpare"></span></div>
                             <div class="panel-body">
                                 <div class="row">
                             <div class="col-xs-5 col-sm-5">Serial Number: </div>
