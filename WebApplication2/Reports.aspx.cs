@@ -60,6 +60,10 @@ namespace WebApplication2
                 {
                     CameraRepairCount();
                 }
+                else if (report == "RepairCostPerLaptop")
+                {
+                    RepairCostPerLaptop();
+                }
             }
         }
 
@@ -129,6 +133,15 @@ namespace WebApplication2
                 "LEFT JOIN Repairs ON Cameras.CameraID = Repairs.CameraID WHERE Repairs.Date IS NOT Repairs.FixedDate AND Cameras.Active = 1 GROUP BY Cameras.CameraID ORDER BY \"Repairs Total\" DESC"));
 
             AddEquipmentIDLinks(0, 2, 3, "Camera");
+        }
+
+        protected void RepairCostPerLaptop()
+        {
+            BindData(QueryDatabase("SELECT * FROM RepairCostPerLaptop"));
+
+            AddChars("£", "", 5);
+
+            AddEquipmentIDLinks(0, 2, 3, "Laptop");
         }
 
         protected DataTable QueryDatabase(string query)

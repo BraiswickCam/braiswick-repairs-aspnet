@@ -57,6 +57,7 @@
                                     <li><a href="Reports.aspx?rep=MakeCount"><i class="fa fa-laptop"></i> Laptop manufacturers</a></li>
                                     <li><a href="Reports.aspx?rep=AssignedLaptopPercent"><i class="fa fa-laptop"></i> % of Laptops assigned to kits</a></li>
                                     <li><a href="Reports.aspx?rep=LaptopRepairCount"><i class="fa fa-laptop"></i> Repairs per laptop</a></li>
+                                    <li><a href="Reports.aspx?rep=RepairCostPerLaptop"><i class="fa fa-laptop"></i> Repair cost per laptop</a></li>
                                     <li><a href="Reports.aspx?rep=AssignedCameraPercent"><i class="fa fa-camera"></i> % of Cameras assigned to kits</a></li>
                                     <li><a href="Reports.aspx?rep=CameraRepairCount"><i class="fa fa-camera"></i> Repairs per camera</a></li>
                                 </ul>
