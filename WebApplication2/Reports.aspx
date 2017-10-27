@@ -60,6 +60,7 @@
                                     <li><a href="Reports.aspx?rep=RepairCostPerLaptop"><i class="fa fa-laptop"></i> Repair cost per laptop</a></li>
                                     <li><a href="Reports.aspx?rep=AssignedCameraPercent"><i class="fa fa-camera"></i> % of Cameras assigned to kits</a></li>
                                     <li><a href="Reports.aspx?rep=CameraRepairCount"><i class="fa fa-camera"></i> Repairs per camera</a></li>
+                                    <li><a href="Reports.aspx?rep=RepairAmountOverview"><i class="fa fa-camera"></i> Repairs overview</a></li>
                                 </ul>
                             </div>
                         </div>

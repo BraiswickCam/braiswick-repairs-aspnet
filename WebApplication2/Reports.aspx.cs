@@ -64,6 +64,10 @@ namespace WebApplication2
                 {
                     RepairCostPerLaptop();
                 }
+                else if (report == "RepairAmountOverview")
+                {
+                    RepairAmountOverview();
+                }
             }
         }
 
@@ -142,6 +146,11 @@ namespace WebApplication2
             AddChars("£", "", 5);
 
             AddEquipmentIDLinks(0, 2, 3, "Laptop");
+        }
+
+        protected void RepairAmountOverview()
+        {
+            BindData(QueryDatabase("SELECT * FROM RepairAmountOverview"));
         }
 
         protected DataTable QueryDatabase(string query)
