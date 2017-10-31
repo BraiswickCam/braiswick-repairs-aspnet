@@ -62,6 +62,26 @@ namespace WebApplication2
             return results;
         }
 
+        [ScriptMethod]
+        [WebMethod]
+        public List<List<object>> GetMakeData()
+        {
+            DataTable dt = QueryDatabase("SELECT Make, count(Make) AS \"Count\" FROM Laptops WHERE Active = 1 GROUP BY Make ORDER BY count(Make) DESC");
+            List<object> dataList = new List<object>();
+            List<object> columnList = GetColumns(dt);
+            foreach (DataRow dr in dt.Rows)
+            {
+                MakeDetails details = new MakeDetails();
+                details.Make = dr[0].ToString();
+                details.Count = Convert.ToInt32(dr[1]);
+                dataList.Add(details);
+            }
+            List<List<object>> results = new List<List<object>>();
+            results.Add(dataList);
+            results.Add(columnList);
+            return results;
+        }
+
         public static DataTable QueryDatabase(string query)
         {
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
@@ -90,6 +110,12 @@ namespace WebApplication2
         public class OSDetails
         {
             public string OS;
+            public int Count;
+        }
+
+        public class MakeDetails
+        {
+            public string Make;
             public int Count;
         }
 

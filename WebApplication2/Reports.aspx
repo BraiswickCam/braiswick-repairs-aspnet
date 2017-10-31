@@ -10,11 +10,13 @@
         google.charts.load('current', { 'packages': ['corechart', 'bar'] });
         if (viewParam == 'RepairAmountOverview') google.charts.setOnLoadCallback(getData);
         if (viewParam == 'OSCount') google.charts.setOnLoadCallback(getData);
+        if (viewParam == 'MakeCount') google.charts.setOnLoadCallback(getData);
 
         function getData() {
             var ajaxurl;
             if (viewParam == 'RepairAmountOverview') ajaxurl = 'ColumnChart.asmx/GetChartData';
             if (viewParam == 'OSCount') ajaxurl = 'ColumnChart.asmx/GetOSData';
+            if (viewParam == 'MakeCount') ajaxurl = 'ColumnChart.asmx/GetMakeData';
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -56,6 +58,12 @@
                     data.addRow([dataValues[0][i].OS, dataValues[0][i].Count]);
                 }
             }
+
+            if (viewParam == 'MakeCount') {
+                for (var i = 0; i < dataValues[0].length; i++) {
+                    data.addRow([dataValues[0][i].Make, dataValues[0][i].Count]);
+                }
+            }
             // Instantiate and draw our chart, passing in some options  
             var chart;
             var title;
@@ -66,6 +74,10 @@
             if (viewParam == 'OSCount') {
                 chart = new google.visualization.PieChart(document.getElementById('chartdiv'));
                 title = 'Operating System Count';
+            }
+            if (viewParam == 'MakeCount') {
+                chart = new google.visualization.PieChart(document.getElementById('chartdiv'));
+                title = 'Laptop Make Count';
             }
 
             chart.draw(data,
