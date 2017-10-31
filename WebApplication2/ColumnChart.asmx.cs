@@ -21,10 +21,11 @@ namespace WebApplication2
     {
         [ScriptMethod]
         [WebMethod]
-        public List<ChartDetails> GetChartData()
+        public List<List<object>> GetChartData()
         {
             DataTable dt = QueryDatabase("SELECT * FROM RepairAmountOverview");
-            List<ChartDetails> dataList = new List<ChartDetails>();
+            List<object> dataList = new List<object>();
+            List<object> columnList = GetColumns(dt);
             foreach (DataRow dr in dt.Rows)
             {
                 ChartDetails details = new ChartDetails();
@@ -35,7 +36,30 @@ namespace WebApplication2
                 details.FixedRepairs = Convert.ToInt32(dr[2]);
                 dataList.Add(details);
             }
-            return dataList;
+            List<List<object>> results = new List<List<object>>();
+            results.Add(dataList);
+            results.Add(columnList);
+            return results;
+        }
+
+        [ScriptMethod]
+        [WebMethod]
+        public List<List<object>> GetOSData()
+        {
+            DataTable dt = QueryDatabase("SELECT OS, count(OS) AS \"Count\" FROM Laptops WHERE Active = 1 GROUP BY OS ORDER BY count(OS) DESC");
+            List<object> dataList = new List<object>();
+            List<object> columnList = GetColumns(dt);
+            foreach (DataRow dr in dt.Rows)
+            {
+                OSDetails details = new OSDetails();
+                details.OS = dr[0].ToString();
+                details.Count = Convert.ToInt32(dr[1]);
+                dataList.Add(details);
+            }
+            List<List<object>> results = new List<List<object>>();
+            results.Add(dataList);
+            results.Add(columnList);
+            return results;
         }
 
         public static DataTable QueryDatabase(string query)
@@ -62,6 +86,39 @@ namespace WebApplication2
             public int SubmittedRepairs;
             public int FixedRepairs;
         }
+
+        public class OSDetails
+        {
+            public string OS;
+            public int Count;
+        }
+
+        public class ColumnDetails
+        {
+            public string Type;
+            public string Name;
+
+            public ColumnDetails(Type dtype, string _name)
+            {
+                this.Name = _name;
+                if (dtype == typeof(System.String)) this.Type = "string";
+                if (dtype == typeof(System.Int64)) this.Type = "number";
+                else this.Type = "string";
+            }
+        }
+
+        public static List<object> GetColumns(DataTable dt)
+        {
+            List<object> results = new List<object>();
+            foreach (DataColumn dc in dt.Columns)
+            {
+                ColumnDetails details = new ColumnDetails(dc.DataType, dc.Caption);
+                results.Add(details);
+            }
+            return results;
+        }
+
+
     }
 
     

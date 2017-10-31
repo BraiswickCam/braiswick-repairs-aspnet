@@ -9,10 +9,12 @@
         // Load the Visualization API and the piechart package.  
         google.charts.load('current', { 'packages': ['corechart', 'bar'] });
         if (viewParam == 'RepairAmountOverview') google.charts.setOnLoadCallback(getData);
+        if (viewParam == 'OSCount') google.charts.setOnLoadCallback(getData);
 
         function getData() {
             var ajaxurl;
             if (viewParam == 'RepairAmountOverview') ajaxurl = 'ColumnChart.asmx/GetChartData';
+            if (viewParam == 'OSCount') ajaxurl = 'ColumnChart.asmx/GetOSData';
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -36,22 +38,39 @@
             // draws it.  
             var data = new google.visualization.DataTable();
 
-            if (viewParam == 'RepairAmountOverview') {
-                data.addColumn('string', 'Month');
-                data.addColumn('number', 'SubmittedRepairs');
-                data.addColumn('number', 'FixedRepairs');
-
-                for (var i = 0; i < dataValues.length; i++) {
-                    data.addRow([dataValues[i].Month, dataValues[i].SubmittedRepairs, dataValues[i].FixedRepairs]);
+            for (var i = 0; i < dataValues[1].length; i++) {
+                data.addColumn(dataValues[1][i].Type, dataValues[1][i].Name);
             }
-            
+
+            if (viewParam == 'RepairAmountOverview') {
+                //data.addColumn('string', 'Month');
+                //data.addColumn('number', 'SubmittedRepairs');
+                //data.addColumn('number', 'FixedRepairs');
+                for (var i = 0; i < dataValues[0].length; i++) {
+                    data.addRow([dataValues[0][i].Month, dataValues[0][i].SubmittedRepairs, dataValues[0][i].FixedRepairs]);
+                }
+            }
+
+            if (viewParam == 'OSCount') {
+                for (var i = 0; i < dataValues[0].length; i++) {
+                    data.addRow([dataValues[0][i].OS, dataValues[0][i].Count]);
+                }
             }
             // Instantiate and draw our chart, passing in some options  
-            var chart = new google.visualization.ColumnChart(document.getElementById('chartdiv'));
+            var chart;
+            var title;
+            if (viewParam == 'RepairAmountOverview') {
+                chart = new google.visualization.ColumnChart(document.getElementById('chartdiv'));
+                title = 'Repairs overview by month';
+            }
+            if (viewParam == 'OSCount') {
+                chart = new google.visualization.PieChart(document.getElementById('chartdiv'));
+                title = 'Operating System Count';
+            }
 
             chart.draw(data,
                 {
-                    title: "Repairs Overview by month",
+                    title: title,
                     position: "top",
                     fontsize: "14px",
                     chartArea: { width: '50%' },
@@ -130,12 +149,12 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <asp:GridView ID="resultsGrid" runat="server" CssClass="table table-striped" GridLines="None"></asp:GridView>
+                <div id="chartdiv"></div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <div id="chartdiv"></div>
+                <asp:GridView ID="resultsGrid" runat="server" CssClass="table table-striped" GridLines="None"></asp:GridView>
             </div>
         </div>
     </div>
