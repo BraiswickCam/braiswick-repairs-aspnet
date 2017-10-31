@@ -86,6 +86,11 @@
                     position: "top",
                     fontsize: "14px",
                     chartArea: { width: '50%' },
+                    animation: {
+                        duration: 1000,
+                        easing: 'in',
+                        startup: true
+                    },
                 });
         }
         </script>  
