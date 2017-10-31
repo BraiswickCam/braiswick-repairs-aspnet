@@ -1,4 +1,56 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="WebApplication2.Reports" %>
+<asp:Content ID="charts" ContentPlaceHolderID="headextra" runat="server">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">  
+        // Global variable to hold data  
+        // Load the Visualization API and the piechart package.  
+        google.charts.load('current', { 'packages': ['corechart', 'bar'] });
+        google.charts.setOnLoadCallback(getData);
+
+        function getData() {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                url: 'ColumnChart.asmx/GetChartData',
+                data: '{}',
+                success: function (response) {
+                    drawchart(response.d); // calling method  
+                },
+
+                error: function () {
+                    alert("Error loading data! Please try again.");
+                }
+            });
+        }
+
+        function drawchart(dataValues) {
+
+            // Callback that creates and populates a data table,  
+            // instantiates the pie chart, passes in the data and  
+            // draws it.  
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Month');
+            data.addColumn('number', 'SubmittedRepairs');
+            data.addColumn('number', 'FixedRepairs');
+
+            for (var i = 0; i < dataValues.length; i++) {
+                data.addRow([dataValues[i].Month, dataValues[i].SubmittedRepairs, dataValues[i].FixedRepairs]);
+            }
+            // Instantiate and draw our chart, passing in some options  
+            var chart = new google.visualization.ColumnChart(document.getElementById('chartdiv'));
+
+            chart.draw(data,
+                {
+                    title: "Show Google Chart in Asp.net",
+                    position: "top",
+                    fontsize: "14px",
+                    chartArea: { width: '50%' },
+                });
+        }
+        </script>  
+</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script src="Scripts/purl.js"></script>
     <script src="https://use.fontawesome.com/1acc7e1b75.js"></script>
@@ -71,6 +123,11 @@
         <div class="row">
             <div class="col-sm-12">
                 <asp:GridView ID="resultsGrid" runat="server" CssClass="table table-striped" GridLines="None"></asp:GridView>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="chartdiv"></div>
             </div>
         </div>
     </div>
