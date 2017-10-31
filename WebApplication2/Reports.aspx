@@ -1,18 +1,23 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="WebApplication2.Reports" %>
 <asp:Content ID="charts" ContentPlaceHolderID="headextra" runat="server">
+    <script src="Scripts/purl.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">  
+        var viewParam = $.url(window.location.href).param('rep');
+
         // Global variable to hold data  
         // Load the Visualization API and the piechart package.  
         google.charts.load('current', { 'packages': ['corechart', 'bar'] });
-        google.charts.setOnLoadCallback(getData);
+        if (viewParam == 'RepairAmountOverview') google.charts.setOnLoadCallback(getData);
 
         function getData() {
+            var ajaxurl;
+            if (viewParam == 'RepairAmountOverview') ajaxurl = 'ColumnChart.asmx/GetChartData';
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
-                url: 'ColumnChart.asmx/GetChartData',
+                url: ajaxurl,
                 data: '{}',
                 success: function (response) {
                     drawchart(response.d); // calling method  
@@ -31,19 +36,22 @@
             // draws it.  
             var data = new google.visualization.DataTable();
 
-            data.addColumn('string', 'Month');
-            data.addColumn('number', 'SubmittedRepairs');
-            data.addColumn('number', 'FixedRepairs');
+            if (viewParam == 'RepairAmountOverview') {
+                data.addColumn('string', 'Month');
+                data.addColumn('number', 'SubmittedRepairs');
+                data.addColumn('number', 'FixedRepairs');
 
-            for (var i = 0; i < dataValues.length; i++) {
-                data.addRow([dataValues[i].Month, dataValues[i].SubmittedRepairs, dataValues[i].FixedRepairs]);
+                for (var i = 0; i < dataValues.length; i++) {
+                    data.addRow([dataValues[i].Month, dataValues[i].SubmittedRepairs, dataValues[i].FixedRepairs]);
+            }
+            
             }
             // Instantiate and draw our chart, passing in some options  
             var chart = new google.visualization.ColumnChart(document.getElementById('chartdiv'));
 
             chart.draw(data,
                 {
-                    title: "Show Google Chart in Asp.net",
+                    title: "Repairs Overview by month",
                     position: "top",
                     fontsize: "14px",
                     chartArea: { width: '50%' },
