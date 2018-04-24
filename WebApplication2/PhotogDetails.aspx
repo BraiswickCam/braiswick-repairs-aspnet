@@ -17,6 +17,23 @@ $(document).ready(function(){
         .top10 {
             margin-top: 10px;
         }
+
+        .panel-heading {
+            cursor: pointer;
+        }
+
+        .panel-title2:after {
+            /* symbol for "opening" panels */
+            font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+            content: "\e113";    /* adjust as needed, taken from bootstrap.css */
+            float: right;        /* adjust as needed */
+            color: white;         /* adjust as needed */
+        }
+
+        .panel-title2.collapsed:after {
+            /* symbol for "collapsed" panels */
+            content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+        }
     </style>
 
     <div class="container-fluid">
@@ -72,8 +89,31 @@ $(document).ready(function(){
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-12 table-responsive">
-                <asp:GridView ID="historyGridView" runat="server" CssClass="table table-striped table-hover" GridLines="None" OnRowDataBound="historyGridView_RowDataBound"></asp:GridView>
+            <div class="col-xs-12">
+                <div class="panel panel-success" style="margin-top: 20px;">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#reportsCollapse" style="cursor: pointer;">
+                        <h4 class="panel-title panel-title2 collapsed" data-toggle="collapse" data-target="#reportsCollapse">Reports</h4>
+                    </div>
+                    <div class="panel-collapse collapse" id="reportsCollapse">
+                        <div class="panel-body">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-primary" style="margin-top: 20px;">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#repairCollapse" style="cursor: pointer;">
+                        <h4 class="panel-title panel-title2 collapsed" data-toggle="collapse" data-target="#repairCollapse">Repairs</h4>
+                    </div>
+                    <div class="panel-collapse collapse" id="repairCollapse">
+                        <div class="panel-body">
+                            <asp:GridView ID="historyGridView" runat="server" CssClass="table table-striped table-hover" GridLines="None" OnRowDataBound="historyGridView_RowDataBound"></asp:GridView>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

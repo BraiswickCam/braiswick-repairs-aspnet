@@ -249,6 +249,7 @@
     <Content Include="Laptops.aspx" />
     <Content Include="NewRepair.aspx" />
     <Content Include="PhotogDetails.aspx" />
+    <Content Include="PhotogReports.aspx" />
     <Content Include="Photogs.aspx" />
     <Content Include="RepairList.aspx" />
     <Content Include="RepairReport.aspx" />
@@ -488,6 +489,13 @@
     </Compile>
     <Compile Include="PhotogDetails.aspx.designer.cs">
       <DependentUpon>PhotogDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PhotogReports.aspx.cs">
+      <DependentUpon>PhotogReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PhotogReports.aspx.designer.cs">
+      <DependentUpon>PhotogReports.aspx</DependentUpon>
     </Compile>
     <Compile Include="Photogs.aspx.cs">
       <DependentUpon>Photogs.aspx</DependentUpon>
