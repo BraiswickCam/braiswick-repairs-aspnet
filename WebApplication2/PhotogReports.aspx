@@ -1,6 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PhotogReports.aspx.cs" Inherits="WebApplication2.PhotogReports" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="headextra" runat="server">
     <style>
+        select > option {
+            font-family: monospace;
+        }
+
         .top10 {
             margin-top: 10px;
         }
@@ -15,7 +19,7 @@
                     <div class="row">
                         <div class="col-xs-4">ID: </div>
                         <div class="col-xs-8">
-                            <asp:TextBox ID="reportID" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+                            <asp:TextBox ID="reportID" runat="server" CssClass="form-control" ReadOnly="true" Columns="4"></asp:TextBox>
                         </div>
                     </div>
                     <div class="row top10">
@@ -27,7 +31,7 @@
                     <div class="row top10">
                         <div class="col-xs-4">Photographer: </div>
                         <div class="col-xs-8">
-                            <asp:TextBox ID="reportPhotographer" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:DropDownList ID="reportPhotographerDD" runat="server" CssClass="form-control"></asp:DropDownList>
                         </div>
                     </div>
                     <div class="row top10">
