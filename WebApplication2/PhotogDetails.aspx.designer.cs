@@ -76,6 +76,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.Label updateLabel;
         
         /// <summary>
+        /// reportsGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView reportsGridView;
+        
+        /// <summary>
         /// historyGridView control.
         /// </summary>
         /// <remarks>

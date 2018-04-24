@@ -41,6 +41,8 @@ namespace WebApplication2
 
                     historyGridView.DataSource = GetHistory();
                     historyGridView.DataBind();
+                    reportsGridView.DataSource = GetReports();
+                    reportsGridView.DataBind();
                 }
             }
             if (photogIntID > 0) AddLinks();
@@ -156,6 +158,25 @@ namespace WebApplication2
             }
         }
 
+        protected DataTable GetReports()
+        {
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "SELECT ID, Date, Job, School, Type, Cost, Status, Notes FROM PReports WHERE Photographer = @PhotogID ORDER BY ID DESC";
+                command.Parameters.Add(new SQLiteParameter("@PhotogID", photogIntID));
+                using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
+                {
+                    sda.SelectCommand = command;
+                    using (DataTable dt = new DataTable())
+                    {
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
         protected void AddLinks()
         {
             foreach (GridViewRow gr in historyGridView.Rows)
@@ -220,6 +241,11 @@ namespace WebApplication2
             {
                 e.Row.Cells[i].Visible = false;
             }
+        }
+
+        protected void reportsGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
         }
     }
 }

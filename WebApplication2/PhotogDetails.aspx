@@ -96,7 +96,7 @@ $(document).ready(function(){
                     </div>
                     <div class="panel-collapse collapse" id="reportsCollapse">
                         <div class="panel-body">
-                            
+                            <asp:GridView ID="reportsGridView" runat="server" CssClass="table table-striped table-hover" GridLines="None" OnRowDataBound="reportsGridView_RowDataBound"></asp:GridView>
                         </div>
                     </div>
                 </div>
