@@ -4,6 +4,35 @@
         .top10 {
             margin-top: 10px;
         }
+
+        #searchTermsList {
+            display: inline-block;
+        }
+
+        div[id^="filter_"] {
+            display: inline-block;
+            border: 2px solid #3D9970;
+            border-radius: 10px;
+            padding: 3px 6px;
+            background-color: #01FF70;
+            box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+            margin: 0px 3px;
+        }
+
+        span.filter-close {
+            border: 2px solid #3D9970;
+            border-radius: 50%;
+            padding: 0px 4px;
+            cursor: pointer;
+            background-color: #2ECC40;
+            color: white;
+        }
+
+        span.filter-text {
+            padding-left: 5px;
+            padding-right: 3px;
+        }
+
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -90,38 +119,38 @@
                   if (j == 0) {
                       td = tr[i].getElementsByTagName("td")[0].getElementsByTagName("a")[0];
                       if (td) {
-                          if (td.innerText.toUpperCase().indexOf(filter) > -1) {
+                          if (td.innerText.toUpperCase().indexOf(filter) == -1) {
                               count = count + 1;
                           }
                       }
                   } else {
                       td = tr[i].getElementsByTagName("td")[j];
                       if (td) {
-                          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                          if (td.innerHTML.toUpperCase().indexOf(filter) == -1) {
                               count = count + 1;
                           }
                       }
                   }
               }
-              if (filter === "" && searchTerms.length > 0) {
-                      count = 0;
-              }
-              if (tr[i].style.display == "none" && searchTerms.length > 0) {
-                  count = 0;
-              }
+              //if (filter === "" && searchTerms.length > 0) {
+              //        count = 0;
+              //}
+              //if (tr[i].style.display == "none" && searchTerms.length > 0) {
+              //    count = 0;
+              //}
               for (jj = 0; jj < searchTerms.length; jj++) {
                   var column = parseInt(searchTerms[jj].columnIndex);
                   td = tr[i].getElementsByTagName("td")[column];
                   if (td) {
-                      if (td.innerHTML.toUpperCase().indexOf(searchTerms[jj].searchTerm.toUpperCase()) > -1) {
+                      if (td.innerHTML.toUpperCase().indexOf(searchTerms[jj].searchTerm.toUpperCase()) == -1) {
                               count = count + 1;
                           }
                       }
               }
               if (count > 0) {
-                  tr[i].style.display = "";
-              } else {
                   tr[i].style.display = "none";
+              } else {
+                  tr[i].style.display = "";
               }
             }
         }
@@ -142,17 +171,19 @@
         function clearFilters() {
             searchTerms = [];
             writeFilters();
+            searchFilter();
         }
 
         function removeFilter(index) {
-            searchTerms.slice(index, 1);
+            searchTerms.splice(parseInt(index), 1);
             writeFilters();
+            searchFilter();
         }
 
         function writeFilters() {
             var filtersHTML = '<div class="filters">';
             for (i = 0; i < searchTerms.length; i++) {
-                filtersHTML += '<div class="filter" id="filter_' + i + '"><span>&times;</span><span>' + searchTerms[i].columnName + ': ' + searchTerms[i].searchTerm + '</span></div>';
+                filtersHTML += '<div class="filter" id="filter_' + i + '"><span class="filter-close" onclick="removeFilter(' + i + ')">&times;</span><span class="filter-text">' + searchTerms[i].columnName + ': <strong>' + searchTerms[i].searchTerm + '</strong></span></div>';
             }
             filtersHTML += '</div>';
             document.getElementById('searchTermsList').innerHTML = filtersHTML;
