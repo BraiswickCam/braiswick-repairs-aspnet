@@ -1,9 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PhotogReportsList.aspx.cs" Inherits="WebApplication2.PhotogReportsList" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="headextra" runat="server">
+    <style>
+        .top10 {
+            margin-top: 10px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row">
-        <div class="col-xs-12 form-inline">
+        <div class="col-xs-12 form-inline top10">
             <div class="inner-addon left-addon">
                 <i class="glyphicon glyphicon-search"></i>
                 <input type="text" id="equipSearch" onkeyup="searchFilter()" placeholder="Search..." class="form-control">
@@ -19,16 +24,19 @@
                     <option value="8" title="Status">Status</option>
                     <option value="9" title="Notes">Notes</option>
                 </select>
+                <button type="button" id="addFilterButton" class="btn btn-success" onclick="addFilter(); return false;">+</button>
+                <div id="searchTermsList"></div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 top10">
             <asp:GridView ID="reportsList" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="reportsList_RowDataBound"></asp:GridView>
         </div>
     </div>
 
     <script>
+        var searchTerms = [];
         function searchEquip() {
           // Declare variables
           var input, filter, table, tr, td, i, ii, current;
@@ -95,12 +103,59 @@
                       }
                   }
               }
+              if (filter === "" && searchTerms.length > 0) {
+                      count = 0;
+              }
+              if (tr[i].style.display == "none" && searchTerms.length > 0) {
+                  count = 0;
+              }
+              for (jj = 0; jj < searchTerms.length; jj++) {
+                  var column = parseInt(searchTerms[jj].columnIndex);
+                  td = tr[i].getElementsByTagName("td")[column];
+                  if (td) {
+                      if (td.innerHTML.toUpperCase().indexOf(searchTerms[jj].searchTerm.toUpperCase()) > -1) {
+                              count = count + 1;
+                          }
+                      }
+              }
               if (count > 0) {
                   tr[i].style.display = "";
               } else {
                   tr[i].style.display = "none";
               }
             }
-          }
+        }
+
+        function addFilter() {
+            var colName, colIndex, searchTerm, e;
+            e = document.getElementById('searchCol');
+            colName = e.options[e.selectedIndex].text;
+            colIndex = e.options[e.selectedIndex].value;
+            searchTerm = document.getElementById('equipSearch').value;
+
+            searchTerms.push({ 'columnName': colName, 'columnIndex': colIndex, 'searchTerm': searchTerm })
+            writeFilters();
+            document.getElementById('equipSearch').value = "";
+            searchFilter();
+        }
+
+        function clearFilters() {
+            searchTerms = [];
+            writeFilters();
+        }
+
+        function removeFilter(index) {
+            searchTerms.slice(index, 1);
+            writeFilters();
+        }
+
+        function writeFilters() {
+            var filtersHTML = '<div class="filters">';
+            for (i = 0; i < searchTerms.length; i++) {
+                filtersHTML += '<div class="filter" id="filter_' + i + '"><span>&times;</span><span>' + searchTerms[i].columnName + ': ' + searchTerms[i].searchTerm + '</span></div>';
+            }
+            filtersHTML += '</div>';
+            document.getElementById('searchTermsList').innerHTML = filtersHTML;
+        }
     </script>
 </asp:Content>
