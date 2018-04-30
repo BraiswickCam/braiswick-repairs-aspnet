@@ -73,25 +73,13 @@
 
         function innerSearch(j, td, filter, currentCount) {
             var count = currentCount;
-            if (j == 0 || j == 7) {
-                tda = td.getElementsByTagName("a")[0];
-                if (tda) {
-                    if (tda.innerHTML.toUpperCase().indexOf(filter) == -1) {
-                        count = count + 1;
-                    }
-                } else {
-                    if (td) {
-                        if (td.innerHTML.toUpperCase().indexOf(filter) == -1) {
-                            count = count + 1;
-                        }
-                    }
+            tdv = td.getAttribute("data-value");
+            if (tdv) {
+                if (tdv.toUpperCase().indexOf(filter) == -1) {
+                    count = count + 1;
                 }
             } else {
-                if (td) {
-                    if (td.innerHTML.toUpperCase().indexOf(filter) == -1) {
-                        count = count + 1;
-                    }
-                }
+
             }
             return count;
         }
