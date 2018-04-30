@@ -70,41 +70,6 @@
         });
 
         var searchTerms = [];
-        function searchEquip() {
-          // Declare variables
-          var input, filter, table, tr, td, i, ii, current;
-          input = document.getElementById('equipSearch');
-          filter = input.value.toUpperCase();
-          table = document.getElementById("<%= reportsList.ClientID %>");
-          tr = table.getElementsByTagName("tr");
-
-          // Loop through all table rows, and hide those who don't match the search query
-          for (i = 1; i < tr.length; i++) {
-              var count = 0;
-              for (j = 0; j < 10; j++) {
-                  if (j == 0) {
-                      td = tr[i].getElementsByTagName("td")[0].getElementsByTagName("a")[0];
-                      if (td) {
-                          if (td.innerText.toUpperCase().indexOf(filter) > -1) {
-                              count = count + 1;
-                          }
-                      }
-                  } else {
-                      td = tr[i].getElementsByTagName("td")[j];
-                      if (td) {
-                          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                              count = count + 1;
-                          }
-                      }
-                  }
-              }
-              if (count > 0) {
-                  tr[i].style.display = "";
-              } else {
-                  tr[i].style.display = "none";
-              }
-            }
-        }
 
         function innerSearch(j, td, filter, currentCount) {
             var count = currentCount;
@@ -146,44 +111,11 @@
               var count = 0;
               for (j = col; j < col + 1; j++) {
                   td = tr[i].getElementsByTagName("td")[j];
-                  //if (j == 0 || j == 7) {
-                  //    td = tr[i].getElementsByTagName("td")[j].getElementsByTagName("a")[0];
-                  //    if (td) {
-                  //        if (td.innerHTML.toUpperCase().indexOf(filter) == -1) {
-                  //            count = count + 1;
-                  //        }
-                  //    } else {
-                  //        td = tr[i].getElementsByTagName("td")[j];
-                  //        if (td) {
-                  //            if (td.innerHTML.toUpperCase().indexOf(filter) == -1) {
-                  //                count = count + 1;
-                  //            }
-                  //        }
-                  //    }
-                  //} else {
-                  //    td = tr[i].getElementsByTagName("td")[j];
-                  //    if (td) {
-                  //        if (td.innerHTML.toUpperCase().indexOf(filter) == -1) {
-                  //            count = count + 1;
-                  //        }
-                  //    }
-                  //}
                   count = innerSearch(j, td, filter, count);
               }
-              //if (filter === "" && searchTerms.length > 0) {
-              //        count = 0;
-              //}
-              //if (tr[i].style.display == "none" && searchTerms.length > 0) {
-              //    count = 0;
-              //}
               for (jj = 0; jj < searchTerms.length; jj++) {
                   var column = parseInt(searchTerms[jj].columnIndex);
                   td = tr[i].getElementsByTagName("td")[column];
-                  //if (td) {
-                  //    if (td.innerHTML.toUpperCase().indexOf(searchTerms[jj].searchTerm.toUpperCase()) == -1) {
-                  //            count = count + 1;
-                  //        }
-                  //    }
                   count = innerSearch(column, td, searchTerms[jj].searchTerm.toUpperCase(), count);
               }
               if (count > 0) {
