@@ -65,6 +65,10 @@
     </div>
 
     <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
+
         var searchTerms = [];
         function searchEquip() {
           // Declare variables
@@ -102,6 +106,31 @@
             }
         }
 
+        function innerSearch(j, td, filter, currentCount) {
+            var count = currentCount;
+            if (j == 0 || j == 7) {
+                tda = td.getElementsByTagName("a")[0];
+                if (tda) {
+                    if (tda.innerHTML.toUpperCase().indexOf(filter) == -1) {
+                        count = count + 1;
+                    }
+                } else {
+                    if (td) {
+                        if (td.innerHTML.toUpperCase().indexOf(filter) == -1) {
+                            count = count + 1;
+                        }
+                    }
+                }
+            } else {
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) == -1) {
+                        count = count + 1;
+                    }
+                }
+            }
+            return count;
+        }
+
         function searchFilter() {
           // Declare variables
           var input, filter, table, tr, td, i, ii, current, col, e;
@@ -116,21 +145,30 @@
           for (i = 1; i < tr.length; i++) {
               var count = 0;
               for (j = col; j < col + 1; j++) {
-                  if (j == 0) {
-                      td = tr[i].getElementsByTagName("td")[0].getElementsByTagName("a")[0];
-                      if (td) {
-                          if (td.innerText.toUpperCase().indexOf(filter) == -1) {
-                              count = count + 1;
-                          }
-                      }
-                  } else {
-                      td = tr[i].getElementsByTagName("td")[j];
-                      if (td) {
-                          if (td.innerHTML.toUpperCase().indexOf(filter) == -1) {
-                              count = count + 1;
-                          }
-                      }
-                  }
+                  td = tr[i].getElementsByTagName("td")[j];
+                  //if (j == 0 || j == 7) {
+                  //    td = tr[i].getElementsByTagName("td")[j].getElementsByTagName("a")[0];
+                  //    if (td) {
+                  //        if (td.innerHTML.toUpperCase().indexOf(filter) == -1) {
+                  //            count = count + 1;
+                  //        }
+                  //    } else {
+                  //        td = tr[i].getElementsByTagName("td")[j];
+                  //        if (td) {
+                  //            if (td.innerHTML.toUpperCase().indexOf(filter) == -1) {
+                  //                count = count + 1;
+                  //            }
+                  //        }
+                  //    }
+                  //} else {
+                  //    td = tr[i].getElementsByTagName("td")[j];
+                  //    if (td) {
+                  //        if (td.innerHTML.toUpperCase().indexOf(filter) == -1) {
+                  //            count = count + 1;
+                  //        }
+                  //    }
+                  //}
+                  count = innerSearch(j, td, filter, count);
               }
               //if (filter === "" && searchTerms.length > 0) {
               //        count = 0;
@@ -141,11 +179,12 @@
               for (jj = 0; jj < searchTerms.length; jj++) {
                   var column = parseInt(searchTerms[jj].columnIndex);
                   td = tr[i].getElementsByTagName("td")[column];
-                  if (td) {
-                      if (td.innerHTML.toUpperCase().indexOf(searchTerms[jj].searchTerm.toUpperCase()) == -1) {
-                              count = count + 1;
-                          }
-                      }
+                  //if (td) {
+                  //    if (td.innerHTML.toUpperCase().indexOf(searchTerms[jj].searchTerm.toUpperCase()) == -1) {
+                  //            count = count + 1;
+                  //        }
+                  //    }
+                  count = innerSearch(column, td, searchTerms[jj].searchTerm.toUpperCase(), count);
               }
               if (count > 0) {
                   tr[i].style.display = "none";
