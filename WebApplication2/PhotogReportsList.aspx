@@ -73,9 +73,11 @@
 
         function innerSearch(j, td, filter, currentCount) {
             var count = currentCount;
-            tdv = td.getAttribute("data-value");
+            var searchTerm = filter.searchTerm.toUpperCase();
+            var tdv = td.getAttribute("data-value");
+            
             if (tdv) {
-                if (tdv.toUpperCase().indexOf(filter) == -1) {
+                if (tdv.toUpperCase().indexOf(searchTerm) == -1) {
                     count = count + 1;
                 }
             } else {
@@ -93,18 +95,22 @@
           tr = table.getElementsByTagName("tr");
             e = document.getElementById('searchCol');
             col = parseInt(e.options[e.selectedIndex].value);
+            var liveSearch = { 'columnIndex': col, 'searchTerm': filter };
+
+            var searchNow = searchTerms;
+            searchNow.push(liveSearch);
 
           // Loop through all table rows, and hide those who don't match the search query
           for (i = 1; i < tr.length; i++) {
               var count = 0;
-              for (j = col; j < col + 1; j++) {
-                  td = tr[i].getElementsByTagName("td")[j];
-                  count = innerSearch(j, td, filter, count);
-              }
-              for (jj = 0; jj < searchTerms.length; jj++) {
-                  var column = parseInt(searchTerms[jj].columnIndex);
+              //for (j = col; j < col + 1; j++) {
+              //    td = tr[i].getElementsByTagName("td")[j];
+              //    count = innerSearch(j, td, liveSearch, count);
+              //}
+              for (jj = 0; jj < searchNow.length; jj++) {
+                  var column = parseInt(searchNow[jj].columnIndex);
                   td = tr[i].getElementsByTagName("td")[column];
-                  count = innerSearch(column, td, searchTerms[jj].searchTerm.toUpperCase(), count);
+                  count = innerSearch(column, td, searchNow[jj], count);
               }
               if (count > 0) {
                   tr[i].style.display = "none";
