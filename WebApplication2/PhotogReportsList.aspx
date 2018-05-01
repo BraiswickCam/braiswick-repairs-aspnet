@@ -73,16 +73,25 @@
 
         function innerSearch(j, td, filter, currentCount) {
             var count = currentCount;
-            var searchTerm = filter.searchTerm.toUpperCase();
             var tdv = td.getAttribute("data-value");
-            
-            if (tdv) {
-                if (tdv.toUpperCase().indexOf(searchTerm) == -1) {
-                    count = count + 1;
-                }
-            } else {
+            var searchTerm;
+            var innerCount = 0;
 
+            for (i = 0; i < filter.searchTerm.length; i++) {
+                searchTerm = filter.searchTerm[i].toUpperCase();
+                if (tdv) {
+                    if (tdv.toUpperCase().indexOf(searchTerm) > -1) {
+                        innerCount = innerCount + 1;
+                    }
+                } else {
+
+                }
             }
+
+            if (innerCount === 0) {
+                count = count + 1;
+            }
+            
             return count;
         }
 
@@ -93,12 +102,26 @@
           filter = input.value.toUpperCase();
           table = document.getElementById("<%= reportsList.ClientID %>");
           tr = table.getElementsByTagName("tr");
-            e = document.getElementById('searchCol');
-            col = parseInt(e.options[e.selectedIndex].value);
-            var liveSearch = { 'columnIndex': col, 'searchTerm': filter };
+        e = document.getElementById('searchCol');
+        col = parseInt(e.options[e.selectedIndex].value);
+        var liveSearch = { 'columnIndex': col, 'searchTerm': [filter] };
 
-            var searchNow = searchTerms;
-            searchNow.push(liveSearch);
+            var searchNow = JSON.parse(JSON.stringify(searchTerms));
+            var searchExists = false;
+            for (f = 0; f < searchNow.length; f++) {
+                if (searchNow[f].columnIndex == col) {
+                    if (filter != "") {
+                        searchNow[f].searchTerm.push(filter);
+                        searchExists = true;
+                    } else {
+
+                    }
+                }
+            }
+            if (!searchExists) {
+                searchNow.push(liveSearch);
+            }
+        
 
           // Loop through all table rows, and hide those who don't match the search query
           for (i = 1; i < tr.length; i++) {
@@ -122,12 +145,22 @@
 
         function addFilter() {
             var colName, colIndex, searchTerm, e;
+            var exisiting = -1;
             e = document.getElementById('searchCol');
             colName = e.options[e.selectedIndex].text;
-            colIndex = e.options[e.selectedIndex].value;
+            colIndex = parseInt(e.options[e.selectedIndex].value);
             searchTerm = document.getElementById('equipSearch').value;
 
-            searchTerms.push({ 'columnName': colName, 'columnIndex': colIndex, 'searchTerm': searchTerm })
+            for (i = 0; i < searchTerms.length; i++) {
+                if (searchTerms[i].columnIndex == colIndex) {
+                    exisiting = i;
+                }
+            }
+            if (exisiting > -1) {
+                searchTerms[exisiting].searchTerm.push(searchTerm);
+            } else {
+                searchTerms.push({ 'columnName': colName, 'columnIndex': colIndex, 'searchTerm': [searchTerm] });
+            }
             writeFilters();
             document.getElementById('equipSearch').value = "";
             searchFilter();
@@ -148,7 +181,14 @@
         function writeFilters() {
             var filtersHTML = '<div class="filters">';
             for (i = 0; i < searchTerms.length; i++) {
-                filtersHTML += '<div class="filter" id="filter_' + i + '"><span class="filter-close" onclick="removeFilter(' + i + ')">&times;</span><span class="filter-text">' + searchTerms[i].columnName + ': <strong>' + searchTerms[i].searchTerm + '</strong></span></div>';
+                var searchTermHTML = "";
+                for (ii = 0; ii < searchTerms[i].searchTerm.length; ii++) {
+                    if (ii > 0) {
+                        searchTermHTML += " or ";
+                    }
+                    searchTermHTML += "<strong>" + searchTerms[i].searchTerm[ii] + "</strong>";
+                }
+                filtersHTML += '<div class="filter" id="filter_' + i + '"><span class="filter-close" onclick="removeFilter(' + i + ')">&times;</span><span class="filter-text">' + searchTerms[i].columnName + ': ' + searchTermHTML + '</span></div>';
             }
             filtersHTML += '</div>';
             document.getElementById('searchTermsList').innerHTML = filtersHTML;
