@@ -92,15 +92,36 @@
             for (i = 0; i < filter.searchTerm.length; i++) {
                 searchTerm = filter.searchTerm[i].toUpperCase();
                 if (tdv) {
-                    if (tdv.toUpperCase().indexOf(searchTerm) > -1) {
-                        innerCount = innerCount + 1;
+                    if (j == 6) {
+                        var costValue = parseFloat(searchTerm.substr(1));
+                        if (searchTerm.substr(0, 1) == ">" && searchTerm.length >= 2) {
+                            count = parseFloat(tdv) >= costValue ? count : count + 1;
+                        } else if (searchTerm.substr(0, 1) == "<" && searchTerm.length >= 2) {
+                            count = parseFloat(tdv) <= costValue ? count : count + 1;
+                        } else if (searchTerm.substr(0, 1) == "=" && searchTerm.length >= 2) {
+                            count = parseFloat(tdv) == costValue ? count : count + 1;
+                        }
+                    } else if (j == 1) {
+                        var dateSearch = new Date(searchTerm.substr(1));
+                        var dateTD = new Date(tdv);
+                        if (searchTerm.substr(0, 1) == ">" && searchTerm.length >= 11) {
+                            count = dateTD >= dateSearch ? count : count + 1;
+                        } else if (searchTerm.substr(0, 1) == "<" && searchTerm.length >= 11) {
+                            count = dateTD <= dateSearch ? count : count + 1;
+                        } else if (searchTerm.substr(0, 1) == "=" && searchTerm.length >= 11) {
+                            count = dateTD.valueOf() == dateSearch.valueOf() ? count : count + 1;
+                        }
+                    } else {
+                        if (tdv.toUpperCase().indexOf(searchTerm) > -1) {
+                            innerCount = innerCount + 1;
+                        }
                     }
                 } else {
 
                 }
             }
 
-            if (innerCount === 0) {
+            if (innerCount === 0 && j != 6 && j != 1) {
                 count = count + 1;
             }
             
@@ -196,7 +217,11 @@
                 var searchTermHTML = "";
                 for (ii = 0; ii < searchTerms[i].searchTerm.length; ii++) {
                     if (ii > 0) {
-                        searchTermHTML += " or ";
+                        if (searchTerms[i].columnIndex == 6 || searchTerms[i].columnIndex == 1) {
+                            searchTermHTML += " and ";
+                        } else {
+                            searchTermHTML += " or ";
+                        }
                     }
                     searchTermHTML += "<strong>" + searchTerms[i].searchTerm[ii] + "</strong>";
                 }
