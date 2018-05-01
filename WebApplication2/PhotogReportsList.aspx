@@ -11,21 +11,32 @@
 
         div[id^="filter_"] {
             display: inline-block;
-            border: 2px solid #3D9970;
+            border: 2px solid #286090;
             border-radius: 10px;
             padding: 3px 6px;
-            background-color: #01FF70;
+            background-color: #337ab7;
             box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
             margin: 0px 3px;
+            color: white;
+        }
+
+        div.or[id^="filter_"] {
+            background-color: #286090;
+            border-color: #204d74;
         }
 
         span.filter-close {
-            border: 2px solid #3D9970;
+            border: 2px solid #c9302c;
             border-radius: 50%;
             padding: 0px 4px;
             cursor: pointer;
-            background-color: #2ECC40;
+            background-color: #d9534f;
             color: white;
+        }
+
+        span.filter-close:hover {
+            background-color: #c9302c;
+            border-color: #ac2925;
         }
 
         span.filter-text {
@@ -53,7 +64,8 @@
                     <option value="8" title="Status">Status</option>
                     <option value="9" title="Notes">Notes</option>
                 </select>
-                <button type="button" id="addFilterButton" class="btn btn-success" onclick="addFilter(); return false;">+</button>
+                <button type="button" id="addFilterButton" class="btn btn-primary" onclick="addFilter(); return false;">+</button>
+                <button type="button" id="clearAllFilters" class="btn btn-danger" onclick="clearFilters(); return false;">&times;</button>
                 <div id="searchTermsList"></div>
             </div>
         </div>
@@ -188,7 +200,8 @@
                     }
                     searchTermHTML += "<strong>" + searchTerms[i].searchTerm[ii] + "</strong>";
                 }
-                filtersHTML += '<div class="filter" id="filter_' + i + '"><span class="filter-close" onclick="removeFilter(' + i + ')">&times;</span><span class="filter-text">' + searchTerms[i].columnName + ': ' + searchTermHTML + '</span></div>';
+                var classes = searchTerms[i].searchTerm.length > 1 ? "filter or" : "filter";
+                filtersHTML += '<div class="' + classes + '" id="filter_' + i + '"><span class="filter-close" onclick="removeFilter(' + i + ')">&times;</span><span class="filter-text">' + searchTerms[i].columnName + ': ' + searchTermHTML + '</span></div>';
             }
             filtersHTML += '</div>';
             document.getElementById('searchTermsList').innerHTML = filtersHTML;
