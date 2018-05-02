@@ -51,8 +51,15 @@
         <div class="col-xs-12 form-inline top10">
             <div class="inner-addon left-addon">
                 <i class="glyphicon glyphicon-search"></i>
+                <select id="equationSelect" class="form-control hidden">
+                    <option value=">" title="Greater">></option>
+                    <option value="<" title="LessThan"><</option>
+                    <option value="=" title="Equals">=</option>
+                </select>
+                <input type="date" id="dateSearch" onchange="dateSearch()" class="form-control hidden" />
+                <input type="number" id="costSearch" onchange="costSearch()" class="form-control hidden" />
                 <input type="text" id="equipSearch" onkeyup="searchFilter()" placeholder="Search..." class="form-control">
-                <select id="searchCol" class="form-control" onchange="searchFilter()">
+                <select id="searchCol" class="form-control" onchange="changeSearch()">
                     <option value="0" title="ID">ID</option>
                     <option value="1" title="Date">Date</option>
                     <option value="2" title="Office">Office</option>
@@ -83,6 +90,34 @@
 
         var searchTerms = [];
 
+        function costSearch() {
+            var e = document.getElementById('equationSelect');
+            e.options[0].text = ">";
+            e.options[1].text = "<";
+            e.options[2].text = "=";
+            document.getElementById('equationSelect').className = "form-control";
+            document.getElementById('costSearch').className = "form-control";
+            document.getElementById('equipSearch').className = "form-control hidden";
+        }
+
+        function dateSearch() {
+            var e = document.getElementById('equationSelect');
+            e.options[0].text = "After";
+            e.options[1].text = "Before";
+            e.options[2].text = "On";
+            document.getElementById('equationSelect').className = "form-control";
+            document.getElementById('dateSearch').className = "form-control";
+            document.getElementById('equipSearch').className = "form-control hidden";
+        }
+
+        function resetSearch() {
+            document.getElementById('equipSearch').value = "";
+            document.getElementById('equationSelect').className = "form-control hidden";
+            document.getElementById('costSearch').className = "form-control hidden";
+            document.getElementById('dateSearch').className = "form-control hidden";
+            document.getElementById('equipSearch').className = "form-control";
+        }
+
         function innerSearch(j, td, filter, currentCount) {
             var count = currentCount;
             var tdv = td.getAttribute("data-value");
@@ -95,7 +130,7 @@
                     if (j == 6) {
                         var costValue = parseFloat(searchTerm.substr(1));
                         if (searchTerm.substr(0, 1) == ">" && searchTerm.length >= 2) {
-                            count = parseFloat(tdv) >= costValue ? count : count + 1;
+                            count = parseFloat(tdv) > costValue ? count : count + 1;
                         } else if (searchTerm.substr(0, 1) == "<" && searchTerm.length >= 2) {
                             count = parseFloat(tdv) <= costValue ? count : count + 1;
                         } else if (searchTerm.substr(0, 1) == "=" && searchTerm.length >= 2) {
@@ -128,6 +163,23 @@
             return count;
         }
 
+        function changeSearch() {
+            var e = document.getElementById('searchCol');
+            var col = parseInt(e.options[e.selectedIndex].value);
+            if (col == 1) {
+                resetSearch();
+                searchFilter();
+                dateSearch();
+            } else if (col == 6) {
+                resetSearch();
+                searchFilter();
+                costSearch();
+            } else {
+                resetSearch();
+                searchFilter();
+            }
+        }
+
         function searchFilter() {
           // Declare variables
           var input, filter, table, tr, td, i, ii, current, col, e;
@@ -136,7 +188,7 @@
           table = document.getElementById("<%= reportsList.ClientID %>");
           tr = table.getElementsByTagName("tr");
         e = document.getElementById('searchCol');
-        col = parseInt(e.options[e.selectedIndex].value);
+            col = parseInt(e.options[e.selectedIndex].value);
         var liveSearch = { 'columnIndex': col, 'searchTerm': [filter] };
 
             var searchNow = JSON.parse(JSON.stringify(searchTerms));
@@ -182,7 +234,14 @@
             e = document.getElementById('searchCol');
             colName = e.options[e.selectedIndex].text;
             colIndex = parseInt(e.options[e.selectedIndex].value);
-            searchTerm = document.getElementById('equipSearch').value;
+
+            if (colIndex == 1) {
+                searchTerm = document.getElementById('equationSelect').value + document.getElementById('dateSearch').value;
+            } else if (colIndex == 6) {
+                searchTerm = document.getElementById('equationSelect').value + document.getElementById('costSearch').value;
+            } else {
+                searchTerm = document.getElementById('equipSearch').value;
+            }
 
             for (i = 0; i < searchTerms.length; i++) {
                 if (searchTerms[i].columnIndex == colIndex) {
