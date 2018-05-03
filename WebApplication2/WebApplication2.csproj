@@ -256,6 +256,7 @@
     <Content Include="RepairReport.aspx" />
     <Content Include="Repairs2.aspx" />
     <Content Include="Reports.aspx" />
+    <Content Include="ReportsDashboard.aspx" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -541,6 +542,13 @@
     </Compile>
     <Compile Include="Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsDashboard.aspx.cs">
+      <DependentUpon>ReportsDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportsDashboard.aspx.designer.cs">
+      <DependentUpon>ReportsDashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
