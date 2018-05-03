@@ -137,6 +137,7 @@ namespace WebApplication2
             DataTable dt2 = new DataTable();
             dt2.Columns.Add(new DataColumn("Text"));
             dt2.Columns.Add(new DataColumn("Value"));
+            dt2.Rows.Add("none", "");
             foreach (DataRow dr in dt.Rows)
             {
                 dt2.Rows.Add(dr[1].ToString() + " | " + dr[2].ToString(), dr[0]);
@@ -191,7 +192,7 @@ namespace WebApplication2
 
         protected void reportPhotographerDD_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectOffice();
+            if (reportPhotographerDD.SelectedValue != "") SelectOffice();
         }
     }
 }
