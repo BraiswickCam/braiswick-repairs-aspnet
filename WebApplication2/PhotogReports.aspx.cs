@@ -16,6 +16,7 @@ namespace WebApplication2
         {
             successAlert.Visible = false;
             errorAlert.Visible = false;
+            reportUpdate.Visible = false;
             if (!IsPostBack)
             {
                 FillPhotogsDropDown();
@@ -23,6 +24,8 @@ namespace WebApplication2
                 {
                     string id = Request.QueryString["id"];
                     FillLoadedEntry(LoadEntry(id));
+                    reportUpdate.Visible = true;
+                    reportSave.Visible = false;
                 }
             }
         }
@@ -131,6 +134,61 @@ namespace WebApplication2
             return true;
         }
 
+        protected bool UpdateEntry(out string saveErrorMessage)
+        {
+            string date;
+            decimal cost;
+            int id;
+            try
+            {
+                date = Convert.ToDateTime(reportDate.Text).ToString("yyyy-MM-dd");
+                id = Convert.ToInt32(reportID.Text);
+                if (reportCost.Text != "")
+                {
+                    cost = Convert.ToDecimal(reportCost.Text);
+                }
+                else
+                {
+                    cost = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                saveErrorMessage = "INPUTS: " + ex.Message;
+                return false;
+            }
+
+            try
+            {
+                using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
+                {
+                    SQLiteCommand command = m_dbConnection.CreateCommand();
+                    command.CommandText = "UPDATE PReports SET Date = @Date, Office = @Office, Job = @Job, School = @School, Type = @Type, Cost = @Cost, Photographer = @Photographer, Status = @Status, Notes = @Notes WHERE ID = @ID";
+                    command.Parameters.Add(new SQLiteParameter("@ID", id));
+                    command.Parameters.Add(new SQLiteParameter("@Date", date));
+                    command.Parameters.Add(new SQLiteParameter("@Office", reportOfficeDD.SelectedValue));
+                    command.Parameters.Add(new SQLiteParameter("@Job", reportJob.Text));
+                    command.Parameters.Add(new SQLiteParameter("@School", reportSchool.Text));
+                    command.Parameters.Add(new SQLiteParameter("@Type", reportType.Text));
+                    command.Parameters.Add(new SQLiteParameter("@Cost", cost));
+                    command.Parameters.Add(new SQLiteParameter("@Photographer", reportPhotographerDD.SelectedValue));
+                    command.Parameters.Add(new SQLiteParameter("@Status", reportStatus.Text));
+                    command.Parameters.Add(new SQLiteParameter("@Notes", reportNotes.Text));
+                    m_dbConnection.Open();
+                    command.ExecuteNonQuery();
+                    m_dbConnection.Close();
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                saveErrorMessage = "SQL: " + ex.Message;
+                return false;
+            }
+
+            saveErrorMessage = "";
+            return true;
+        }
+
         protected void FillPhotogsDropDown()
         {
             DataTable dt = GetPhotogs();
@@ -193,6 +251,22 @@ namespace WebApplication2
         protected void reportPhotographerDD_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (reportPhotographerDD.SelectedValue != "") SelectOffice();
+        }
+
+        protected void reportUpdate_Click(object sender, EventArgs e)
+        {
+            string saveErrorMessage;
+            if (UpdateEntry(out saveErrorMessage))
+            {
+                successAlert.Visible = true;
+            }
+            else
+            {
+                errorAlert.Visible = true;
+                errorMessage.InnerText = saveErrorMessage;
+            }
+            reportUpdate.Visible = true;
+            reportSave.Visible = false;
         }
     }
 }

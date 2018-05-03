@@ -133,6 +133,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <asp:Button ID="reportSave" runat="server" CssClass="btn btn-primary" Text="Save" OnClick="reportSave_Click" />
+                    <asp:Button ID="reportUpdate" runat="server" CssClass="btn btn-success" Text="Update" OnClick="reportUpdate_Click" />
                 </div>
             </div>
         </div>
