@@ -44,6 +44,12 @@ namespace WebApplication2
         {
             foreach (GridViewRow gvr in reportsList.Rows)
             {
+                if (gvr.Cells[0].Text != "&nbsp;")
+                {
+                    string id = gvr.Cells[0].Text;
+                    gvr.Cells[0].Text = String.Format("<a href=\"PhotogReports.aspx?id={0}\" class=\"btn btn-primary\">{0}</a>", id);
+                }
+
                 if (gvr.Cells[8].Text != "&nbsp;")
                 {
                     string photogID = gvr.Cells[7].Text;

@@ -35,7 +35,7 @@ namespace WebApplication2
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT ID, Initials, Name FROM Photographers WHERE Active = 1 ORDER BY Initials";
+                command.CommandText = "SELECT ID, Initials, Name FROM Photographers ORDER BY Initials";
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
                     sda.SelectCommand = command;
