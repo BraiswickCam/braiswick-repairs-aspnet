@@ -19,6 +19,11 @@ namespace WebApplication2
             if (!IsPostBack)
             {
                 FillPhotogsDropDown();
+                if (Request.QueryString["id"] != null)
+                {
+                    string id = Request.QueryString["id"];
+                    FillLoadedEntry(LoadEntry(id));
+                }
             }
         }
 
@@ -38,6 +43,40 @@ namespace WebApplication2
                     }
                 }
             }
+        }
+
+        protected DataTable LoadEntry(string id)
+        {
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "SELECT * FROM PReports WHERE ID = @id";
+                command.Parameters.Add(new SQLiteParameter("@id", id));
+                using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
+                {
+                    sda.SelectCommand = command;
+                    using (DataTable dt = new DataTable())
+                    {
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        protected void FillLoadedEntry(DataTable dt)
+        {
+            DataRow dr = dt.Rows[0];
+            reportID.Text = dr[0].ToString();
+            reportDate.Text = dr[1].ToString() != "" ? Convert.ToDateTime(dr[1]).ToString("yyyy-MM-dd") : "";
+            reportJob.Text = dr[3].ToString();
+            reportSchool.Text = dr[4].ToString();
+            reportType.Text = dr[5].ToString();
+            reportCost.Text = Convert.ToDecimal(dr[6]).ToString();
+            reportPhotographerDD.SelectedValue = dr[7].ToString();
+            reportStatus.SelectedValue = dr[8].ToString();
+            reportNotes.Text = dr[9].ToString();
+            reportOfficeDD.SelectedValue = dr[2].ToString() == "MT" ? "MT" : dr[2].ToString() == "MF" ? "MF" : "";
         }
 
         protected bool SaveEntry(out string saveErrorMessage)
