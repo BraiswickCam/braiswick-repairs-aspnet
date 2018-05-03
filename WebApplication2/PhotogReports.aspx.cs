@@ -14,6 +14,8 @@ namespace WebApplication2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            successAlert.Visible = false;
+            errorAlert.Visible = false;
             if (!IsPostBack)
             {
                 FillPhotogsDropDown();
@@ -38,20 +40,40 @@ namespace WebApplication2
             }
         }
 
-        protected bool SaveEntry()
+        protected bool SaveEntry(out string saveErrorMessage)
         {
+            string date;
+            decimal cost;
+            try
+            {
+                date = Convert.ToDateTime(reportDate.Text).ToString("yyyy-MM-dd");
+                if (reportCost.Text != "")
+                {
+                    cost = Convert.ToDecimal(reportCost.Text);
+                }
+                else
+                {
+                    cost = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                saveErrorMessage = "INPUTS: " + ex.Message;
+                return false;
+            }
+
             try
             {
                 using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
                 {
                     SQLiteCommand command = m_dbConnection.CreateCommand();
                     command.CommandText = "INSERT INTO PReports (Date, Office, Job, School, Type, Cost, Photographer, Status, Notes) VALUES (@Date, @Office, @Job, @School, @Type, @Cost, @Photographer, @Status, @Notes)";
-                    command.Parameters.Add(new SQLiteParameter("@Date", Convert.ToDateTime(reportDate.Text).ToString("yyyy-MM-dd")));
-                    command.Parameters.Add(new SQLiteParameter("@Office", ""));
+                    command.Parameters.Add(new SQLiteParameter("@Date", date));
+                    command.Parameters.Add(new SQLiteParameter("@Office", reportOfficeDD.SelectedValue));
                     command.Parameters.Add(new SQLiteParameter("@Job", reportJob.Text));
                     command.Parameters.Add(new SQLiteParameter("@School", reportSchool.Text));
                     command.Parameters.Add(new SQLiteParameter("@Type", reportType.Text));
-                    command.Parameters.Add(new SQLiteParameter("@Cost", Convert.ToDecimal(reportCost.Text)));
+                    command.Parameters.Add(new SQLiteParameter("@Cost", cost));
                     command.Parameters.Add(new SQLiteParameter("@Photographer", reportPhotographerDD.SelectedValue));
                     command.Parameters.Add(new SQLiteParameter("@Status", reportStatus.Text));
                     command.Parameters.Add(new SQLiteParameter("@Notes", reportNotes.Text));
@@ -60,11 +82,13 @@ namespace WebApplication2
                     m_dbConnection.Close();
                 }
             }
-            catch (SQLiteException)
+            catch (SQLiteException ex)
             {
+                saveErrorMessage = "SQL: " + ex.Message;
                 return false;
             }
 
+            saveErrorMessage = "";
             return true;
         }
 
@@ -84,9 +108,51 @@ namespace WebApplication2
             reportPhotographerDD.DataBind();
         }
 
+        protected void SelectOffice()
+        {
+            string office;
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "SELECT Office FROM Photographers WHERE ID = @id";
+                command.Parameters.Add(new SQLiteParameter("@id", Convert.ToInt32(reportPhotographerDD.SelectedValue)));
+                using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
+                {
+                    sda.SelectCommand = command;
+                    using (DataTable dt = new DataTable())
+                    {
+                        sda.Fill(dt);
+                        office = dt.Rows[0][0].ToString();
+                    }
+                }
+            }
+            if (office == "MA")
+            {
+                reportOfficeDD.SelectedValue = "MT";
+            }
+            else if (office == "MF")
+            {
+                reportOfficeDD.SelectedValue = "MF";
+            }
+        }
+
         protected void reportSave_Click(object sender, EventArgs e)
         {
-            SaveEntry();
+            string saveErrorMessage;
+            if (SaveEntry(out saveErrorMessage))
+            {
+                successAlert.Visible = true;
+            }
+            else
+            {
+                errorAlert.Visible = true;
+                errorMessage.InnerText = saveErrorMessage;
+            }
+        }
+
+        protected void reportPhotographerDD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectOffice();
         }
     }
 }

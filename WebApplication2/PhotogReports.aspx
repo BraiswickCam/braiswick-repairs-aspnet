@@ -12,6 +12,16 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row top10">
+        <div class="alert alert-success alert-dismissible" role="alert" id="successAlert" runat="server">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Success!</strong> Record successfully added to database.
+        </div>
+        <div class="alert alert-danger alert-dismissible" role="alert" id="errorAlert" runat="server">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Error!</strong> An error occured! <span id="errorMessage" runat="server"></span>
+        </div>
+    </div>
+    <div class="row top10">
         <div class="col-xs-6">
             <div class="panel panel-default">
                 <div class="panel-heading"></div>
@@ -28,16 +38,32 @@
                             <asp:TextBox ID="reportDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
                         </div>
                     </div>
-                    <div class="row top10">
+                    <asp:UpdatePanel ID="photogOfficeUpdate" runat="server">
+                        <ContentTemplate>
+                            <div class="row top10">
                         <div class="col-xs-4">Photographer: </div>
                         <div class="col-xs-8">
-                            <asp:DropDownList ID="reportPhotographerDD" runat="server" CssClass="form-control"></asp:DropDownList>
+                            <asp:DropDownList ID="reportPhotographerDD" runat="server" CssClass="form-control" OnSelectedIndexChanged="reportPhotographerDD_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                         </div>
                     </div>
                     <div class="row top10">
+                        <div class="col-xs-4">Office: </div>
+                        <div class="col-xs-8">
+                            <asp:DropDownList ID="reportOfficeDD" runat="server" CssClass="form-control">
+                                <asp:ListItem Text="Manningtree" Value="MT"></asp:ListItem>
+                                <asp:ListItem Text="Mansfield" Value="MF"></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                    </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                    <div class="row top10">
                         <div class="col-xs-4">Cost: </div>
                         <div class="col-xs-8">
-                            <asp:TextBox ID="reportCost" runat="server" CssClass="form-control"></asp:TextBox>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="gbp-addon">£</span>
+                                <asp:TextBox ID="reportCost" runat="server" CssClass="form-control" TextMode="Number" step="0.01"></asp:TextBox>
+                            </div>
                         </div>
                     </div>
                 </div>

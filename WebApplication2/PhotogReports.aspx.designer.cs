@@ -13,6 +13,33 @@ namespace WebApplication2 {
     public partial class PhotogReports {
         
         /// <summary>
+        /// successAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl successAlert;
+        
+        /// <summary>
+        /// errorAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl errorAlert;
+        
+        /// <summary>
+        /// errorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl errorMessage;
+        
+        /// <summary>
         /// reportID control.
         /// </summary>
         /// <remarks>
@@ -31,6 +58,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.TextBox reportDate;
         
         /// <summary>
+        /// photogOfficeUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel photogOfficeUpdate;
+        
+        /// <summary>
         /// reportPhotographerDD control.
         /// </summary>
         /// <remarks>
@@ -38,6 +74,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList reportPhotographerDD;
+        
+        /// <summary>
+        /// reportOfficeDD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList reportOfficeDD;
         
         /// <summary>
         /// reportCost control.
