@@ -259,6 +259,7 @@
         }
 
         function clearFilters() {
+            document.getElementById('equipSearch').value = "";
             searchTerms = [];
             writeFilters();
             searchFilter();
