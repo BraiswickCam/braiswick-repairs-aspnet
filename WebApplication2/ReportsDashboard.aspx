@@ -44,7 +44,7 @@
             <div class="panel-body">
                 <div class="link-container"">
                     <a class="btn btn-success" href="PhotogReports.aspx">
-                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="glyphicon glyphicon-plus" style="left: 2px;"></span>
                     </a>
                     <p>New Report</p>
                 </div>
