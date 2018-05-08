@@ -1,6 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PhotogReports.aspx.cs" Inherits="WebApplication2.PhotogReports" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="headextra" runat="server">
     <style>
+        * {
+            font-family: Ubuntu, sans-serif;
+        }
+
         select > option {
             font-family: monospace;
         }

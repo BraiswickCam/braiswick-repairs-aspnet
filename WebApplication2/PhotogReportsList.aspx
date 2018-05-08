@@ -1,6 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PhotogReportsList.aspx.cs" Inherits="WebApplication2.PhotogReportsList" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="headextra" runat="server">
     <style>
+        * {
+            font-family: Ubuntu, sans-serif;
+        }
+
         .top10 {
             margin-top: 10px;
         }
