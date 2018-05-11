@@ -35,12 +35,16 @@
         div.link-container > p {
             font-size: 20px;
         }
+
+        .panel-title.main-title {
+            text-align: center;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row top-10">
         <div class="panel panel-success">
-            <div class="panel-heading"><h4 class="panel-title">Reports Dashboard</h4></div>
+            <div class="panel-heading"><h4 class="panel-title main-title">Reports Dashboard</h4></div>
             <div class="panel-body">
                 <div class="link-container"">
                     <a class="btn btn-success" href="PhotogReports.aspx">
@@ -58,11 +62,17 @@
         </div>
     </div>
     <div class="row top-10">
-        <div class="panel-body panel-success">
-            <div class="panel-heading"><h4 class="panel-title">Action Required</h4></div>
+        <div class="panel panel-success">
+            <div class="panel-heading"><h4 class="panel-title"><span class="glyphicon glyphicon-exclamation-sign"></span> Action Required <span class="badge" id="actionRequiredCountBadge" runat="server"></span></h4></div>
             <div class="panel-body">
                 <asp:GridView ID="actionTable" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
+    </script>
 </asp:Content>

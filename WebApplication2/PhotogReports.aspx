@@ -111,6 +111,15 @@
                             <asp:TextBox ID="reportType" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                     </div>
+                    <div class="row top10">
+                        <div class="col-xs-12">
+                            <div class="checkbox">
+                                <label>
+                                    <asp:CheckBox ID="actionCheck" runat="server" /> Action Required?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -80,6 +80,7 @@ namespace WebApplication2
             reportStatus.SelectedValue = dr[8].ToString();
             reportNotes.Text = dr[9].ToString();
             reportOfficeDD.SelectedValue = dr[2].ToString() == "MT" ? "MT" : dr[2].ToString() == "MF" ? "MF" : "";
+            actionCheck.Checked = Convert.ToBoolean(dr[10]);
         }
 
         protected bool SaveEntry(out string saveErrorMessage)
@@ -109,7 +110,7 @@ namespace WebApplication2
                 using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
                 {
                     SQLiteCommand command = m_dbConnection.CreateCommand();
-                    command.CommandText = "INSERT INTO PReports (Date, Office, Job, School, Type, Cost, Photographer, Status, Notes) VALUES (@Date, @Office, @Job, @School, @Type, @Cost, @Photographer, @Status, @Notes)";
+                    command.CommandText = "INSERT INTO PReports (Date, Office, Job, School, Type, Cost, Photographer, Status, Notes, Action) VALUES (@Date, @Office, @Job, @School, @Type, @Cost, @Photographer, @Status, @Notes, @Action)";
                     command.Parameters.Add(new SQLiteParameter("@Date", date));
                     command.Parameters.Add(new SQLiteParameter("@Office", reportOfficeDD.SelectedValue));
                     command.Parameters.Add(new SQLiteParameter("@Job", reportJob.Text));
@@ -119,6 +120,7 @@ namespace WebApplication2
                     command.Parameters.Add(new SQLiteParameter("@Photographer", reportPhotographerDD.SelectedValue));
                     command.Parameters.Add(new SQLiteParameter("@Status", reportStatus.Text));
                     command.Parameters.Add(new SQLiteParameter("@Notes", reportNotes.Text));
+                    command.Parameters.Add(new SQLiteParameter("@Action", actionCheck.Checked ? "1" : "0"));
                     m_dbConnection.Open();
                     command.ExecuteNonQuery();
                     m_dbConnection.Close();
@@ -163,7 +165,7 @@ namespace WebApplication2
                 using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
                 {
                     SQLiteCommand command = m_dbConnection.CreateCommand();
-                    command.CommandText = "UPDATE PReports SET Date = @Date, Office = @Office, Job = @Job, School = @School, Type = @Type, Cost = @Cost, Photographer = @Photographer, Status = @Status, Notes = @Notes WHERE ID = @ID";
+                    command.CommandText = "UPDATE PReports SET Date = @Date, Office = @Office, Job = @Job, School = @School, Type = @Type, Cost = @Cost, Photographer = @Photographer, Status = @Status, Notes = @Notes, Action = @Action WHERE ID = @ID";
                     command.Parameters.Add(new SQLiteParameter("@ID", id));
                     command.Parameters.Add(new SQLiteParameter("@Date", date));
                     command.Parameters.Add(new SQLiteParameter("@Office", reportOfficeDD.SelectedValue));
@@ -174,6 +176,7 @@ namespace WebApplication2
                     command.Parameters.Add(new SQLiteParameter("@Photographer", reportPhotographerDD.SelectedValue));
                     command.Parameters.Add(new SQLiteParameter("@Status", reportStatus.Text));
                     command.Parameters.Add(new SQLiteParameter("@Notes", reportNotes.Text));
+                    command.Parameters.Add(new SQLiteParameter("@Action", actionCheck.Checked ? "1" : "0"));
                     m_dbConnection.Open();
                     command.ExecuteNonQuery();
                     m_dbConnection.Close();

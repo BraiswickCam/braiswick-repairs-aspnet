@@ -62,6 +62,8 @@ namespace WebApplication2
                         photogName);
                 }
             }
+
+            actionRequiredCountBadge.InnerText = actionTable.Rows.Count.ToString();
         }
 
         protected void actionTable_RowDataBound(object sender, GridViewRowEventArgs e)
