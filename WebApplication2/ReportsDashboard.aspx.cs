@@ -16,18 +16,22 @@ namespace WebApplication2
         {
             if (!IsPostBack)
             {
-                actionTable.DataSource = GetActionList();
+                actionTable.DataSource = GetActionList("MT");
+                actionTableMF.DataSource = GetActionList("MF");
                 actionTable.DataBind();
-                AddLinks();
+                actionTableMF.DataBind();
+                AddLinks(actionTable, actionRequiredCountBadge);
+                AddLinks(actionTableMF, badgeMF);
             }
         }
 
-        protected DataTable GetActionList()
+        protected DataTable GetActionList(string office)
         {
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT PReports.ID, PReports.Date, PReports.Office, PReports.Job, PReports.School, PReports.Type, PReports.Cost, PReports.Photographer, Photographers.Initials, Photographers.Name, PReports.Status, PReports.Notes FROM PReports LEFT JOIN Photographers ON PReports.Photographer = Photographers.ID WHERE PReports.Action = 1";
+                command.CommandText = "SELECT PReports.ID, PReports.Date, PReports.Office, PReports.Job, PReports.School, PReports.Type, PReports.Cost, PReports.Photographer, Photographers.Initials, Photographers.Name, PReports.Status, PReports.Notes FROM PReports LEFT JOIN Photographers ON PReports.Photographer = Photographers.ID WHERE PReports.Action = 1 AND PReports.Office = @Office";
+                command.Parameters.Add(new SQLiteParameter("@Office", office));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
                     sda.SelectCommand = command;
@@ -40,14 +44,14 @@ namespace WebApplication2
             }
         }
 
-        protected void AddLinks()
+        protected void AddLinks(GridView gv, System.Web.UI.HtmlControls.HtmlGenericControl badge)
         {
-            foreach (GridViewRow gvr in actionTable.Rows)
+            foreach (GridViewRow gvr in gv.Rows)
             {
                 if (gvr.Cells[0].Text != "&nbsp;")
                 {
                     string id = gvr.Cells[0].Text;
-                    gvr.Cells[0].Text = String.Format("<a href=\"PhotogReports.aspx?id={0}\" class=\"btn btn-primary\">{0}</a>", id);
+                    gvr.Cells[0].Text = String.Format("<a href=\"PhotogReports.aspx?id={0}\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-edit\"></span> {0}</a>", id);
                 }
 
                 if (gvr.Cells[8].Text != "&nbsp;")
@@ -63,7 +67,7 @@ namespace WebApplication2
                 }
             }
 
-            actionRequiredCountBadge.InnerText = actionTable.Rows.Count.ToString();
+            badge.InnerText = gv.Rows.Count.ToString();
         }
 
         protected void actionTable_RowDataBound(object sender, GridViewRowEventArgs e)

@@ -9,7 +9,7 @@
             margin-top: 10px;
         }
 
-        div.panel-body {
+        div.panel-body.main-body {
             text-align: center;
         }
 
@@ -45,7 +45,7 @@
     <div class="row top-10">
         <div class="panel panel-success">
             <div class="panel-heading"><h4 class="panel-title main-title">Reports Dashboard</h4></div>
-            <div class="panel-body">
+            <div class="panel-body main-body">
                 <div class="link-container"">
                     <a class="btn btn-success" href="PhotogReports.aspx">
                         <span class="glyphicon glyphicon-plus" style="left: 2px;"></span>
@@ -63,9 +63,17 @@
     </div>
     <div class="row top-10">
         <div class="panel panel-success">
-            <div class="panel-heading"><h4 class="panel-title"><span class="glyphicon glyphicon-exclamation-sign"></span> Action Required <span class="badge" id="actionRequiredCountBadge" runat="server"></span></h4></div>
+            <div class="panel-heading"><h4 class="panel-title"><span class="glyphicon glyphicon-exclamation-sign"></span> Manningtree - Action Required <span class="badge" id="actionRequiredCountBadge" runat="server"></span></h4></div>
             <div class="panel-body">
                 <asp:GridView ID="actionTable" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
+            </div>
+        </div>
+    </div>
+    <div class="row top-10">
+        <div class="panel panel-success">
+            <div class="panel-heading"><h4 class="panel-title"><span class="glyphicon glyphicon-exclamation-sign"></span> Mansfield - Action Required <span class="badge" id="badgeMF" runat="server"></span></h4></div>
+            <div class="panel-body">
+                <asp:GridView ID="actionTableMF" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
             </div>
         </div>
     </div>
