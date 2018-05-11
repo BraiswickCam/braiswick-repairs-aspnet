@@ -57,4 +57,12 @@
             </div>
         </div>
     </div>
+    <div class="row top-10">
+        <div class="panel-body panel-success">
+            <div class="panel-heading"><h4 class="panel-title">Action Required</h4></div>
+            <div class="panel-body">
+                <asp:GridView ID="actionTable" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
+            </div>
+        </div>
+    </div>
 </asp:Content>

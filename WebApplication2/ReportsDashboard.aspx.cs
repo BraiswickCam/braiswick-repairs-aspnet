@@ -14,7 +14,64 @@ namespace WebApplication2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                actionTable.DataSource = GetActionList();
+                actionTable.DataBind();
+                AddLinks();
+            }
+        }
 
+        protected DataTable GetActionList()
+        {
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "SELECT PReports.ID, PReports.Date, PReports.Office, PReports.Job, PReports.School, PReports.Type, PReports.Cost, PReports.Photographer, Photographers.Initials, Photographers.Name, PReports.Status, PReports.Notes FROM PReports LEFT JOIN Photographers ON PReports.Photographer = Photographers.ID WHERE PReports.Action = 1";
+                using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
+                {
+                    sda.SelectCommand = command;
+                    using (DataTable dt = new DataTable())
+                    {
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        protected void AddLinks()
+        {
+            foreach (GridViewRow gvr in actionTable.Rows)
+            {
+                if (gvr.Cells[0].Text != "&nbsp;")
+                {
+                    string id = gvr.Cells[0].Text;
+                    gvr.Cells[0].Text = String.Format("<a href=\"PhotogReports.aspx?id={0}\" class=\"btn btn-primary\">{0}</a>", id);
+                }
+
+                if (gvr.Cells[8].Text != "&nbsp;")
+                {
+                    string photogID = gvr.Cells[7].Text;
+                    string photogInitials = gvr.Cells[8].Text;
+                    string photogName = gvr.Cells[9].Text;
+
+                    gvr.Cells[8].Text = String.Format("<a href=\"PhotogDetails.aspx?PhotogID={0}\" class=\"btn btn-default\" data-toggle=\"tooltip\" data-placement=\"right\" data-html=\"true\" title=\"ID: {0}</br>{2}\">{1}</a>",
+                        photogID,
+                        photogInitials,
+                        photogName);
+                }
+            }
+        }
+
+        protected void actionTable_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            e.Row.Cells[7].Visible = false;
+            e.Row.Cells[9].Visible = false;
+            foreach (TableCell tc in e.Row.Cells)
+            {
+                tc.Attributes.Add("data-value", tc.Text);
+            }
         }
     }
 }
