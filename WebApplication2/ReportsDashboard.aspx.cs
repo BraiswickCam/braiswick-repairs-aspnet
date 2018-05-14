@@ -24,34 +24,43 @@ namespace WebApplication2
         protected void ManningtreeTables()
         {
             DataTable dt = GetActionList("MT");
+            int totalAction = 0;
 
-            FilterTable(dt, mtComplaintGV, mtComplaintBadge, "Status = 'COMPLAINT'");
-            FilterTable(dt, mtFeedbackGV, mtFeedbackBadge, "Status = 'FEEDBACK'");
-            FilterTable(dt, mtLossGV, mtLossBadge, "Status = 'LOSS'");
-            FilterTable(dt, mtReportGV, mtReportBadge, "Status = 'REPORT'");
-            FilterTable(dt, mtRetakeGV, mtRetakeBadge, "Status = 'RETAKE'");
-            FilterTable(dt, mtSiteVisitGV, mtSiteVisitBadge, "Status = 'SITE VISIT'");
+            totalAction += FilterTable(dt, mtComplaintGV, mtComplaintBadge, "Status = 'COMPLAINT'");
+            totalAction += FilterTable(dt, mtFeedbackGV, mtFeedbackBadge, "Status = 'FEEDBACK'");
+            totalAction += FilterTable(dt, mtLossGV, mtLossBadge, "Status = 'LOSS'");
+            totalAction += FilterTable(dt, mtReportGV, mtReportBadge, "Status = 'REPORT'");
+            totalAction += FilterTable(dt, mtRetakeGV, mtRetakeBadge, "Status = 'RETAKE'");
+            totalAction += FilterTable(dt, mtSiteVisitGV, mtSiteVisitBadge, "Status = 'SITE VISIT'");
+            totalAction += FilterTable(dt, mtOtherGV, mtOtherBadge, "Status NOT IN ('COMPLAINT', 'FEEDBACK', 'LOSS', 'REPORT', 'RETAKE', 'SITE VISIT')");
+
+            actionRequiredCountBadge.InnerText = totalAction.ToString();
         }
 
         protected void MansfieldTables()
         {
             DataTable dt = GetActionList("MF");
+            int totalAction = 0;
 
-            FilterTable(dt, mfComplaintGV, mfComplaintBadge, "Status = 'COMPLAINT'");
-            FilterTable(dt, mfFeedbackGV, mfFeedbackBadge, "Status = 'FEEDBACK'");
-            FilterTable(dt, mfLossGV, mfLossBadge, "Status = 'LOSS'");
-            FilterTable(dt, mfReportGV, mfReportBadge, "Status = 'REPORT'");
-            FilterTable(dt, mfRetakeGV, mfRetakeBadge, "Status = 'RETAKE'");
-            FilterTable(dt, mfSiteVisitGV, mfSiteVisitBadge, "Status = 'SITE VISIT'");
+            totalAction += FilterTable(dt, mfComplaintGV, mfComplaintBadge, "Status = 'COMPLAINT'");
+            totalAction += FilterTable(dt, mfFeedbackGV, mfFeedbackBadge, "Status = 'FEEDBACK'");
+            totalAction += FilterTable(dt, mfLossGV, mfLossBadge, "Status = 'LOSS'");
+            totalAction += FilterTable(dt, mfReportGV, mfReportBadge, "Status = 'REPORT'");
+            totalAction += FilterTable(dt, mfRetakeGV, mfRetakeBadge, "Status = 'RETAKE'");
+            totalAction += FilterTable(dt, mfSiteVisitGV, mfSiteVisitBadge, "Status = 'SITE VISIT'");
+            totalAction += FilterTable(dt, mfOtherGV, mfOtherBadge, "Status NOT IN ('COMPLAINT', 'FEEDBACK', 'LOSS', 'REPORT', 'RETAKE', 'SITE VISIT')");
+
+            badgeMF.InnerText = totalAction.ToString();
         }
 
-        protected void FilterTable(DataTable dt, GridView gv, System.Web.UI.HtmlControls.HtmlGenericControl badge, string filter)
+        protected int FilterTable(DataTable dt, GridView gv, System.Web.UI.HtmlControls.HtmlGenericControl badge, string filter)
         {
             DataView dv = new DataView(dt);
             dv.RowFilter = filter;
             gv.DataSource = dv;
             gv.DataBind();
             AddLinks(gv, badge);
+            return gv.Rows.Count;
         }
 
         protected DataTable GetActionList(string office)

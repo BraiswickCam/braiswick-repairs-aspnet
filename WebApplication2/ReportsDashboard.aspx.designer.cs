@@ -76,6 +76,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtSiteVisitBadge;
         
         /// <summary>
+        /// mtOtherBadge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtOtherBadge;
+        
+        /// <summary>
         /// mtComplaintGV control.
         /// </summary>
         /// <remarks>
@@ -128,6 +137,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView mtSiteVisitGV;
+        
+        /// <summary>
+        /// mtOtherGV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView mtOtherGV;
         
         /// <summary>
         /// badgeMF control.
@@ -193,6 +211,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfSiteVisitBadge;
         
         /// <summary>
+        /// mfOtherBadge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfOtherBadge;
+        
+        /// <summary>
         /// mfComplaintGV control.
         /// </summary>
         /// <remarks>
@@ -245,5 +272,14 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView mfSiteVisitGV;
+        
+        /// <summary>
+        /// mfOtherGV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView mfOtherGV;
     }
 }

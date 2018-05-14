@@ -72,6 +72,7 @@
                     <li><a data-toggle="tab" href="#mtReport">Report <span class="badge" id="mtReportBadge" runat="server"></span></a></li>
                     <li><a data-toggle="tab" href="#mtRetake">Retake <span class="badge" id="mtRetakeBadge" runat="server"></span></a></li>
                     <li><a data-toggle="tab" href="#mtSiteVisit">Site Visit <span class="badge" id="mtSiteVisitBadge" runat="server"></span></a></li>
+                    <li><a data-toggle="tab" href="#mtOther">Other <span class="badge" id="mtOtherBadge" runat="server"></span></a></li>
                 </ul>
                 <div class="tab-content">
                   <div id="mtComplaint" class="tab-pane fade in active">
@@ -92,6 +93,9 @@
                   <div id="mtSiteVisit" class="tab-pane fade in">
                     <asp:GridView ID="mtSiteVisitGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
                   </div>
+                  <div id="mtOther" class="tab-pane fade in">
+                    <asp:GridView ID="mtOtherGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
+                  </div>
                 </div>
             </div>
         </div>
@@ -107,6 +111,7 @@
                     <li><a data-toggle="tab" href="#mfReport">Report <span class="badge" id="mfReportBadge" runat="server"></span></a></li>
                     <li><a data-toggle="tab" href="#mfRetake">Retake <span class="badge" id="mfRetakeBadge" runat="server"></span></a></li>
                     <li><a data-toggle="tab" href="#mfSiteVisit">Site Visit <span class="badge" id="mfSiteVisitBadge" runat="server"></span></a></li>
+                    <li><a data-toggle="tab" href="#mfOther">Other <span class="badge" id="mfOtherBadge" runat="server"></span></a></li>
                 </ul>
                 <div class="tab-content">
                   <div id="mfComplaint" class="tab-pane fade in active">
@@ -126,6 +131,9 @@
                   </div>
                   <div id="mfSiteVisit" class="tab-pane fade in">
                     <asp:GridView ID="mfSiteVisitGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
+                  </div>
+                  <div id="mfOther" class="tab-pane fade in">
+                    <asp:GridView ID="mfOtherGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
                   </div>
                 </div>
             </div>
