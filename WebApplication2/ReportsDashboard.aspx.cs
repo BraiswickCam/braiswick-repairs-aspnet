@@ -105,7 +105,7 @@ namespace WebApplication2
                 }
             }
 
-            badge.InnerText = gv.Rows.Count.ToString();
+            if (gv.Rows.Count > 0) badge.InnerText = gv.Rows.Count.ToString();
         }
 
         protected void actionTable_RowDataBound(object sender, GridViewRowEventArgs e)
