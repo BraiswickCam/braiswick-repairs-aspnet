@@ -17,9 +17,7 @@ namespace WebApplication2
             if (!IsPostBack)
             {
                 ManningtreeTables();
-                actionTableMF.DataSource = GetActionList("MF");
-                actionTableMF.DataBind();
-                AddLinks(actionTableMF, badgeMF);
+                MansfieldTables();
             }
         }
 
@@ -33,6 +31,18 @@ namespace WebApplication2
             FilterTable(dt, mtReportGV, mtReportBadge, "Status = 'REPORT'");
             FilterTable(dt, mtRetakeGV, mtRetakeBadge, "Status = 'RETAKE'");
             FilterTable(dt, mtSiteVisitGV, mtSiteVisitBadge, "Status = 'SITE VISIT'");
+        }
+
+        protected void MansfieldTables()
+        {
+            DataTable dt = GetActionList("MF");
+
+            FilterTable(dt, mfComplaintGV, mfComplaintBadge, "Status = 'COMPLAINT'");
+            FilterTable(dt, mfFeedbackGV, mfFeedbackBadge, "Status = 'FEEDBACK'");
+            FilterTable(dt, mfLossGV, mfLossBadge, "Status = 'LOSS'");
+            FilterTable(dt, mfReportGV, mfReportBadge, "Status = 'REPORT'");
+            FilterTable(dt, mfRetakeGV, mfRetakeBadge, "Status = 'RETAKE'");
+            FilterTable(dt, mfSiteVisitGV, mfSiteVisitBadge, "Status = 'SITE VISIT'");
         }
 
         protected void FilterTable(DataTable dt, GridView gv, System.Web.UI.HtmlControls.HtmlGenericControl badge, string filter)

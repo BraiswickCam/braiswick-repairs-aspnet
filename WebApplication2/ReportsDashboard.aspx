@@ -100,7 +100,34 @@
         <div class="panel panel-success">
             <div class="panel-heading"><h4 class="panel-title"><span class="glyphicon glyphicon-exclamation-sign"></span> Mansfield - Action Required <span class="badge" id="badgeMF" runat="server"></span></h4></div>
             <div class="panel-body">
-                <asp:GridView ID="actionTableMF" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#mfComplaint">Complaint <span class="badge" id="mfComplaintBadge" runat="server"></span></a></li>
+                  <li><a data-toggle="tab" href="#mfFeedback">Feedback <span class="badge" id="mfFeedbackBadge" runat="server"></span></a></li>
+                  <li><a data-toggle="tab" href="#mfLoss">Loss <span class="badge" id="mfLossBadge" runat="server"></span></a></li>
+                    <li><a data-toggle="tab" href="#mfReport">Report <span class="badge" id="mfReportBadge" runat="server"></span></a></li>
+                    <li><a data-toggle="tab" href="#mfRetake">Retake <span class="badge" id="mfRetakeBadge" runat="server"></span></a></li>
+                    <li><a data-toggle="tab" href="#mfSiteVisit">Site Visit <span class="badge" id="mfSiteVisitBadge" runat="server"></span></a></li>
+                </ul>
+                <div class="tab-content">
+                  <div id="mfComplaint" class="tab-pane fade in active">
+                    <asp:GridView ID="mfComplaintGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
+                  </div>
+                  <div id="mfFeedback" class="tab-pane fade in">
+                    <asp:GridView ID="mfFeedbackGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
+                  </div>
+                  <div id="mfLoss" class="tab-pane fade in">
+                    <asp:GridView ID="mfLossGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
+                  </div>
+                  <div id="mfReport" class="tab-pane fade in">
+                    <asp:GridView ID="mfReportGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
+                  </div>
+                  <div id="mfRetake" class="tab-pane fade in">
+                    <asp:GridView ID="mfRetakeGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
+                  </div>
+                  <div id="mfSiteVisit" class="tab-pane fade in">
+                    <asp:GridView ID="mfSiteVisitGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
+                  </div>
+                </div>
             </div>
         </div>
     </div>
