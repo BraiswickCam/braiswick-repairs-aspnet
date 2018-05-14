@@ -110,7 +110,7 @@ namespace WebApplication2
                 using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
                 {
                     SQLiteCommand command = m_dbConnection.CreateCommand();
-                    command.CommandText = "INSERT INTO PReports (Date, Office, Job, School, Type, Cost, Photographer, Status, Notes, Action) VALUES (@Date, @Office, @Job, @School, @Type, @Cost, @Photographer, @Status, @Notes, @Action)";
+                    command.CommandText = "INSERT INTO PReports (Date, Office, Job, School, Type, Cost, Photographer, Status, Notes, Action, DateCreated, DateEdited) VALUES (@Date, @Office, @Job, @School, @Type, @Cost, @Photographer, @Status, @Notes, @Action, @DateCreated, @DateEdited)";
                     command.Parameters.Add(new SQLiteParameter("@Date", date));
                     command.Parameters.Add(new SQLiteParameter("@Office", reportOfficeDD.SelectedValue));
                     command.Parameters.Add(new SQLiteParameter("@Job", reportJob.Text));
@@ -121,6 +121,9 @@ namespace WebApplication2
                     command.Parameters.Add(new SQLiteParameter("@Status", reportStatus.Text));
                     command.Parameters.Add(new SQLiteParameter("@Notes", reportNotes.Text));
                     command.Parameters.Add(new SQLiteParameter("@Action", actionCheck.Checked ? "1" : "0"));
+                    DateTime currentDate = DateTime.Now;
+                    command.Parameters.Add(new SQLiteParameter("@DateCreated", currentDate.ToString("yyyy-MM-dd HH:mm:ss")));
+                    command.Parameters.Add(new SQLiteParameter("@DateEdited", currentDate.ToString("yyyy-MM-dd HH:mm:ss")));
                     m_dbConnection.Open();
                     command.ExecuteNonQuery();
                     m_dbConnection.Close();
@@ -165,7 +168,7 @@ namespace WebApplication2
                 using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
                 {
                     SQLiteCommand command = m_dbConnection.CreateCommand();
-                    command.CommandText = "UPDATE PReports SET Date = @Date, Office = @Office, Job = @Job, School = @School, Type = @Type, Cost = @Cost, Photographer = @Photographer, Status = @Status, Notes = @Notes, Action = @Action WHERE ID = @ID";
+                    command.CommandText = "UPDATE PReports SET Date = @Date, Office = @Office, Job = @Job, School = @School, Type = @Type, Cost = @Cost, Photographer = @Photographer, Status = @Status, Notes = @Notes, Action = @Action, DateEdited = @DateEdited WHERE ID = @ID";
                     command.Parameters.Add(new SQLiteParameter("@ID", id));
                     command.Parameters.Add(new SQLiteParameter("@Date", date));
                     command.Parameters.Add(new SQLiteParameter("@Office", reportOfficeDD.SelectedValue));
@@ -177,6 +180,8 @@ namespace WebApplication2
                     command.Parameters.Add(new SQLiteParameter("@Status", reportStatus.Text));
                     command.Parameters.Add(new SQLiteParameter("@Notes", reportNotes.Text));
                     command.Parameters.Add(new SQLiteParameter("@Action", actionCheck.Checked ? "1" : "0"));
+                    DateTime currentDate = DateTime.Now;
+                    command.Parameters.Add(new SQLiteParameter("@DateEdited", currentDate.ToString("yyyy-MM-dd HH:mm:ss")));
                     m_dbConnection.Open();
                     command.ExecuteNonQuery();
                     m_dbConnection.Close();
