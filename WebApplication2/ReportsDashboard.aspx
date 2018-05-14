@@ -50,7 +50,7 @@
                     <a class="btn btn-success" href="PhotogReports.aspx">
                         <span class="glyphicon glyphicon-plus" style="left: 2px;"></span>
                     </a>
-                    <p>New Report</p>
+                    <p>New Entry</p>
                 </div>
                 <div class="link-container"">
                     <a class="btn btn-success" href="PhotogReportsList.aspx">
