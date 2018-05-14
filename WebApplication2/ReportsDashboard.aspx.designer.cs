@@ -22,13 +22,112 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl actionRequiredCountBadge;
         
         /// <summary>
-        /// actionTable control.
+        /// mtComplaintBadge control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView actionTable;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtComplaintBadge;
+        
+        /// <summary>
+        /// mtFeedbackBadge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtFeedbackBadge;
+        
+        /// <summary>
+        /// mtLossBadge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtLossBadge;
+        
+        /// <summary>
+        /// mtReportBadge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtReportBadge;
+        
+        /// <summary>
+        /// mtRetakeBadge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtRetakeBadge;
+        
+        /// <summary>
+        /// mtSiteVisitBadge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtSiteVisitBadge;
+        
+        /// <summary>
+        /// mtComplaintGV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView mtComplaintGV;
+        
+        /// <summary>
+        /// mtFeedbackGV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView mtFeedbackGV;
+        
+        /// <summary>
+        /// mtLossGV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView mtLossGV;
+        
+        /// <summary>
+        /// mtReportGV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView mtReportGV;
+        
+        /// <summary>
+        /// mtRetakeGV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView mtRetakeGV;
+        
+        /// <summary>
+        /// mtSiteVisitGV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView mtSiteVisitGV;
         
         /// <summary>
         /// badgeMF control.

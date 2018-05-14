@@ -16,13 +16,32 @@ namespace WebApplication2
         {
             if (!IsPostBack)
             {
-                actionTable.DataSource = GetActionList("MT");
+                ManningtreeTables();
                 actionTableMF.DataSource = GetActionList("MF");
-                actionTable.DataBind();
                 actionTableMF.DataBind();
-                AddLinks(actionTable, actionRequiredCountBadge);
                 AddLinks(actionTableMF, badgeMF);
             }
+        }
+
+        protected void ManningtreeTables()
+        {
+            DataTable dt = GetActionList("MT");
+
+            FilterTable(dt, mtComplaintGV, mtComplaintBadge, "Status = 'COMPLAINT'");
+            FilterTable(dt, mtFeedbackGV, mtFeedbackBadge, "Status = 'FEEDBACK'");
+            FilterTable(dt, mtLossGV, mtLossBadge, "Status = 'LOSS'");
+            FilterTable(dt, mtReportGV, mtReportBadge, "Status = 'REPORT'");
+            FilterTable(dt, mtRetakeGV, mtRetakeBadge, "Status = 'RETAKE'");
+            FilterTable(dt, mtSiteVisitGV, mtSiteVisitBadge, "Status = 'SITE VISIT'");
+        }
+
+        protected void FilterTable(DataTable dt, GridView gv, System.Web.UI.HtmlControls.HtmlGenericControl badge, string filter)
+        {
+            DataView dv = new DataView(dt);
+            dv.RowFilter = filter;
+            gv.DataSource = dv;
+            gv.DataBind();
+            AddLinks(gv, badge);
         }
 
         protected DataTable GetActionList(string office)
