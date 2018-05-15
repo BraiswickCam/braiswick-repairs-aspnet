@@ -17,23 +17,39 @@ namespace WebApplication2
 
         }
 
-        protected void LoadWeeklyFeedback()
+        protected DateTime GetCurrentWeekStart()
         {
-            DateTime startDate = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
-            DateTime endDate = startDate.AddDays(7);
-            printTable.DataSource = GetWeeklyFeedback(startDate, endDate);
-            printTable.DataBind();
-            printTableTitle.InnerText = String.Format("Feedback for week beginning {0}", startDate.ToShortDateString());
+            return DateTime.Now.StartOfWeek(DayOfWeek.Monday);
         }
 
-        protected DataTable GetWeeklyFeedback(DateTime weekStart, DateTime weekEnd)
+        protected void LoadWeeklyFeedback()
+        {
+            LoadWeekly("FEEDBACK", "Feedback");
+        }
+
+        protected void LoadWeeklyReports()
+        {
+            LoadWeekly("REPORT", "Lab Reports");
+        }
+
+        protected void LoadWeekly(string status, string displayStatus)
+        {
+            DateTime startDate = GetCurrentWeekStart();
+            printTable.DataSource = GetWeekly(startDate, startDate.AddDays(7), status);
+            printTable.DataBind();
+            printTableTitle.InnerText = String.Format("{1} for week beginning {0}", startDate.ToShortDateString(), displayStatus);
+        }
+
+        protected DataTable GetWeekly(DateTime weekStart, DateTime weekEnd, string status)
         {
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT PReports.ID, PReports.Date, PReports.Office, PReports.Job, PReports.School, PReports.Type, PReports.Cost, PReports.Photographer, Photographers.Initials, Photographers.Name, PReports.Status, PReports.Notes FROM PReports LEFT JOIN Photographers ON PReports.Photographer = Photographers.ID WHERE PReports.Status = 'FEEDBACK' AND DateCreated >= @StartWeek AND DateCreated < @EndWeek";
+                command.CommandText = "SELECT PReports.ID, PReports.Date, PReports.Office, PReports.Job, PReports.School, PReports.Type, PReports.Cost, PReports.Photographer, Photographers.Initials, Photographers.Name, PReports.Status, PReports.Notes FROM PReports " + 
+                    "LEFT JOIN Photographers ON PReports.Photographer = Photographers.ID WHERE PReports.Status = @Status AND DateCreated >= @StartWeek AND DateCreated < @EndWeek";
                 command.Parameters.Add(new SQLiteParameter("@StartWeek", weekStart.ToString("yyyy-MM-dd")));
                 command.Parameters.Add(new SQLiteParameter("@EndWeek", weekEnd.ToString("yyyy-MM-dd")));
+                command.Parameters.Add(new SQLiteParameter("@Status", status));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
                     sda.SelectCommand = command;
@@ -56,6 +72,11 @@ namespace WebApplication2
             e.Row.Cells[11].Attributes.Add("data-min-width", "20");
             e.Row.Cells[7].Visible = false;
             e.Row.Cells[8].Visible = false;
+        }
+
+        protected void thisWeekReportButton_Click(object sender, EventArgs e)
+        {
+            LoadWeeklyReports();
         }
     }
 

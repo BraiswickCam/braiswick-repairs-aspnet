@@ -48,7 +48,12 @@
                 <div class="panel panel-success">
                     <div class="panel-heading"></div>
                     <div class="panel-body">
-                        <asp:LinkButton runat="server" ID="thisWeekFeedbackButton" OnClick="thisWeekFeedbackButton_Click">This Week Feedback</asp:LinkButton>
+                        <h4>This week's reports</h4>
+                        <ul>
+                            <li><asp:LinkButton runat="server" ID="thisWeekFeedbackButton" OnClick="thisWeekFeedbackButton_Click">Feedback</asp:LinkButton></li>
+                            <li><asp:LinkButton runat="server" ID="thisWeekReportButton" OnClick="thisWeekReportButton_Click">Lab Reports</asp:LinkButton></li>
+                        </ul>
+                        
                     </div>
                 </div>
             </div>
