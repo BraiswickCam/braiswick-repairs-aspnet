@@ -22,6 +22,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl actionRequiredCountBadge;
         
         /// <summary>
+        /// mtReportLI control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtReportLI;
+        
+        /// <summary>
         /// mtReportBadge control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtReportBadge;
+        
+        /// <summary>
+        /// mtRetakeLI control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtRetakeLI;
         
         /// <summary>
         /// mtRetakeBadge control.
@@ -40,6 +58,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtRetakeBadge;
         
         /// <summary>
+        /// mtComplaintLT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtComplaintLT;
+        
+        /// <summary>
         /// mtComplaintBadge control.
         /// </summary>
         /// <remarks>
@@ -47,6 +74,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtComplaintBadge;
+        
+        /// <summary>
+        /// mtFeedbackLT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtFeedbackLT;
         
         /// <summary>
         /// mtFeedbackBadge control.
@@ -58,6 +94,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtFeedbackBadge;
         
         /// <summary>
+        /// mtSiteVisitLT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtSiteVisitLT;
+        
+        /// <summary>
         /// mtSiteVisitBadge control.
         /// </summary>
         /// <remarks>
@@ -65,6 +110,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtSiteVisitBadge;
+        
+        /// <summary>
+        /// mtLossLT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtLossLT;
         
         /// <summary>
         /// mtLossBadge control.
@@ -76,6 +130,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtLossBadge;
         
         /// <summary>
+        /// mtOtherLT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtOtherLT;
+        
+        /// <summary>
         /// mtOtherBadge control.
         /// </summary>
         /// <remarks>
@@ -83,6 +146,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtOtherBadge;
+        
+        /// <summary>
+        /// mtReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtReport;
         
         /// <summary>
         /// mtReportGV control.
@@ -94,6 +166,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.GridView mtReportGV;
         
         /// <summary>
+        /// mtRetake control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtRetake;
+        
+        /// <summary>
         /// mtRetakeGV control.
         /// </summary>
         /// <remarks>
@@ -101,6 +182,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView mtRetakeGV;
+        
+        /// <summary>
+        /// mtComplaint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtComplaint;
         
         /// <summary>
         /// mtComplaintGV control.
@@ -112,6 +202,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.GridView mtComplaintGV;
         
         /// <summary>
+        /// mtFeedback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtFeedback;
+        
+        /// <summary>
         /// mtFeedbackGV control.
         /// </summary>
         /// <remarks>
@@ -119,6 +218,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView mtFeedbackGV;
+        
+        /// <summary>
+        /// mtSiteVisit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtSiteVisit;
         
         /// <summary>
         /// mtSiteVisitGV control.
@@ -130,6 +238,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.GridView mtSiteVisitGV;
         
         /// <summary>
+        /// mtLoss control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtLoss;
+        
+        /// <summary>
         /// mtLossGV control.
         /// </summary>
         /// <remarks>
@@ -137,6 +254,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView mtLossGV;
+        
+        /// <summary>
+        /// mtOther control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mtOther;
         
         /// <summary>
         /// mtOtherGV control.
@@ -157,6 +283,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl badgeMF;
         
         /// <summary>
+        /// mfReportLI control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfReportLI;
+        
+        /// <summary>
         /// mfReportBadge control.
         /// </summary>
         /// <remarks>
@@ -164,6 +299,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfReportBadge;
+        
+        /// <summary>
+        /// mfRetakeLI control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfRetakeLI;
         
         /// <summary>
         /// mfRetakeBadge control.
@@ -175,6 +319,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfRetakeBadge;
         
         /// <summary>
+        /// mfComplaintLI control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfComplaintLI;
+        
+        /// <summary>
         /// mfComplaintBadge control.
         /// </summary>
         /// <remarks>
@@ -182,6 +335,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfComplaintBadge;
+        
+        /// <summary>
+        /// mfFeedbackLI control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfFeedbackLI;
         
         /// <summary>
         /// mfFeedbackBadge control.
@@ -193,6 +355,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfFeedbackBadge;
         
         /// <summary>
+        /// mfSiteVisitLI control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfSiteVisitLI;
+        
+        /// <summary>
         /// mfSiteVisitBadge control.
         /// </summary>
         /// <remarks>
@@ -200,6 +371,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfSiteVisitBadge;
+        
+        /// <summary>
+        /// mfLossLI control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfLossLI;
         
         /// <summary>
         /// mfLossBadge control.
@@ -211,6 +391,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfLossBadge;
         
         /// <summary>
+        /// mfOtherLI control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfOtherLI;
+        
+        /// <summary>
         /// mfOtherBadge control.
         /// </summary>
         /// <remarks>
@@ -218,6 +407,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfOtherBadge;
+        
+        /// <summary>
+        /// mfReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfReport;
         
         /// <summary>
         /// mfReportGV control.
@@ -229,6 +427,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.GridView mfReportGV;
         
         /// <summary>
+        /// mfRetake control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfRetake;
+        
+        /// <summary>
         /// mfRetakeGV control.
         /// </summary>
         /// <remarks>
@@ -236,6 +443,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView mfRetakeGV;
+        
+        /// <summary>
+        /// mfComplaint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfComplaint;
         
         /// <summary>
         /// mfComplaintGV control.
@@ -247,6 +463,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.GridView mfComplaintGV;
         
         /// <summary>
+        /// mfFeedback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfFeedback;
+        
+        /// <summary>
         /// mfFeedbackGV control.
         /// </summary>
         /// <remarks>
@@ -254,6 +479,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView mfFeedbackGV;
+        
+        /// <summary>
+        /// mfSiteVisit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfSiteVisit;
         
         /// <summary>
         /// mfSiteVisitGV control.
@@ -265,6 +499,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.GridView mfSiteVisitGV;
         
         /// <summary>
+        /// mfLoss control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfLoss;
+        
+        /// <summary>
         /// mfLossGV control.
         /// </summary>
         /// <remarks>
@@ -272,6 +515,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView mfLossGV;
+        
+        /// <summary>
+        /// mfOther control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mfOther;
         
         /// <summary>
         /// mfOtherGV control.

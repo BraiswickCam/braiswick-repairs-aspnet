@@ -24,15 +24,33 @@ namespace WebApplication2
         protected void ManningtreeTables()
         {
             DataTable dt = GetActionList("MT");
-            int totalAction = 0;
 
-            totalAction += FilterTable(dt, mtComplaintGV, mtComplaintBadge, "Status = 'COMPLAINT'");
-            totalAction += FilterTable(dt, mtFeedbackGV, mtFeedbackBadge, "Status = 'FEEDBACK'");
-            totalAction += FilterTable(dt, mtLossGV, mtLossBadge, "Status = 'LOSS'");
-            totalAction += FilterTable(dt, mtReportGV, mtReportBadge, "Status = 'REPORT'");
-            totalAction += FilterTable(dt, mtRetakeGV, mtRetakeBadge, "Status = 'RETAKE'");
-            totalAction += FilterTable(dt, mtSiteVisitGV, mtSiteVisitBadge, "Status = 'SITE VISIT'");
-            totalAction += FilterTable(dt, mtOtherGV, mtOtherBadge, "Status NOT IN ('COMPLAINT', 'FEEDBACK', 'LOSS', 'REPORT', 'RETAKE', 'SITE VISIT')");
+            System.Web.UI.HtmlControls.HtmlGenericControl[] tabs = 
+                new System.Web.UI.HtmlControls.HtmlGenericControl[] { mtReportLI, mtRetakeLI, mtComplaintLT, mtFeedbackLT, mtSiteVisitLT, mtLossLT, mtOtherLT };
+
+            System.Web.UI.HtmlControls.HtmlGenericControl[] tables = 
+                new System.Web.UI.HtmlControls.HtmlGenericControl[] { mtReport, mtRetake, mtComplaint, mtFeedback, mtSiteVisit, mtLoss, mtOther };
+
+            int totalAction = 0;
+            int[] add = new int[] { FilterTable(dt, mtReportGV, mtReportBadge, "Status = 'REPORT'"),
+                FilterTable(dt, mtRetakeGV, mtRetakeBadge, "Status = 'RETAKE'"),
+                FilterTable(dt, mtComplaintGV, mtComplaintBadge, "Status = 'COMPLAINT'"),
+                FilterTable(dt, mtFeedbackGV, mtFeedbackBadge, "Status = 'FEEDBACK'"),
+                FilterTable(dt, mtSiteVisitGV, mtSiteVisitBadge, "Status = 'SITE VISIT'"),
+                FilterTable(dt, mtLossGV, mtLossBadge, "Status = 'LOSS'"),
+                FilterTable(dt, mtOtherGV, mtOtherBadge, "Status NOT IN ('COMPLAINT', 'FEEDBACK', 'LOSS', 'REPORT', 'RETAKE', 'SITE VISIT')")
+            };
+
+            for (int i = 0; i < tabs.Length; i++)
+            {
+                tabs[i].Visible = add[i] > 0 ? true : false;
+                if (tabs[i].Visible && totalAction == 0)
+                {
+                    tabs[i].Attributes["class"] = "active";
+                    tables[i].Attributes["class"] = "tab-pane fade in active";
+                }
+                totalAction += add[i]; 
+            }
 
             actionRequiredCountBadge.InnerText = totalAction.ToString();
         }
@@ -40,15 +58,33 @@ namespace WebApplication2
         protected void MansfieldTables()
         {
             DataTable dt = GetActionList("MF");
-            int totalAction = 0;
 
-            totalAction += FilterTable(dt, mfComplaintGV, mfComplaintBadge, "Status = 'COMPLAINT'");
-            totalAction += FilterTable(dt, mfFeedbackGV, mfFeedbackBadge, "Status = 'FEEDBACK'");
-            totalAction += FilterTable(dt, mfLossGV, mfLossBadge, "Status = 'LOSS'");
-            totalAction += FilterTable(dt, mfReportGV, mfReportBadge, "Status = 'REPORT'");
-            totalAction += FilterTable(dt, mfRetakeGV, mfRetakeBadge, "Status = 'RETAKE'");
-            totalAction += FilterTable(dt, mfSiteVisitGV, mfSiteVisitBadge, "Status = 'SITE VISIT'");
-            totalAction += FilterTable(dt, mfOtherGV, mfOtherBadge, "Status NOT IN ('COMPLAINT', 'FEEDBACK', 'LOSS', 'REPORT', 'RETAKE', 'SITE VISIT')");
+            System.Web.UI.HtmlControls.HtmlGenericControl[] tabs =
+                new System.Web.UI.HtmlControls.HtmlGenericControl[] { mfReportLI, mfRetakeLI, mfComplaintLI, mfFeedbackLI, mfSiteVisitLI, mfLossLI, mfOtherLI };
+
+            System.Web.UI.HtmlControls.HtmlGenericControl[] tables =
+                new System.Web.UI.HtmlControls.HtmlGenericControl[] { mfReport, mfRetake, mfComplaint, mfFeedback, mfSiteVisit, mfLoss, mfOther };
+
+            int totalAction = 0;
+            int[] add = new int[] { FilterTable(dt, mfReportGV, mfReportBadge, "Status = 'REPORT'"),
+                FilterTable(dt, mfRetakeGV, mfRetakeBadge, "Status = 'RETAKE'"),
+                FilterTable(dt, mfComplaintGV, mfComplaintBadge, "Status = 'COMPLAINT'"),
+                FilterTable(dt, mfFeedbackGV, mfFeedbackBadge, "Status = 'FEEDBACK'"),
+                FilterTable(dt, mfSiteVisitGV, mfSiteVisitBadge, "Status = 'SITE VISIT'"),
+                FilterTable(dt, mfLossGV, mfLossBadge, "Status = 'LOSS'"),
+                FilterTable(dt, mfOtherGV, mfOtherBadge, "Status NOT IN ('COMPLAINT', 'FEEDBACK', 'LOSS', 'REPORT', 'RETAKE', 'SITE VISIT')")
+            };
+
+            for (int i = 0; i < tabs.Length; i++)
+            {
+                tabs[i].Visible = add[i] > 0 ? true : false;
+                if (tabs[i].Visible && totalAction == 0)
+                {
+                    tabs[i].Attributes["class"] = "active";
+                    tables[i].Attributes["class"] = "tab-pane fade in active";
+                }
+                totalAction += add[i];
+            }
 
             badgeMF.InnerText = totalAction.ToString();
         }
