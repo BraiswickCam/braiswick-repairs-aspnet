@@ -23,6 +23,7 @@ namespace WebApplication2
             DateTime endDate = startDate.AddDays(7);
             printTable.DataSource = GetWeeklyFeedback(startDate, endDate);
             printTable.DataBind();
+            printTableTitle.InnerText = String.Format("Feedback for week beginning {0}", startDate.ToShortDateString());
         }
 
         protected DataTable GetWeeklyFeedback(DateTime weekStart, DateTime weekEnd)
@@ -52,7 +53,9 @@ namespace WebApplication2
 
         protected void printTable_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-
+            e.Row.Cells[11].Attributes.Add("data-min-width", "20");
+            e.Row.Cells[7].Visible = false;
+            e.Row.Cells[8].Visible = false;
         }
     }
 

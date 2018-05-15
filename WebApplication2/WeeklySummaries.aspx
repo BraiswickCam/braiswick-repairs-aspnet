@@ -4,6 +4,41 @@
         .top10 {
             margin-top: 10px;
         }
+
+        @media print {
+            footer {
+                display: none;
+            }
+
+            div.panel {
+                display: none;
+            }
+
+            div.navbar {
+                display: none;
+            }
+
+            div.aspNetHidden {
+                display: none;
+            }
+
+            body {
+                padding: 0px;
+            }
+
+            .top10 {
+                margin-top: 0px;
+            }
+
+            h3 {
+                margin-top: 0px;
+            }
+
+            td[data-min-width="20"] {
+                min-width: 30vw;
+            }
+
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -18,6 +53,7 @@
                 </div>
             </div>
             <div class="row top10">
+                <h3 runat="server" id="printTableTitle"></h3>
                 <asp:GridView runat="server" ID="printTable" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="printTable_RowDataBound"></asp:GridView>
             </div>
         </ContentTemplate>
