@@ -53,6 +53,7 @@ namespace WebApplication2
             }
 
             actionRequiredCountBadge.InnerText = totalAction.ToString();
+            mtActionPanel.Visible = totalAction > 0 ? true : false;
         }
 
         protected void MansfieldTables()
@@ -87,6 +88,7 @@ namespace WebApplication2
             }
 
             badgeMF.InnerText = totalAction.ToString();
+            mfActionPanel.Visible = totalAction > 0 ? true : false;
         }
 
         protected int FilterTable(DataTable dt, GridView gv, System.Web.UI.HtmlControls.HtmlGenericControl badge, string filter)

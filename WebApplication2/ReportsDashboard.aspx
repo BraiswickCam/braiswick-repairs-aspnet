@@ -62,7 +62,7 @@
         </div>
     </div>
     <div class="row top-10">
-        <div class="panel panel-success">
+        <div class="panel panel-success" runat="server" id="mtActionPanel" ClientIDMode="Static">
             <div class="panel-heading"><h4 class="panel-title"><span class="glyphicon glyphicon-exclamation-sign"></span> Manningtree - Action Required <span class="badge" id="actionRequiredCountBadge" runat="server"></span></h4></div>
             <div class="panel-body">
                 <ul class="nav nav-tabs">
@@ -101,7 +101,7 @@
         </div>
     </div>
     <div class="row top-10">
-        <div class="panel panel-success">
+        <div class="panel panel-success" runat="server" id="mfActionPanel" ClientIDMode="Static">
             <div class="panel-heading"><h4 class="panel-title"><span class="glyphicon glyphicon-exclamation-sign"></span> Mansfield - Action Required <span class="badge" id="badgeMF" runat="server"></span></h4></div>
             <div class="panel-body">
                 <ul class="nav nav-tabs">
