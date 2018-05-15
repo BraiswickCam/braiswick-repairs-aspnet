@@ -234,6 +234,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="WeeklySummaries.aspx" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="images\edit-icon-1901.png" />
@@ -578,6 +579,13 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WeeklySummaries.aspx.cs">
+      <DependentUpon>WeeklySummaries.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeeklySummaries.aspx.designer.cs">
+      <DependentUpon>WeeklySummaries.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
