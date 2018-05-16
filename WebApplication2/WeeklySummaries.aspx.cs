@@ -47,9 +47,14 @@ namespace WebApplication2
             LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", "DateEdited", GetLastWeekStart());
         }
 
-        protected void LoadWeeklyReports()
+        protected void LoadWeeklyReportsByEdited()
         {
             LoadWeekly(new string[] { "REPORT" }, "Lab Reports", "DateEdited", GetCurrentWeekStart());
+        }
+
+        protected void LoadLastWeeklyReportsByEdited()
+        {
+            LoadWeekly(new string[] { "REPORT" }, "Lab Reports", "DateEdited", GetLastWeekStart());
         }
 
         protected void LoadWeekly(string[] status, string displayStatus, string dateType, DateTime startDate)
@@ -109,7 +114,12 @@ namespace WebApplication2
 
         protected void thisWeekReportButton_Click(object sender, EventArgs e)
         {
-            LoadWeeklyReports();
+            LoadWeeklyReportsByEdited();
+        }
+
+        protected void lastWeekReportButton_Click(object sender, EventArgs e)
+        {
+            LoadLastWeeklyReportsByEdited();
         }
     }
 

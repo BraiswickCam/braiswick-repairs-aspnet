@@ -60,7 +60,11 @@
                                 <asp:LinkButton runat="server" ID="thisWeekFeedbackByEditedButton" OnClick="thisWeekFeedbackByEditedButton_Click">(this week)</asp:LinkButton> 
                                 <asp:LinkButton runat="server" ID="lastWeekFeedbackByEditedButton" OnClick="lastWeekFeedbackByEditedButton_Click">(last week)</asp:LinkButton>
                             </li>
-                            <li><asp:LinkButton runat="server" ID="thisWeekReportButton" OnClick="thisWeekReportButton_Click">Lab Reports</asp:LinkButton></li>
+                            <li>
+                                Lab Reports by last updated date 
+                                <asp:LinkButton runat="server" ID="thisWeekReportButton" OnClick="thisWeekReportButton_Click">(this week)</asp:LinkButton> 
+                                <asp:LinkButton runat="server" ID="lastWeekReportButton" OnClick="lastWeekReportButton_Click">(last week)</asp:LinkButton>
+                             </li>
                         </ul>
                         
                     </div>
