@@ -34,6 +34,8 @@ namespace WebApplication2
                     FillLoadedEntry(LoadEntry(id));
                     reportUpdate.Visible = true;
                     reportSave.Visible = false;
+                    addPhotogButton.Visible = false;
+                    removeAllPhotogsButton.Visible = false;
                 }
             }
         }
@@ -89,6 +91,24 @@ namespace WebApplication2
             reportNotes.Text = dr[9].ToString();
             reportOfficeDD.SelectedValue = dr[2].ToString() == "MT" ? "MT" : dr[2].ToString() == "MF" ? "MF" : "";
             actionCheck.Checked = Convert.ToBoolean(dr[10]);
+        }
+
+        protected void ClearEntry()
+        {
+            reportID.Text = "";
+            reportDate.Text = "";
+            reportJob.Text = "";
+            reportSchool.Text = "";
+            reportType.Text = "";
+            reportCost.Text = "";
+            reportPhotographerDD.SelectedIndex = 0;
+            reportStatus.SelectedIndex = 0;
+            reportNotes.Text = "";
+            reportOfficeDD.SelectedIndex = 0;
+            actionCheck.Checked = false;
+            MultiPhotog.multiPhotogs = new List<int>();
+            MultiPhotog.multiPhotogsInitials = new List<string>();
+            multiPhotogList.InnerHtml = "";
         }
 
         protected bool SaveEntry(out string saveErrorMessage)
@@ -269,6 +289,7 @@ namespace WebApplication2
             if (SaveEntry(out saveErrorMessage))
             {
                 successAlert.Visible = true;
+                ClearEntry();
             }
             else
             {
@@ -307,6 +328,13 @@ namespace WebApplication2
             {
                 multiPhotogList.InnerHtml += String.Format("<span style=\"margin: 3px;\" class=\"btn btn-default\">{0}</span>", s);
             }
+        }
+
+        protected void removeAllPhotogsButton_Click(object sender, EventArgs e)
+        {
+            MultiPhotog.multiPhotogs = new List<int>();
+            MultiPhotog.multiPhotogsInitials = new List<string>();
+            multiPhotogList.InnerHtml = "";
         }
     }
 }

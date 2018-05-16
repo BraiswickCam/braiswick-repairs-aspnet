@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PhotogReports.aspx.cs" Inherits="WebApplication2.PhotogReports" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PhotogReports.aspx.cs" Inherits="WebApplication2.PhotogReports" EnableEventValidation="false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="headextra" runat="server">
     <style>
         * {
@@ -49,7 +49,8 @@
                         <div class="col-xs-8">
                             <div class="form-inline">
                                 <asp:DropDownList ID="reportPhotographerDD" runat="server" CssClass="form-control" OnSelectedIndexChanged="reportPhotographerDD_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
-                                <asp:Button ID="addPhotogButton" runat="server" CssClass="btn btn-success" OnClick="addPhotogButton_Click" Text="+" />
+                                <asp:Button ID="addPhotogButton" runat="server" CssClass="btn btn-primary" OnClick="addPhotogButton_Click" Text="+" />
+                                <asp:Button ID="removeAllPhotogsButton" runat="server" CssClass="btn btn-danger" OnClick="removeAllPhotogsButton_Click" Text="&times;" />
                             </div>
                             <div id="multiPhotogList" runat="server"></div>
                         </div>
