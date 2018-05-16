@@ -29,28 +29,28 @@ namespace WebApplication2
 
         protected void LoadWeeklyFeedbackByTake()
         {
-            printTable.Attributes["data-hide-cols"] = "6,10";
+            printTable.Attributes["data-hide-cols"] = "6,10,12";
             LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", "Date", GetCurrentWeekStart());
             printTable.Attributes["data-hide-cols"] = "";
         }
 
         protected void LoadLastWeeklyFeedbackByTake()
         {
-            printTable.Attributes["data-hide-cols"] = "6,10";
+            printTable.Attributes["data-hide-cols"] = "6,10,12";
             LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", "Date", GetLastWeekStart());
             printTable.Attributes["data-hide-cols"] = "";
         }
 
         protected void LoadWeeklyFeedbackByEdited()
         {
-            printTable.Attributes["data-hide-cols"] = "6,10";
+            printTable.Attributes["data-hide-cols"] = "6,10,12";
             LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", "DateEdited", GetCurrentWeekStart());
             printTable.Attributes["data-hide-cols"] = "";
         }
 
         protected void LoadLastWeeklyFeedbackByEdited()
         {
-            printTable.Attributes["data-hide-cols"] = "6,10";
+            printTable.Attributes["data-hide-cols"] = "6,10,12";
             LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", "DateEdited", GetLastWeekStart());
             printTable.Attributes["data-hide-cols"] = "";
         }
@@ -77,7 +77,7 @@ namespace WebApplication2
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = String.Format("SELECT PReports.ID, PReports.Date, PReports.Office, PReports.Job, PReports.School, PReports.Type, PReports.Cost, PReports.Photographer, Photographers.Initials, Photographers.Name, PReports.Status, PReports.Notes FROM PReports " + 
+                command.CommandText = String.Format("SELECT PReports.ID, PReports.Date, PReports.Office, PReports.Job, PReports.School, PReports.Type, PReports.Cost, PReports.Photographer, Photographers.Initials, Photographers.Name, PReports.Status, PReports.Notes, PReports.Action FROM PReports " + 
                     "LEFT JOIN Photographers ON PReports.Photographer = Photographers.ID WHERE PReports.Status IN ('{0}') AND {1} >= @StartWeek AND {1} < @EndWeek", String.Join("', '", status), dateType);
                 command.Parameters.Add(new SQLiteParameter("@StartWeek", weekStart.ToString("yyyy-MM-dd")));
                 command.Parameters.Add(new SQLiteParameter("@EndWeek", weekEnd.ToString("yyyy-MM-dd")));
