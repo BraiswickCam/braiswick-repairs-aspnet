@@ -57,12 +57,16 @@ namespace WebApplication2
 
         protected void LoadWeeklyReportsByEdited()
         {
+            printTable.Attributes["data-hide-cols"] = "6,10";
             LoadWeekly(new string[] { "REPORT" }, "Lab Reports", "DateEdited", GetCurrentWeekStart());
+            printTable.Attributes["data-hide-cols"] = "";
         }
 
         protected void LoadLastWeeklyReportsByEdited()
         {
+            printTable.Attributes["data-hide-cols"] = "6,10";
             LoadWeekly(new string[] { "REPORT" }, "Lab Reports", "DateEdited", GetLastWeekStart());
+            printTable.Attributes["data-hide-cols"] = "";
         }
 
         protected void LoadWeekly(string[] status, string displayStatus, string dateType, DateTime startDate)
@@ -77,7 +81,7 @@ namespace WebApplication2
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = String.Format("SELECT PReports.ID, PReports.Date, PReports.Office, PReports.Job, PReports.School, PReports.Type, PReports.Cost, PReports.Photographer, Photographers.Initials, Photographers.Name, PReports.Status, PReports.Notes, PReports.Action FROM PReports " + 
+                command.CommandText = String.Format("SELECT PReports.ID, PReports.Date, PReports.Office, PReports.Job, PReports.School, PReports.Type, PReports.Cost, PReports.Photographer, Photographers.Initials, Photographers.Name, PReports.Status, PReports.Notes, cast((NOT PReports.Action) AS BOOL) AS 'Actioned?' FROM PReports " + 
                     "LEFT JOIN Photographers ON PReports.Photographer = Photographers.ID WHERE PReports.Status IN ('{0}') AND {1} >= @StartWeek AND {1} < @EndWeek", String.Join("', '", status), dateType);
                 command.Parameters.Add(new SQLiteParameter("@StartWeek", weekStart.ToString("yyyy-MM-dd")));
                 command.Parameters.Add(new SQLiteParameter("@EndWeek", weekEnd.ToString("yyyy-MM-dd")));
@@ -97,7 +101,17 @@ namespace WebApplication2
         {
             e.Row.Cells[11].Attributes.Add("data-min-width", "20");
             e.Row.Cells[7].Visible = false;
-            e.Row.Cells[8].Visible = false;
+            //e.Row.Cells[8].Visible = false;
+
+            if (e.Row.Cells[12].Text == "1")
+            {
+                e.Row.Cells[12].Text = "<span class=\"glyphicon glyphicon-ok\"></span>";
+            }
+            else if (e.Row.Cells[12].Text == "0")
+            {
+                e.Row.Cells[12].Text = "<span class=\"glyphicon glyphicon-remove\"></span>";
+            }
+
             GridView gv = (GridView)sender;
             string[] hideCols = printTable.Attributes["data-hide-cols"].Split(',');
             List<int> hideColsIndex = new List<int>();
