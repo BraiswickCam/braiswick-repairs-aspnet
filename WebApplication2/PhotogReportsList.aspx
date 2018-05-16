@@ -87,12 +87,20 @@
         </div>
     </div>
 
+    <script src="Scripts/purl.js"></script>
     <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();   
         });
 
         var searchTerms = [];
+
+        var statusParam = $.url(window.location.href).param('status');
+        if (statusParam == 'report') {
+            searchTerms.push({ 'columnIndex': 8, 'columnName': 'Status', 'searchTerm': ['REPORT'] });
+            writeFilters();
+            searchFilter();
+        }
 
         function costSearch() {
             var e = document.getElementById('equationSelect');
