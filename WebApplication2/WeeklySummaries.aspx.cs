@@ -55,6 +55,20 @@ namespace WebApplication2
             printTable.Attributes["data-hide-cols"] = "";
         }
 
+        protected void LoadWeeklyReportsByTake()
+        {
+            printTable.Attributes["data-hide-cols"] = "6,10";
+            LoadWeekly(new string[] { "REPORT" }, "Lab Reports", "Date", GetCurrentWeekStart());
+            printTable.Attributes["data-hide-cols"] = "";
+        }
+
+        protected void LoadLastWeeklyReportsByTake()
+        {
+            printTable.Attributes["data-hide-cols"] = "6,10";
+            LoadWeekly(new string[] { "REPORT" }, "Lab Reports", "Date", GetLastWeekStart());
+            printTable.Attributes["data-hide-cols"] = "";
+        }
+
         protected void LoadWeeklyReportsByEdited()
         {
             printTable.Attributes["data-hide-cols"] = "6,10";
@@ -157,6 +171,16 @@ namespace WebApplication2
         protected void lastWeekReportButton_Click(object sender, EventArgs e)
         {
             LoadLastWeeklyReportsByEdited();
+        }
+
+        protected void thisWeekReportByTakeButton_Click(object sender, EventArgs e)
+        {
+            LoadWeeklyReportsByTake();
+        }
+
+        protected void lastWeekReportByTakeButton_Click(object sender, EventArgs e)
+        {
+            LoadLastWeeklyReportsByTake();
         }
     }
 
