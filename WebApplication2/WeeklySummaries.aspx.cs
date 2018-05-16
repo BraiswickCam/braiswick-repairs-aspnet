@@ -27,31 +27,10 @@ namespace WebApplication2
             return DateTime.Now.StartOfWeek(DayOfWeek.Monday).AddDays(-7);
         }
 
-        protected void LoadWeeklyFeedbackByTake()
+        protected void LoadWeeklyFeedback(DateTime dateWeek, string dateSearchCol)
         {
             printTable.Attributes["data-hide-cols"] = "6,10,12";
-            LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", "Date", GetCurrentWeekStart());
-            printTable.Attributes["data-hide-cols"] = "";
-        }
-
-        protected void LoadLastWeeklyFeedbackByTake()
-        {
-            printTable.Attributes["data-hide-cols"] = "6,10,12";
-            LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", "Date", GetLastWeekStart());
-            printTable.Attributes["data-hide-cols"] = "";
-        }
-
-        protected void LoadWeeklyFeedbackByEdited()
-        {
-            printTable.Attributes["data-hide-cols"] = "6,10,12";
-            LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", "DateEdited", GetCurrentWeekStart());
-            printTable.Attributes["data-hide-cols"] = "";
-        }
-
-        protected void LoadLastWeeklyFeedbackByEdited()
-        {
-            printTable.Attributes["data-hide-cols"] = "6,10,12";
-            LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", "DateEdited", GetLastWeekStart());
+            LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", dateSearchCol, dateWeek);
             printTable.Attributes["data-hide-cols"] = "";
         }
 
@@ -145,22 +124,22 @@ namespace WebApplication2
 
         protected void thisWeekFeedbackButton_Click(object sender, EventArgs e)
         {
-            LoadWeeklyFeedbackByTake();
+            LoadWeeklyFeedback(GetCurrentWeekStart(), "Date");
         }
 
         protected void lastWeekFeedbackButton_Click(object sender, EventArgs e)
         {
-            LoadLastWeeklyFeedbackByTake();
+            LoadWeeklyFeedback(GetLastWeekStart(), "Date");
         }
 
         protected void thisWeekFeedbackByEditedButton_Click(object sender, EventArgs e)
         {
-            LoadWeeklyFeedbackByEdited();
+            LoadWeeklyFeedback(GetCurrentWeekStart(), "DateEdited");
         }
 
         protected void lastWeekFeedbackByEditedButton_Click(object sender, EventArgs e)
         {
-            LoadLastWeeklyFeedbackByEdited();
+            LoadWeeklyFeedback(GetLastWeekStart(), "DateEdited");
         }
 
         protected void thisWeekReportButton_Click(object sender, EventArgs e)
