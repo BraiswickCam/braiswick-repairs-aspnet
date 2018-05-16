@@ -47,7 +47,11 @@
                             <div class="row top10">
                         <div class="col-xs-4">Photographer: </div>
                         <div class="col-xs-8">
-                            <asp:DropDownList ID="reportPhotographerDD" runat="server" CssClass="form-control" OnSelectedIndexChanged="reportPhotographerDD_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            <div class="form-inline">
+                                <asp:DropDownList ID="reportPhotographerDD" runat="server" CssClass="form-control" OnSelectedIndexChanged="reportPhotographerDD_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                <asp:Button ID="addPhotogButton" runat="server" CssClass="btn btn-success" OnClick="addPhotogButton_Click" Text="+" />
+                            </div>
+                            <div id="multiPhotogList" runat="server"></div>
                         </div>
                     </div>
                     <div class="row top10">

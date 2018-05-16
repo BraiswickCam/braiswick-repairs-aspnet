@@ -10,6 +10,12 @@ using System.Text;
 
 namespace WebApplication2
 {
+    public partial class MultiPhotog
+    {
+        public static List<int> multiPhotogs;
+        public static List<string> multiPhotogsInitials;
+    }
+
     public partial class PhotogReports : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -20,6 +26,8 @@ namespace WebApplication2
             if (!IsPostBack)
             {
                 FillPhotogsDropDown();
+                MultiPhotog.multiPhotogs = new List<int>();
+                MultiPhotog.multiPhotogsInitials = new List<string>();
                 if (Request.QueryString["id"] != null)
                 {
                     string id = Request.QueryString["id"];
@@ -109,24 +117,37 @@ namespace WebApplication2
             {
                 using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
                 {
-                    SQLiteCommand command = m_dbConnection.CreateCommand();
-                    command.CommandText = "INSERT INTO PReports (Date, Office, Job, School, Type, Cost, Photographer, Status, Notes, Action, DateCreated, DateEdited) VALUES (@Date, @Office, @Job, @School, @Type, @Cost, @Photographer, @Status, @Notes, @Action, @DateCreated, @DateEdited)";
-                    command.Parameters.Add(new SQLiteParameter("@Date", date));
-                    command.Parameters.Add(new SQLiteParameter("@Office", reportOfficeDD.SelectedValue));
-                    command.Parameters.Add(new SQLiteParameter("@Job", reportJob.Text));
-                    command.Parameters.Add(new SQLiteParameter("@School", reportSchool.Text));
-                    command.Parameters.Add(new SQLiteParameter("@Type", reportType.Text));
-                    command.Parameters.Add(new SQLiteParameter("@Cost", cost));
-                    command.Parameters.Add(new SQLiteParameter("@Photographer", reportPhotographerDD.SelectedValue));
-                    command.Parameters.Add(new SQLiteParameter("@Status", reportStatus.Text));
-                    command.Parameters.Add(new SQLiteParameter("@Notes", reportNotes.Text));
-                    command.Parameters.Add(new SQLiteParameter("@Action", actionCheck.Checked ? "1" : "0"));
-                    DateTime currentDate = DateTime.Now;
-                    command.Parameters.Add(new SQLiteParameter("@DateCreated", currentDate.ToString("yyyy-MM-dd HH:mm:ss")));
-                    command.Parameters.Add(new SQLiteParameter("@DateEdited", currentDate.ToString("yyyy-MM-dd HH:mm:ss")));
-                    m_dbConnection.Open();
-                    command.ExecuteNonQuery();
-                    m_dbConnection.Close();
+                    int[] photogArray;
+                    if (MultiPhotog.multiPhotogs.Count > 0)
+                    {
+                        photogArray = MultiPhotog.multiPhotogs.ToArray();
+                    }
+                    else
+                    {
+                        photogArray = new int[] { Convert.ToInt32(reportPhotographerDD.SelectedValue) };
+                    }
+
+                    foreach (int i in photogArray)
+                    {
+                        SQLiteCommand command = m_dbConnection.CreateCommand();
+                        command.CommandText = "INSERT INTO PReports (Date, Office, Job, School, Type, Cost, Photographer, Status, Notes, Action, DateCreated, DateEdited) VALUES (@Date, @Office, @Job, @School, @Type, @Cost, @Photographer, @Status, @Notes, @Action, @DateCreated, @DateEdited)";
+                        command.Parameters.Add(new SQLiteParameter("@Date", date));
+                        command.Parameters.Add(new SQLiteParameter("@Office", reportOfficeDD.SelectedValue));
+                        command.Parameters.Add(new SQLiteParameter("@Job", reportJob.Text));
+                        command.Parameters.Add(new SQLiteParameter("@School", reportSchool.Text));
+                        command.Parameters.Add(new SQLiteParameter("@Type", reportType.Text));
+                        command.Parameters.Add(new SQLiteParameter("@Cost", cost));
+                        command.Parameters.Add(new SQLiteParameter("@Photographer", i));
+                        command.Parameters.Add(new SQLiteParameter("@Status", reportStatus.Text));
+                        command.Parameters.Add(new SQLiteParameter("@Notes", reportNotes.Text));
+                        command.Parameters.Add(new SQLiteParameter("@Action", actionCheck.Checked ? "1" : "0"));
+                        DateTime currentDate = DateTime.Now;
+                        command.Parameters.Add(new SQLiteParameter("@DateCreated", currentDate.ToString("yyyy-MM-dd HH:mm:ss")));
+                        command.Parameters.Add(new SQLiteParameter("@DateEdited", currentDate.ToString("yyyy-MM-dd HH:mm:ss")));
+                        m_dbConnection.Open();
+                        command.ExecuteNonQuery();
+                        m_dbConnection.Close();
+                    }
                 }
             }
             catch (SQLiteException ex)
@@ -275,6 +296,17 @@ namespace WebApplication2
             }
             reportUpdate.Visible = true;
             reportSave.Visible = false;
+        }
+
+        protected void addPhotogButton_Click(object sender, EventArgs e)
+        {
+            MultiPhotog.multiPhotogs.Add(Convert.ToInt32(reportPhotographerDD.SelectedValue));
+            MultiPhotog.multiPhotogsInitials.Add(reportPhotographerDD.SelectedItem.Text.Substring(0, 2));
+            multiPhotogList.InnerHtml = "";
+            foreach (string s in MultiPhotog.multiPhotogsInitials)
+            {
+                multiPhotogList.InnerHtml += String.Format("<span style=\"margin: 3px;\" class=\"btn btn-default\">{0}</span>", s);
+            }
         }
     }
 }
