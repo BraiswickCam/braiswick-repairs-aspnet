@@ -72,7 +72,7 @@
             </div>
             <div class="row top10">
                 <h3 runat="server" id="printTableTitle"></h3>
-                <asp:GridView runat="server" ID="printTable" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="printTable_RowDataBound"></asp:GridView>
+                <asp:GridView runat="server" ID="printTable" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="printTable_RowDataBound" data-hide-cols=""></asp:GridView>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>

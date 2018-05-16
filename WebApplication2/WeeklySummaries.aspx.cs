@@ -29,22 +29,30 @@ namespace WebApplication2
 
         protected void LoadWeeklyFeedbackByTake()
         {
+            printTable.Attributes["data-hide-cols"] = "6,10";
             LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", "Date", GetCurrentWeekStart());
+            printTable.Attributes["data-hide-cols"] = "";
         }
 
         protected void LoadLastWeeklyFeedbackByTake()
         {
+            printTable.Attributes["data-hide-cols"] = "6,10";
             LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", "Date", GetLastWeekStart());
+            printTable.Attributes["data-hide-cols"] = "";
         }
 
         protected void LoadWeeklyFeedbackByEdited()
         {
+            printTable.Attributes["data-hide-cols"] = "6,10";
             LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", "DateEdited", GetCurrentWeekStart());
+            printTable.Attributes["data-hide-cols"] = "";
         }
 
         protected void LoadLastWeeklyFeedbackByEdited()
         {
+            printTable.Attributes["data-hide-cols"] = "6,10";
             LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", "DateEdited", GetLastWeekStart());
+            printTable.Attributes["data-hide-cols"] = "";
         }
 
         protected void LoadWeeklyReportsByEdited()
@@ -90,6 +98,21 @@ namespace WebApplication2
             e.Row.Cells[11].Attributes.Add("data-min-width", "20");
             e.Row.Cells[7].Visible = false;
             e.Row.Cells[8].Visible = false;
+            GridView gv = (GridView)sender;
+            string[] hideCols = printTable.Attributes["data-hide-cols"].Split(',');
+            List<int> hideColsIndex = new List<int>();
+            try
+            {
+                foreach (string s in hideCols)
+                {
+                    hideColsIndex.Add(Convert.ToInt32(s));
+                }
+            }
+            catch (Exception) { }
+            foreach (int i in hideColsIndex)
+            {
+                e.Row.Cells[i].Visible = false;
+            }
         }
 
         protected void thisWeekFeedbackButton_Click(object sender, EventArgs e)
