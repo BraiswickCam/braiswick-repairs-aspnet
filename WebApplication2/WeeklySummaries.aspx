@@ -50,7 +50,16 @@
                     <div class="panel-body">
                         <h4>This week's reports</h4>
                         <ul>
-                            <li><asp:LinkButton runat="server" ID="thisWeekFeedbackButton" OnClick="thisWeekFeedbackButton_Click">Feedback</asp:LinkButton></li>
+                            <li>
+                                Feedback by take date 
+                                <asp:LinkButton runat="server" ID="thisWeekFeedbackButton" OnClick="thisWeekFeedbackButton_Click">(this week)</asp:LinkButton> 
+                                <asp:LinkButton runat="server" ID="lastWeekFeedbackButton" OnClick="lastWeekFeedbackButton_Click">(last week)</asp:LinkButton>
+                            </li>
+                            <li>
+                                Feedback by last updated date 
+                                <asp:LinkButton runat="server" ID="thisWeekFeedbackByEditedButton" OnClick="thisWeekFeedbackByEditedButton_Click">(this week)</asp:LinkButton> 
+                                <asp:LinkButton runat="server" ID="lastWeekFeedbackByEditedButton" OnClick="lastWeekFeedbackByEditedButton_Click">(last week)</asp:LinkButton>
+                            </li>
                             <li><asp:LinkButton runat="server" ID="thisWeekReportButton" OnClick="thisWeekReportButton_Click">Lab Reports</asp:LinkButton></li>
                         </ul>
                         

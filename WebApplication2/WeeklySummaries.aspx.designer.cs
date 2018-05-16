@@ -22,6 +22,33 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.LinkButton thisWeekFeedbackButton;
         
         /// <summary>
+        /// lastWeekFeedbackButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lastWeekFeedbackButton;
+        
+        /// <summary>
+        /// thisWeekFeedbackByEditedButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton thisWeekFeedbackByEditedButton;
+        
+        /// <summary>
+        /// lastWeekFeedbackByEditedButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lastWeekFeedbackByEditedButton;
+        
+        /// <summary>
         /// thisWeekReportButton control.
         /// </summary>
         /// <remarks>
