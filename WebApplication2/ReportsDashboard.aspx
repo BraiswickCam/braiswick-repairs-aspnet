@@ -68,6 +68,7 @@
                 <ul class="nav nav-tabs">
                   <li runat="server" id="mtReportLI"><a data-toggle="tab" href="#mtReport">Report <span class="badge" id="mtReportBadge" runat="server"></span></a></li>
                   <li runat="server" id="mtRetakeLI"><a data-toggle="tab" href="#mtRetake">Retake <span class="badge" id="mtRetakeBadge" runat="server"></span></a></li>
+                  <li runat="server" id="mtTrainingLI"><a data-toggle="tab" href="#mtTraining">Training <span class="badge" id="mtTrainingBadge" runat="server"></span></a></li>
                   <li runat="server" id="mtComplaintLT"><a data-toggle="tab" href="#mtComplaint">Complaint <span class="badge" id="mtComplaintBadge" runat="server"></span></a></li>
                   <li runat="server" id="mtFeedbackLT"><a data-toggle="tab" href="#mtFeedback">Feedback <span class="badge" id="mtFeedbackBadge" runat="server"></span></a></li>
                   <li runat="server" id="mtSiteVisitLT"><a data-toggle="tab" href="#mtSiteVisit">Site Visit <span class="badge" id="mtSiteVisitBadge" runat="server"></span></a></li>
@@ -80,6 +81,9 @@
                   </div>
                   <div runat="server" ClientIDMode="Static" id="mtRetake" class="tab-pane fade in">
                     <asp:GridView ID="mtRetakeGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
+                  </div>
+                  <div runat="server" ClientIDMode="Static" id="mtTraining" class="tab-pane fade in">
+                    <asp:GridView ID="mtTrainingGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
                   </div>
                   <div runat="server" ClientIDMode="Static" id="mtComplaint" class="tab-pane fade in">
                     <asp:GridView ID="mtComplaintGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
@@ -107,10 +111,11 @@
                 <ul class="nav nav-tabs">
                   <li runat="server" id="mfReportLI" class="active"><a data-toggle="tab" href="#mfReport">Report <span class="badge" id="mfReportBadge" runat="server"></span></a></li>
                   <li runat="server" id="mfRetakeLI"><a data-toggle="tab" href="#mfRetake">Retake <span class="badge" id="mfRetakeBadge" runat="server"></span></a></li>
+                  <li runat="server" id="mfTrainingLI"><a data-toggle="tab" href="#mfTraining">Training <span class="badge" id="mfTrainingBadge" runat="server"></span></a></li>
                   <li runat="server" id="mfComplaintLI"><a data-toggle="tab" href="#mfComplaint">Complaint <span class="badge" id="mfComplaintBadge" runat="server"></span></a></li>
                   <li runat="server" id="mfFeedbackLI"><a data-toggle="tab" href="#mfFeedback">Feedback <span class="badge" id="mfFeedbackBadge" runat="server"></span></a></li>
                   <li runat="server" id="mfSiteVisitLI"><a data-toggle="tab" href="#mfSiteVisit">Site Visit <span class="badge" id="mfSiteVisitBadge" runat="server"></span></a></li>
-                  <li runat="server" id="mfLossLI"><a data-toggle="tab" href="#mfLoss">Loss <span class="badge" id="mfLossBadge" runat="server"></span></a></li>                 
+                  <li runat="server" id="mfLossLI"><a data-toggle="tab" href="#mfLoss">Loss <span class="badge" id="mfLossBadge" runat="server"></span></a></li>
                   <li runat="server" id="mfOtherLI"><a data-toggle="tab" href="#mfOther">Other <span class="badge" id="mfOtherBadge" runat="server"></span></a></li>
                 </ul>
                 <div class="tab-content">
@@ -119,6 +124,9 @@
                   </div>
                   <div runat="server" ClientIDMode="Static" id="mfRetake" class="tab-pane fade in">
                     <asp:GridView ID="mfRetakeGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
+                  </div>
+                  <div runat="server" ClientIDMode="Static" id="mfTraining" class="tab-pane fade in">
+                    <asp:GridView ID="mfTrainingGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
                   </div>
                   <div runat="server" ClientIDMode="Static" id="mfComplaint" class="tab-pane fade in">
                     <asp:GridView ID="mfComplaintGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
@@ -131,7 +139,7 @@
                   </div>
                   <div runat="server" ClientIDMode="Static" id="mfLoss" class="tab-pane fade in">
                     <asp:GridView ID="mfLossGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
-                  </div>                  
+                  </div>
                   <div runat="server" ClientIDMode="Static" id="mfOther" class="tab-pane fade in">
                     <asp:GridView ID="mfOtherGV" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="actionTable_RowDataBound"></asp:GridView>
                   </div>

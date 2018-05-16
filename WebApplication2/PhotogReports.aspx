@@ -90,6 +90,7 @@
                                 <asp:ListItem Text="REPORT" Value="REPORT"></asp:ListItem>
                                 <asp:ListItem Text="RETAKE" Value="RETAKE"></asp:ListItem>
                                 <asp:ListItem Text="SITE VISIT" Value="SITE VISIT"></asp:ListItem>
+                                <asp:ListItem Text="TRAINING" Value="TRAINING"></asp:ListItem>
                             </asp:DropDownList>
                         </div>
                     </div>

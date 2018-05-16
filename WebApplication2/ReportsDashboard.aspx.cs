@@ -26,19 +26,20 @@ namespace WebApplication2
             DataTable dt = GetActionList("MT");
 
             System.Web.UI.HtmlControls.HtmlGenericControl[] tabs = 
-                new System.Web.UI.HtmlControls.HtmlGenericControl[] { mtReportLI, mtRetakeLI, mtComplaintLT, mtFeedbackLT, mtSiteVisitLT, mtLossLT, mtOtherLT };
+                new System.Web.UI.HtmlControls.HtmlGenericControl[] { mtReportLI, mtRetakeLI, mtTrainingLI, mtComplaintLT, mtFeedbackLT, mtSiteVisitLT, mtLossLT, mtOtherLT };
 
             System.Web.UI.HtmlControls.HtmlGenericControl[] tables = 
-                new System.Web.UI.HtmlControls.HtmlGenericControl[] { mtReport, mtRetake, mtComplaint, mtFeedback, mtSiteVisit, mtLoss, mtOther };
+                new System.Web.UI.HtmlControls.HtmlGenericControl[] { mtReport, mtRetake, mtTraining, mtComplaint, mtFeedback, mtSiteVisit, mtLoss, mtOther };
 
             int totalAction = 0;
             int[] add = new int[] { FilterTable(dt, mtReportGV, mtReportBadge, "Status = 'REPORT'"),
                 FilterTable(dt, mtRetakeGV, mtRetakeBadge, "Status = 'RETAKE'"),
+                FilterTable(dt, mtTrainingGV, mtTrainingBadge, "Status = 'TRAINING'"),
                 FilterTable(dt, mtComplaintGV, mtComplaintBadge, "Status = 'COMPLAINT'"),
                 FilterTable(dt, mtFeedbackGV, mtFeedbackBadge, "Status = 'FEEDBACK'"),
                 FilterTable(dt, mtSiteVisitGV, mtSiteVisitBadge, "Status = 'SITE VISIT'"),
                 FilterTable(dt, mtLossGV, mtLossBadge, "Status = 'LOSS'"),
-                FilterTable(dt, mtOtherGV, mtOtherBadge, "Status NOT IN ('COMPLAINT', 'FEEDBACK', 'LOSS', 'REPORT', 'RETAKE', 'SITE VISIT')")
+                FilterTable(dt, mtOtherGV, mtOtherBadge, "Status NOT IN ('COMPLAINT', 'FEEDBACK', 'LOSS', 'REPORT', 'RETAKE', 'SITE VISIT', 'TRAINING')")
             };
 
             for (int i = 0; i < tabs.Length; i++)
@@ -61,19 +62,20 @@ namespace WebApplication2
             DataTable dt = GetActionList("MF");
 
             System.Web.UI.HtmlControls.HtmlGenericControl[] tabs =
-                new System.Web.UI.HtmlControls.HtmlGenericControl[] { mfReportLI, mfRetakeLI, mfComplaintLI, mfFeedbackLI, mfSiteVisitLI, mfLossLI, mfOtherLI };
+                new System.Web.UI.HtmlControls.HtmlGenericControl[] { mfReportLI, mfRetakeLI, mfTrainingLI, mfComplaintLI, mfFeedbackLI, mfSiteVisitLI, mfLossLI, mfOtherLI };
 
             System.Web.UI.HtmlControls.HtmlGenericControl[] tables =
-                new System.Web.UI.HtmlControls.HtmlGenericControl[] { mfReport, mfRetake, mfComplaint, mfFeedback, mfSiteVisit, mfLoss, mfOther };
+                new System.Web.UI.HtmlControls.HtmlGenericControl[] { mfReport, mfRetake, mfTraining, mfComplaint, mfFeedback, mfSiteVisit, mfLoss, mfOther };
 
             int totalAction = 0;
             int[] add = new int[] { FilterTable(dt, mfReportGV, mfReportBadge, "Status = 'REPORT'"),
                 FilterTable(dt, mfRetakeGV, mfRetakeBadge, "Status = 'RETAKE'"),
+                FilterTable(dt, mfTrainingGV, mfTrainingBadge, "Status = 'TRAINING'"),
                 FilterTable(dt, mfComplaintGV, mfComplaintBadge, "Status = 'COMPLAINT'"),
                 FilterTable(dt, mfFeedbackGV, mfFeedbackBadge, "Status = 'FEEDBACK'"),
                 FilterTable(dt, mfSiteVisitGV, mfSiteVisitBadge, "Status = 'SITE VISIT'"),
                 FilterTable(dt, mfLossGV, mfLossBadge, "Status = 'LOSS'"),
-                FilterTable(dt, mfOtherGV, mfOtherBadge, "Status NOT IN ('COMPLAINT', 'FEEDBACK', 'LOSS', 'REPORT', 'RETAKE', 'SITE VISIT')")
+                FilterTable(dt, mfOtherGV, mfOtherBadge, "Status NOT IN ('COMPLAINT', 'FEEDBACK', 'LOSS', 'REPORT', 'RETAKE', 'SITE VISIT', 'TRAINING')")
             };
 
             for (int i = 0; i < tabs.Length; i++)
