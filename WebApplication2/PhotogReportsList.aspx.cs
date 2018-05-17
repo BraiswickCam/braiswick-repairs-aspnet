@@ -73,5 +73,60 @@ namespace WebApplication2
                 tc.Attributes.Add("data-value", tc.Text);
             }
         }
+
+        protected void reportsList_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            string sortingDirection = string.Empty;
+            if (e.SortExpression != lastSort) dir = SortDirection.Descending;
+            if (dir == SortDirection.Ascending)
+            {
+                dir = SortDirection.Descending;
+                sortingDirection = "Desc";
+            }
+            else
+            {
+                dir = SortDirection.Ascending;
+                sortingDirection = "Asc";
+            }
+            DataView sortedView = new DataView(GetFullList());
+            sortedView.Sort = e.SortExpression + " " + sortingDirection;
+            lastSort = e.SortExpression;
+            reportsList.DataSource = sortedView;
+            reportsList.DataBind();
+            AddLinks();
+        }
+
+        public SortDirection dir
+        {
+            get
+            {
+                if (ViewState["dirState"] == null)
+                {
+                    ViewState["dirState"] = SortDirection.Ascending;
+                }
+                return (SortDirection)ViewState["dirState"];
+            }
+            set
+            {
+                ViewState["dirState"] = value;
+            }
+        }
+
+        public string lastSort
+        {
+            get
+            {
+                if (ViewState["lastSortState"] == null)
+                {
+                    ViewState["lastSortState"] = "ID";
+                }
+                return ViewState["lastSortState"].ToString();
+            }
+
+            set
+            {
+                ViewState["lastSortState"] = value;
+            }
+        }
     }
 }

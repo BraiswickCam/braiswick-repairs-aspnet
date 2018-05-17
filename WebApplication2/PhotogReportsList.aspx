@@ -83,7 +83,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12 top10">
-            <asp:GridView ID="reportsList" runat="server" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="reportsList_RowDataBound"></asp:GridView>
+            <asp:GridView ID="reportsList" runat="server" GridLines="None" CssClass="table table-striped table-hover" AllowSorting="true" OnRowDataBound="reportsList_RowDataBound" OnSorting="reportsList_Sorting"></asp:GridView>
         </div>
     </div>
 
@@ -358,6 +358,7 @@
             var url = fullURL.substr(0, fullURL.length - exisitingParams.length);
             var newURL = url + queryString;
             history.pushState('', 'Braiswick', newURL);
+            document.getElementsByTagName("form")[0].setAttribute('action', './PhotogReportsList' + queryString);
         }
     </script>
 </asp:Content>
