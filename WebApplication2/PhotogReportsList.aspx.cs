@@ -72,6 +72,23 @@ namespace WebApplication2
             {
                 tc.Attributes.Add("data-value", tc.Text);
             }
+
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                string[] headers = new string[] { "ID", "Date", "Office", "Job", "School", "Type", "Cost", "none", "Initials", "none", "Status", "Notes" };
+                for (int i = 0; i < e.Row.Cells.Count; i++)
+                {
+                    if (headers[i] == lastSort)
+                    {
+                        System.Web.UI.HtmlControls.HtmlGenericControl arrow = new System.Web.UI.HtmlControls.HtmlGenericControl("span");
+                        arrow.Attributes["class"] = dir == SortDirection.Ascending ? "glyphicon glyphicon-chevron-up" : "glyphicon glyphicon-chevron-down";
+                        arrow.Style.Add("margin-left", "3px");
+                        e.Row.Cells[i].Controls.Add(arrow);
+                        e.Row.Cells[i].Style.Add("white-space", "nowrap");
+                    }
+
+                }
+            }
         }
 
         protected void reportsList_Sorting(object sender, GridViewSortEventArgs e)
@@ -102,7 +119,7 @@ namespace WebApplication2
             {
                 if (ViewState["dirState"] == null)
                 {
-                    ViewState["dirState"] = SortDirection.Ascending;
+                    ViewState["dirState"] = SortDirection.Descending;
                 }
                 return (SortDirection)ViewState["dirState"];
             }
