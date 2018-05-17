@@ -50,7 +50,7 @@ namespace WebApplication2
         {
             printTable.DataSource = GetWeekly(startDate, startDate.AddDays(7), dateType, status, office);
             printTable.DataBind();
-            printTableTitle.InnerText = String.Format("{1} for week beginning {0}", startDate.ToShortDateString(), displayStatus);
+            printTableTitle.InnerText = String.Format("{1} for week beginning {0}", startDate.ToShortDateString(), displayStatus + (office.Length > 1 ? "" : " (" + office[0] + ")"));
         }
 
         protected DataTable GetWeekly(DateTime weekStart, DateTime weekEnd, string dateType, string[] status, string[] office)
