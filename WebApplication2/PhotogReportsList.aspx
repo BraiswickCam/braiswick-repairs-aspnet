@@ -95,12 +95,42 @@
 
         var searchTerms = [];
 
-        var statusParam = $.url(window.location.href).param('status');
-        if (statusParam == 'report') {
-            searchTerms.push({ 'columnIndex': 8, 'columnName': 'Status', 'searchTerm': ['REPORT'] });
+        var queryParams;
+
+        getParams();
+
+        function getParams() {
+            queryParams = purl().param();
+            var paramSearch = [
+                ["id", "ID", 0],
+                ["date", "Date", 1],
+                ["office", "Office", 2],
+                ["job", "Job", 3],
+                ["school", "School", 4],
+                ["type", "Type", 5],
+                ["cost", "Cost", 6],
+                ["photographer", "Photographer", 7],
+                ["status", "Status", 8],
+                ["notes", "Notes", 9]
+            ]
+            for (i = 0; i < paramSearch.length; i++) {
+                if (queryParams[paramSearch[i][0]]) {
+                    if (Array.isArray(queryParams[paramSearch[i][0]])) {
+                        searchTerms.push({ 'columnName': paramSearch[i][1], 'columnIndex': paramSearch[i][2], 'searchTerm': queryParams[paramSearch[i][0]] });
+                    } else {
+                        searchTerms.push({ 'columnName': paramSearch[i][1], 'columnIndex': paramSearch[i][2], 'searchTerm': [queryParams[paramSearch[i][0]]] });
+                    }
+                }
+            }
             writeFilters();
             searchFilter();
         }
+        //var statusParam = $.url(window.location.href).param('status');
+        //if (statusParam == 'report') {
+        //    searchTerms.push({ 'columnIndex': 8, 'columnName': 'Status', 'searchTerm': ['REPORT'] });
+        //    writeFilters();
+        //    searchFilter();
+        //}
 
         function costSearch() {
             var e = document.getElementById('equationSelect');
@@ -302,6 +332,32 @@
             }
             filtersHTML += '</div>';
             document.getElementById('searchTermsList').innerHTML = filtersHTML;
+            writeQueryString();
+        }
+
+        function writeQueryString() {
+            var queryString = "";
+            var count = 0;
+            for (i = 0; i < searchTerms.length; i++) {
+                for (ii = 0; ii < searchTerms[i].searchTerm.length; ii++) {
+                    var queryStringPart;
+                    if (count == 0) {
+                        queryStringPart = "?" + searchTerms[i].columnName.toLowerCase() + "=" + searchTerms[i].searchTerm[ii];
+                    } else {
+                        queryStringPart = "&" + searchTerms[i].columnName.toLowerCase() + "=" + searchTerms[i].searchTerm[ii];
+                    }
+                    queryString += queryStringPart;
+                    count++;
+                }
+            }
+            var fullURL = purl().attr('source');
+            var exisitingParams = "";
+            if (fullURL.indexOf('?') > -1) {
+                exisitingParams = fullURL.substr(fullURL.indexOf('?'));
+            }
+            var url = fullURL.substr(0, fullURL.length - exisitingParams.length);
+            var newURL = url + queryString;
+            history.pushState('', 'Braiswick', newURL);
         }
     </script>
 </asp:Content>
