@@ -13,6 +13,15 @@ namespace WebApplication2 {
     public partial class WeeklySummaries {
         
         /// <summary>
+        /// officeDD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList officeDD;
+        
+        /// <summary>
         /// thisWeekFeedbackButton control.
         /// </summary>
         /// <remarks>

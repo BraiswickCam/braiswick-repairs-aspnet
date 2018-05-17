@@ -49,6 +49,14 @@
                     <div class="panel-heading"></div>
                     <div class="panel-body">
                         <h4>This week's reports</h4>
+                        <div class="form-inline">
+                            Office: 
+                            <asp:DropDownList ID="officeDD" CssClass="form-control" runat="server" OnSelectedIndexChanged="officeDD_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:ListItem Text="Both" Value="both"></asp:ListItem>
+                                <asp:ListItem Text="Manningtree" Value="MT"></asp:ListItem>
+                                <asp:ListItem Text="Mansfield" Value="MF"></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
                         <ul>
                             <li>
                                 Feedback by take date 

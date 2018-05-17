@@ -27,55 +27,39 @@ namespace WebApplication2
             return DateTime.Now.StartOfWeek(DayOfWeek.Monday).AddDays(-7);
         }
 
-        protected void LoadWeeklyFeedback(DateTime dateWeek, string dateSearchCol)
+        protected string[] GetOffice()
+        {
+            return officeDD.SelectedValue == "both" ? new string[] { "MT", "MF" } : officeDD.SelectedValue == "MT" ? new string[] { "MT" } : new string[] { "MF" };
+        }
+
+        protected void LoadWeeklyFeedback(DateTime dateWeek, string dateSearchCol, string[] office)
         {
             printTable.Attributes["data-hide-cols"] = "6,10,12";
-            LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", dateSearchCol, dateWeek);
+            LoadWeekly(new string[] { "FEEDBACK" }, "Feedback", dateSearchCol, dateWeek, office);
             printTable.Attributes["data-hide-cols"] = "";
         }
 
-        protected void LoadWeeklyReportsByTake()
+        protected void LoadWeeklyReports(DateTime dateWeek, string dateSearchCol, string[] office)
         {
             printTable.Attributes["data-hide-cols"] = "6,10";
-            LoadWeekly(new string[] { "REPORT" }, "Lab Reports", "Date", GetCurrentWeekStart());
+            LoadWeekly(new string[] { "REPORT" }, "Lab Reports", dateSearchCol, dateWeek, office);
             printTable.Attributes["data-hide-cols"] = "";
         }
 
-        protected void LoadLastWeeklyReportsByTake()
+        protected void LoadWeekly(string[] status, string displayStatus, string dateType, DateTime startDate, string[] office)
         {
-            printTable.Attributes["data-hide-cols"] = "6,10";
-            LoadWeekly(new string[] { "REPORT" }, "Lab Reports", "Date", GetLastWeekStart());
-            printTable.Attributes["data-hide-cols"] = "";
-        }
-
-        protected void LoadWeeklyReportsByEdited()
-        {
-            printTable.Attributes["data-hide-cols"] = "6,10";
-            LoadWeekly(new string[] { "REPORT" }, "Lab Reports", "DateEdited", GetCurrentWeekStart());
-            printTable.Attributes["data-hide-cols"] = "";
-        }
-
-        protected void LoadLastWeeklyReportsByEdited()
-        {
-            printTable.Attributes["data-hide-cols"] = "6,10";
-            LoadWeekly(new string[] { "REPORT" }, "Lab Reports", "DateEdited", GetLastWeekStart());
-            printTable.Attributes["data-hide-cols"] = "";
-        }
-
-        protected void LoadWeekly(string[] status, string displayStatus, string dateType, DateTime startDate)
-        {
-            printTable.DataSource = GetWeekly(startDate, startDate.AddDays(7), dateType, status);
+            printTable.DataSource = GetWeekly(startDate, startDate.AddDays(7), dateType, status, office);
             printTable.DataBind();
             printTableTitle.InnerText = String.Format("{1} for week beginning {0}", startDate.ToShortDateString(), displayStatus);
         }
 
-        protected DataTable GetWeekly(DateTime weekStart, DateTime weekEnd, string dateType, string[] status)
+        protected DataTable GetWeekly(DateTime weekStart, DateTime weekEnd, string dateType, string[] status, string[] office)
         {
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = String.Format("SELECT PReports.ID, PReports.Date, PReports.Office, PReports.Job, PReports.School, PReports.Type, PReports.Cost, PReports.Photographer, Photographers.Initials, Photographers.Name, PReports.Status, PReports.Notes, cast((NOT PReports.Action) AS BOOL) AS 'Actioned?' FROM PReports " + 
-                    "LEFT JOIN Photographers ON PReports.Photographer = Photographers.ID WHERE PReports.Status IN ('{0}') AND {1} >= @StartWeek AND {1} < @EndWeek", String.Join("', '", status), dateType);
+                    "LEFT JOIN Photographers ON PReports.Photographer = Photographers.ID WHERE PReports.Status IN ('{0}') AND {1} >= @StartWeek AND {1} < @EndWeek AND PReports.Office IN ('{2}')", String.Join("', '", status), dateType, String.Join("', '", office));
                 command.Parameters.Add(new SQLiteParameter("@StartWeek", weekStart.ToString("yyyy-MM-dd")));
                 command.Parameters.Add(new SQLiteParameter("@EndWeek", weekEnd.ToString("yyyy-MM-dd")));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
@@ -124,42 +108,48 @@ namespace WebApplication2
 
         protected void thisWeekFeedbackButton_Click(object sender, EventArgs e)
         {
-            LoadWeeklyFeedback(GetCurrentWeekStart(), "Date");
+            LoadWeeklyFeedback(GetCurrentWeekStart(), "Date", GetOffice());
         }
 
         protected void lastWeekFeedbackButton_Click(object sender, EventArgs e)
         {
-            LoadWeeklyFeedback(GetLastWeekStart(), "Date");
+            LoadWeeklyFeedback(GetLastWeekStart(), "Date", GetOffice());
         }
 
         protected void thisWeekFeedbackByEditedButton_Click(object sender, EventArgs e)
         {
-            LoadWeeklyFeedback(GetCurrentWeekStart(), "DateEdited");
+            LoadWeeklyFeedback(GetCurrentWeekStart(), "DateEdited", GetOffice());
         }
 
         protected void lastWeekFeedbackByEditedButton_Click(object sender, EventArgs e)
         {
-            LoadWeeklyFeedback(GetLastWeekStart(), "DateEdited");
+            LoadWeeklyFeedback(GetLastWeekStart(), "DateEdited", GetOffice());
         }
 
         protected void thisWeekReportButton_Click(object sender, EventArgs e)
         {
-            LoadWeeklyReportsByEdited();
+            LoadWeeklyReports(GetCurrentWeekStart(), "DateEdited", GetOffice());
         }
 
         protected void lastWeekReportButton_Click(object sender, EventArgs e)
         {
-            LoadLastWeeklyReportsByEdited();
+            LoadWeeklyReports(GetLastWeekStart(), "DateEdited", GetOffice());
         }
 
         protected void thisWeekReportByTakeButton_Click(object sender, EventArgs e)
         {
-            LoadWeeklyReportsByTake();
+            LoadWeeklyReports(GetCurrentWeekStart(), "Date", GetOffice());
         }
 
         protected void lastWeekReportByTakeButton_Click(object sender, EventArgs e)
         {
-            LoadLastWeeklyReportsByTake();
+            LoadWeeklyReports(GetLastWeekStart(), "Date", GetOffice());
+        }
+
+        protected void officeDD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            printTable.DataSource = "";
+            printTable.DataBind();
         }
     }
 
