@@ -40,7 +40,7 @@ namespace WebApplication2
                         MultiPhotog.multiRecords = LoadRelated(Convert.ToDateTime(tdt.Rows[0][11]), id);
                         relatedGV.DataSource = MultiPhotog.multiRecords;
                         relatedGV.DataBind();
-                        if(MultiPhotog.multiRecords.Rows.Count > 0) reportUpdateAll.Visible = true;
+                        if (MultiPhotog.multiRecords.Rows.Count > 0) { reportUpdateAll.Visible = true; AddLinks(); }
                     }
                     reportUpdate.Visible = true;
                     reportSave.Visible = false;
@@ -380,7 +380,8 @@ namespace WebApplication2
 
         protected void relatedGV_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-
+            e.Row.Cells[7].Visible = false;
+            e.Row.Cells[9].Visible = false;
         }
 
         protected void reportUpdateAll_Click(object sender, EventArgs e)
@@ -398,6 +399,30 @@ namespace WebApplication2
             reportUpdate.Visible = true;
             reportUpdateAll.Visible = true;
             reportSave.Visible = false;
+        }
+
+        protected void AddLinks()
+        {
+            foreach (GridViewRow gvr in relatedGV.Rows)
+            {
+                if (gvr.Cells[0].Text != "&nbsp;")
+                {
+                    string id = gvr.Cells[0].Text;
+                    gvr.Cells[0].Text = String.Format("<a href=\"PhotogReports.aspx?id={0}\" class=\"btn btn-primary\">{0}</a>", id);
+                }
+
+                if (gvr.Cells[8].Text != "&nbsp;")
+                {
+                    string photogID = gvr.Cells[7].Text;
+                    string photogInitials = gvr.Cells[8].Text;
+                    string photogName = gvr.Cells[9].Text;
+
+                    gvr.Cells[8].Text = String.Format("<a href=\"PhotogDetails.aspx?PhotogID={0}\" class=\"btn btn-default\" data-toggle=\"tooltip\" data-placement=\"right\" data-html=\"true\" title=\"ID: {0}</br>{2}\">{1}</a>",
+                        photogID,
+                        photogInitials,
+                        photogName);
+                }
+            }
         }
     }
 }

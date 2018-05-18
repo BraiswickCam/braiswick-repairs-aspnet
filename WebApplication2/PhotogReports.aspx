@@ -163,4 +163,9 @@
             <asp:GridView runat="server" ID="relatedGV" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="relatedGV_RowDataBound"></asp:GridView>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
+    </script>
 </asp:Content>
