@@ -14,6 +14,7 @@ namespace WebApplication2
     {
         public static List<int> multiPhotogs;
         public static List<string> multiPhotogsInitials;
+        public static DataTable multiRecords;
     }
 
     public partial class PhotogReports : System.Web.UI.Page
@@ -23,6 +24,7 @@ namespace WebApplication2
             successAlert.Visible = false;
             errorAlert.Visible = false;
             reportUpdate.Visible = false;
+            reportUpdateAll.Visible = false;
             if (!IsPostBack)
             {
                 FillPhotogsDropDown();
@@ -31,7 +33,15 @@ namespace WebApplication2
                 if (Request.QueryString["id"] != null)
                 {
                     string id = Request.QueryString["id"];
-                    FillLoadedEntry(LoadEntry(id));
+                    DataTable tdt = LoadEntry(id);
+                    FillLoadedEntry(tdt);
+                    if (tdt.Rows[0][11] != DBNull.Value)
+                    {
+                        MultiPhotog.multiRecords = LoadRelated(Convert.ToDateTime(tdt.Rows[0][11]), id);
+                        relatedGV.DataSource = MultiPhotog.multiRecords;
+                        relatedGV.DataBind();
+                        if(MultiPhotog.multiRecords.Rows.Count > 0) reportUpdateAll.Visible = true;
+                    }
                     reportUpdate.Visible = true;
                     reportSave.Visible = false;
                     addPhotogButton.Visible = false;
@@ -64,6 +74,27 @@ namespace WebApplication2
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = "SELECT * FROM PReports WHERE ID = @id";
+                command.Parameters.Add(new SQLiteParameter("@id", id));
+                using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
+                {
+                    sda.SelectCommand = command;
+                    using (DataTable dt = new DataTable())
+                    {
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        protected DataTable LoadRelated(DateTime related, string id)
+        {
+            using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
+            {
+                SQLiteCommand command = m_dbConnection.CreateCommand();
+                command.CommandText = "SELECT PReports.ID, PReports.Date, PReports.Office, PReports.Job, PReports.School, PReports.Type, PReports.Cost, PReports.Photographer, Photographers.Initials, Photographers.Name, PReports.Status, PReports.Notes FROM PReports " + 
+                    "LEFT JOIN Photographers ON PReports.Photographer = Photographers.ID WHERE DateCreated = @DateCreated AND PReports.ID != @id";
+                command.Parameters.Add(new SQLiteParameter("@DateCreated", related.ToString("yyyy-MM-dd HH:mm:ss")));
                 command.Parameters.Add(new SQLiteParameter("@id", id));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
@@ -180,7 +211,7 @@ namespace WebApplication2
             return true;
         }
 
-        protected bool UpdateEntry(out string saveErrorMessage)
+        protected bool UpdateEntry(string idIn, int photog, out string saveErrorMessage)
         {
             string date;
             decimal cost;
@@ -188,7 +219,7 @@ namespace WebApplication2
             try
             {
                 date = Convert.ToDateTime(reportDate.Text).ToString("yyyy-MM-dd");
-                id = Convert.ToInt32(reportID.Text);
+                id = Convert.ToInt32(idIn);
                 if (reportCost.Text != "")
                 {
                     cost = Convert.ToDecimal(reportCost.Text);
@@ -217,7 +248,7 @@ namespace WebApplication2
                     command.Parameters.Add(new SQLiteParameter("@School", reportSchool.Text));
                     command.Parameters.Add(new SQLiteParameter("@Type", reportType.Text));
                     command.Parameters.Add(new SQLiteParameter("@Cost", cost));
-                    command.Parameters.Add(new SQLiteParameter("@Photographer", reportPhotographerDD.SelectedValue));
+                    command.Parameters.Add(new SQLiteParameter("@Photographer", photog));
                     command.Parameters.Add(new SQLiteParameter("@Status", reportStatus.Text));
                     command.Parameters.Add(new SQLiteParameter("@Notes", reportNotes.Text));
                     command.Parameters.Add(new SQLiteParameter("@Action", actionCheck.Checked ? "1" : "0"));
@@ -235,6 +266,16 @@ namespace WebApplication2
             }
 
             saveErrorMessage = "";
+            return true;
+        }
+
+        protected bool UpdateAll(out string saveErrorMessage)
+        {
+            if (!UpdateEntry(reportID.Text, Convert.ToInt32(reportPhotographerDD.SelectedValue), out saveErrorMessage)) return false;
+            foreach (DataRow dr in MultiPhotog.multiRecords.Rows)
+            {
+                if (!UpdateEntry(dr[0].ToString(), Convert.ToInt32(dr[7]), out saveErrorMessage)) return false;
+            }
             return true;
         }
 
@@ -306,7 +347,7 @@ namespace WebApplication2
         protected void reportUpdate_Click(object sender, EventArgs e)
         {
             string saveErrorMessage;
-            if (UpdateEntry(out saveErrorMessage))
+            if (UpdateEntry(reportID.Text, Convert.ToInt32(reportPhotographerDD.SelectedValue), out saveErrorMessage))
             {
                 successAlert.Visible = true;
             }
@@ -335,6 +376,28 @@ namespace WebApplication2
             MultiPhotog.multiPhotogs = new List<int>();
             MultiPhotog.multiPhotogsInitials = new List<string>();
             multiPhotogList.InnerHtml = "";
+        }
+
+        protected void relatedGV_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+        }
+
+        protected void reportUpdateAll_Click(object sender, EventArgs e)
+        {
+            string saveErrorMessage;
+            if (UpdateAll(out saveErrorMessage))
+            {
+                successAlert.Visible = true;
+            }
+            else
+            {
+                errorAlert.Visible = true;
+                errorMessage.InnerText = saveErrorMessage;
+            }
+            reportUpdate.Visible = true;
+            reportUpdateAll.Visible = true;
+            reportSave.Visible = false;
         }
     }
 }

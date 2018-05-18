@@ -153,8 +153,14 @@
                 <div class="panel-body">
                     <asp:Button ID="reportSave" runat="server" CssClass="btn btn-primary" Text="Save" OnClick="reportSave_Click" />
                     <asp:Button ID="reportUpdate" runat="server" CssClass="btn btn-success" Text="Update" OnClick="reportUpdate_Click" />
+                    <asp:Button ID="reportUpdateAll" runat="server" CssClass="btn btn-warning" Text="Update All" OnClick="reportUpdateAll_Click" />
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row top10">
+        <div class="col-xs-12">
+            <asp:GridView runat="server" ID="relatedGV" GridLines="None" CssClass="table table-striped table-hover" OnRowDataBound="relatedGV_RowDataBound"></asp:GridView>
         </div>
     </div>
 </asp:Content>
