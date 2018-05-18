@@ -27,7 +27,7 @@ namespace WebApplication2
             reportUpdateAll.Visible = false;
             if (!IsPostBack)
             {
-                FillPhotogsDropDown();
+                FillPhotogsDropDown(Request.QueryString["id"] != null);
                 MultiPhotog.multiPhotogs = new List<int>();
                 MultiPhotog.multiPhotogsInitials = new List<string>();
                 if (Request.QueryString["id"] != null)
@@ -50,12 +50,12 @@ namespace WebApplication2
             }
         }
 
-        protected DataTable GetPhotogs()
+        protected DataTable GetPhotogs(bool allPhotogs)
         {
             using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
-                command.CommandText = "SELECT ID, Initials, Name FROM Photographers ORDER BY Initials";
+                command.CommandText = String.Format("SELECT ID, Initials, Name FROM Photographers WHERE Active IN ({0}) ORDER BY Initials", allPhotogs ? "0,1" : "1");
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
                 {
                     sda.SelectCommand = command;
@@ -279,9 +279,9 @@ namespace WebApplication2
             return true;
         }
 
-        protected void FillPhotogsDropDown()
+        protected void FillPhotogsDropDown(bool allPhotogs)
         {
-            DataTable dt = GetPhotogs();
+            DataTable dt = GetPhotogs(allPhotogs);
             DataTable dt2 = new DataTable();
             dt2.Columns.Add(new DataColumn("Text"));
             dt2.Columns.Add(new DataColumn("Value"));
