@@ -233,7 +233,18 @@ namespace WebApplication2
                 }
 
             }
-        }
+
+            foreach (GridViewRow gr in reportsGridView.Rows)
+                {
+                    HyperLink hp = new HyperLink();
+                    hp.CssClass = "btn";
+                    hp.Target = "_blank";
+                    hp.Text = gr.Cells[0].Text;
+                    hp.CssClass = "btn btn-primary";
+                    hp.NavigateUrl = "~/PhotogReports.aspx?id=" + hp.Text;
+                    gr.Cells[0].Controls.Add(hp);
+                }
+            }
 
         protected void historyGridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
