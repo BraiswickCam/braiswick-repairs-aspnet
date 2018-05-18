@@ -314,7 +314,7 @@ namespace WebApplication2
                     }
                 }
             }
-            if (office == "MA")
+            if (office == "MA" || office == "KT")
             {
                 reportOfficeDD.SelectedValue = "MT";
             }
