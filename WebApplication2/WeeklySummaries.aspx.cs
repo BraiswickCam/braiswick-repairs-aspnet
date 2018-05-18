@@ -59,7 +59,8 @@ namespace WebApplication2
             {
                 SQLiteCommand command = m_dbConnection.CreateCommand();
                 command.CommandText = String.Format("SELECT PReports.ID, PReports.Date, PReports.Office, PReports.Job, PReports.School, PReports.Type, PReports.Cost, PReports.Photographer, Photographers.Initials, Photographers.Name, PReports.Status, PReports.Notes, cast((NOT PReports.Action) AS BOOL) AS 'Actioned?' FROM PReports " + 
-                    "LEFT JOIN Photographers ON PReports.Photographer = Photographers.ID WHERE PReports.Status IN ('{0}') AND {1} >= @StartWeek AND {1} < @EndWeek AND PReports.Office IN ('{2}')", String.Join("', '", status), dateType, String.Join("', '", office));
+                    "LEFT JOIN Photographers ON PReports.Photographer = Photographers.ID WHERE PReports.Status IN ('{0}') AND {1} >= @StartWeek AND {1} < @EndWeek AND PReports.Office IN ('{2}') ORDER BY Date ASC", 
+                    String.Join("', '", status), dateType, String.Join("', '", office));
                 command.Parameters.Add(new SQLiteParameter("@StartWeek", weekStart.ToString("yyyy-MM-dd")));
                 command.Parameters.Add(new SQLiteParameter("@EndWeek", weekEnd.ToString("yyyy-MM-dd")));
                 using (SQLiteDataAdapter sda = new SQLiteDataAdapter())
