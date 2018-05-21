@@ -285,7 +285,7 @@ namespace WebApplication2
             DataTable dt2 = new DataTable();
             dt2.Columns.Add(new DataColumn("Text"));
             dt2.Columns.Add(new DataColumn("Value"));
-            dt2.Rows.Add("none", "");
+            dt2.Rows.Add("none", "0");
             foreach (DataRow dr in dt.Rows)
             {
                 dt2.Rows.Add(dr[1].ToString() + " | " + dr[2].ToString(), dr[0]);
