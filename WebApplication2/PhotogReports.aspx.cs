@@ -19,6 +19,54 @@ namespace WebApplication2
 
     public partial class PhotogReports : System.Web.UI.Page
     {
+        protected List<int> multiPhotogs
+        {
+            get
+            {
+                if (ViewState["multiPhotogs"] == null)
+                {
+                    ViewState["multiPhotogs"] = new List<int>();
+                }
+                return (List<int>)ViewState["multiPhotogs"];
+            }
+            set
+            {
+                ViewState["multiPhotogs"] = value;
+            }
+        }
+
+        protected List<string> multiPhotogsInitials
+        {
+            get
+            {
+                if (ViewState["multiPhotogsInitials"] == null)
+                {
+                    ViewState["multiPhotogsInitials"] = new List<string>();
+                }
+                return (List<string>)ViewState["multiPhotogsInitials"];
+            }
+            set
+            {
+                ViewState["multiPhotogsInitials"] = value;
+            }
+        }
+
+        protected DataTable multiRecords
+        {
+            get
+            {
+                if (ViewState["multiRecords"] == null)
+                {
+                    ViewState["multiRecords"] = new DataTable();
+                }
+                return (DataTable)ViewState["multiRecords"];
+            }
+            set
+            {
+                ViewState["multiRecords"] = value;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             successAlert.Visible = false;
@@ -28,8 +76,8 @@ namespace WebApplication2
             if (!IsPostBack)
             {
                 FillPhotogsDropDown(Request.QueryString["id"] != null);
-                MultiPhotog.multiPhotogs = new List<int>();
-                MultiPhotog.multiPhotogsInitials = new List<string>();
+                multiPhotogs = new List<int>();
+                multiPhotogsInitials = new List<string>();
                 if (Request.QueryString["id"] != null)
                 {
                     string id = Request.QueryString["id"];
@@ -37,10 +85,10 @@ namespace WebApplication2
                     FillLoadedEntry(tdt);
                     if (tdt.Rows[0][11] != DBNull.Value)
                     {
-                        MultiPhotog.multiRecords = LoadRelated(Convert.ToDateTime(tdt.Rows[0][11]), id);
-                        relatedGV.DataSource = MultiPhotog.multiRecords;
+                        multiRecords = LoadRelated(Convert.ToDateTime(tdt.Rows[0][11]), id);
+                        relatedGV.DataSource = multiRecords;
                         relatedGV.DataBind();
-                        if (MultiPhotog.multiRecords.Rows.Count > 0) { reportUpdateAll.Visible = true; AddLinks(); }
+                        if (multiRecords.Rows.Count > 0) { reportUpdateAll.Visible = true; AddLinks(); }
                     }
                     reportUpdate.Visible = true;
                     reportSave.Visible = false;
@@ -137,8 +185,8 @@ namespace WebApplication2
             reportNotes.Text = "";
             reportOfficeDD.SelectedIndex = 0;
             actionCheck.Checked = false;
-            MultiPhotog.multiPhotogs = new List<int>();
-            MultiPhotog.multiPhotogsInitials = new List<string>();
+            multiPhotogs = new List<int>();
+            multiPhotogsInitials = new List<string>();
             multiPhotogList.InnerHtml = "";
         }
 
@@ -169,9 +217,9 @@ namespace WebApplication2
                 using (SQLiteConnection m_dbConnection = new SQLiteConnection(String.Format("Data Source={0};Version=3;datetimeformat=CurrentCulture;", GlobalVars.dbLocation)))
                 {
                     int[] photogArray;
-                    if (MultiPhotog.multiPhotogs.Count > 0)
+                    if (multiPhotogs.Count > 0)
                     {
-                        photogArray = MultiPhotog.multiPhotogs.ToArray();
+                        photogArray = multiPhotogs.ToArray();
                     }
                     else
                     {
@@ -272,7 +320,7 @@ namespace WebApplication2
         protected bool UpdateAll(out string saveErrorMessage)
         {
             if (!UpdateEntry(reportID.Text, Convert.ToInt32(reportPhotographerDD.SelectedValue), out saveErrorMessage)) return false;
-            foreach (DataRow dr in MultiPhotog.multiRecords.Rows)
+            foreach (DataRow dr in multiRecords.Rows)
             {
                 if (!UpdateEntry(dr[0].ToString(), Convert.ToInt32(dr[7]), out saveErrorMessage)) return false;
             }
@@ -362,10 +410,10 @@ namespace WebApplication2
 
         protected void addPhotogButton_Click(object sender, EventArgs e)
         {
-            MultiPhotog.multiPhotogs.Add(Convert.ToInt32(reportPhotographerDD.SelectedValue));
-            MultiPhotog.multiPhotogsInitials.Add(reportPhotographerDD.SelectedItem.Text.Substring(0, 2));
+            multiPhotogs.Add(Convert.ToInt32(reportPhotographerDD.SelectedValue));
+            multiPhotogsInitials.Add(reportPhotographerDD.SelectedItem.Text.Substring(0, 2));
             multiPhotogList.InnerHtml = "";
-            foreach (string s in MultiPhotog.multiPhotogsInitials)
+            foreach (string s in multiPhotogsInitials)
             {
                 multiPhotogList.InnerHtml += String.Format("<span style=\"margin: 3px;\" class=\"btn btn-default\">{0}</span>", s);
             }
@@ -373,8 +421,8 @@ namespace WebApplication2
 
         protected void removeAllPhotogsButton_Click(object sender, EventArgs e)
         {
-            MultiPhotog.multiPhotogs = new List<int>();
-            MultiPhotog.multiPhotogsInitials = new List<string>();
+            multiPhotogs = new List<int>();
+            multiPhotogsInitials = new List<string>();
             multiPhotogList.InnerHtml = "";
         }
 
