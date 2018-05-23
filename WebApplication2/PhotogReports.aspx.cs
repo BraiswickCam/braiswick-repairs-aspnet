@@ -133,7 +133,7 @@ namespace WebApplication2
             reportType.Text = "";
             reportCost.Text = "";
             reportPhotographerDD.SelectedIndex = 0;
-            reportStatus.SelectedIndex = 0;
+            reportStatus.SelectedIndex = 1;
             reportNotes.Text = "";
             reportOfficeDD.SelectedIndex = 0;
             actionCheck.Checked = false;
