@@ -85,9 +85,9 @@
                     <div class="row">
                         <div class="col-xs-4">Status: </div>
                         <div class="col-xs-8">
-                            <asp:DropDownList ID="reportStatus" runat="server" CssClass="form-control">
+                            <asp:DropDownList ID="reportStatus" runat="server" CssClass="form-control" ClientIDMode="Static">
                                 <asp:ListItem Text="COMPLAINT" Value="COMPLAINT"></asp:ListItem>
-                                <asp:ListItem Text="FEEDBACK" Value="FEEDBACK"></asp:ListItem>
+                                <asp:ListItem Text="FEEDBACK" Value="FEEDBACK" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="LOSS" Value="LOSS"></asp:ListItem>
                                 <asp:ListItem Text="PENDING" Value="PENDING"></asp:ListItem>
                                 <asp:ListItem Text="POST" Value="POST"></asp:ListItem>
@@ -121,7 +121,7 @@
                         <div class="col-xs-12">
                             <div class="checkbox">
                                 <label>
-                                    <asp:CheckBox ID="actionCheck" runat="server" /> Action Required?
+                                    <asp:CheckBox ID="actionCheck" runat="server" ClientIDMode="Static"/> Action Required?
                                 </label>
                             </div>
                         </div>
@@ -166,6 +166,11 @@
     <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();   
+        });
+
+        $('#reportStatus').on('change', function () {
+            var status = this.value;
+            $('#actionCheck').prop('checked', status == 'REPORT' || status == 'LOSS' || status == 'COMPLAINT' || status == 'RETAKE' ? true : false);
         });
     </script>
 </asp:Content>
