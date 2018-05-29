@@ -389,7 +389,7 @@ namespace WebApplication2
 
         protected void reportPhotographerDD_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (reportPhotographerDD.SelectedValue != "") SelectOffice();
+            if (reportPhotographerDD.SelectedValue != "0") SelectOffice();
         }
 
         protected void reportUpdate_Click(object sender, EventArgs e)
@@ -410,8 +410,12 @@ namespace WebApplication2
 
         protected void addPhotogButton_Click(object sender, EventArgs e)
         {
-            multiPhotogs.Add(Convert.ToInt32(reportPhotographerDD.SelectedValue));
-            multiPhotogsInitials.Add(reportPhotographerDD.SelectedItem.Text.Substring(0, 2));
+            int photog = Convert.ToInt32(reportPhotographerDD.SelectedValue);
+            if (!multiPhotogs.Contains(photog))
+            {
+                multiPhotogs.Add(photog);
+                multiPhotogsInitials.Add(reportPhotographerDD.SelectedItem.Text.Substring(0, 2));
+            }
             multiPhotogList.InnerHtml = "";
             foreach (string s in multiPhotogsInitials)
             {
