@@ -94,6 +94,42 @@ namespace WebApplication2 {
         protected global::System.Web.UI.WebControls.LinkButton lastWeekReportButton;
         
         /// <summary>
+        /// reportsPerPhotog control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton reportsPerPhotog;
+        
+        /// <summary>
+        /// reportsPerPhotogCustomDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton reportsPerPhotogCustomDate;
+        
+        /// <summary>
+        /// customStartDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox customStartDate;
+        
+        /// <summary>
+        /// customEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox customEndDate;
+        
+        /// <summary>
         /// printTableTitle control.
         /// </summary>
         /// <remarks>
@@ -110,5 +146,32 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView printTable;
+        
+        /// <summary>
+        /// summaryTableTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl summaryTableTitle;
+        
+        /// <summary>
+        /// summaryTable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView summaryTable;
+        
+        /// <summary>
+        /// customReportDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl customReportDiv;
     }
 }
