@@ -48,6 +48,12 @@
             padding-right: 3px;
         }
 
+        @media print {
+            a[href]:after {
+                content: "" !important;
+            }
+        }
+
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
