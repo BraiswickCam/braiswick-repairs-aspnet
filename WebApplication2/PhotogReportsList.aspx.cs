@@ -70,7 +70,7 @@ namespace WebApplication2
             e.Row.Cells[9].Visible = false;
             foreach (TableCell tc in e.Row.Cells)
             {
-                tc.Attributes.Add("data-value", tc.Text);
+                tc.Attributes.Add("data-value", tc.Text == "&nbsp;" ? "" : tc.Text);
             }
 
             if (e.Row.RowType == DataControlRowType.Header)
