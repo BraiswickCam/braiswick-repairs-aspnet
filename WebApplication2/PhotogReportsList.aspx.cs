@@ -16,9 +16,9 @@ namespace WebApplication2
         {
             if (!IsPostBack)
             {
-                reportsList.DataSource = GetFullList();
-                reportsList.DataBind();
-                AddLinks();
+                //reportsList.DataSource = GetFullList();
+                //reportsList.DataBind();
+                //AddLinks();
             }
         }
 

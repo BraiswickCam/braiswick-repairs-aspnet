@@ -77,7 +77,7 @@
                     <option value="4" title="School">School</option>
                     <option value="5" title="Type">Type</option>
                     <option value="6" title="Cost">Cost</option>
-                    <option value="7" title="Photographer">Photographer</option>
+                    <option value="7" title="Initials">Initials</option>
                     <option value="8" title="Status">Status</option>
                     <option value="9" title="Notes">Notes</option>
                 </select>
@@ -90,16 +90,38 @@
     <div class="row">
         <div class="col-xs-12 top10">
             <asp:GridView ID="reportsList" runat="server" GridLines="None" CssClass="table table-striped table-hover" AllowSorting="true" OnRowDataBound="reportsList_RowDataBound" OnSorting="reportsList_Sorting"></asp:GridView>
+            <table id="reportsdata" class="table table-striped table-hover">
+                <thead id="reportsdataHead"></thead>
+                <tbody id="reportsdataBody"></tbody>
+            </table>
+            <p id="temploadmore">Load more...</p>
         </div>
     </div>
 
     <script src="Scripts/purl.js"></script>
     <script>
         $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
+            $('[data-toggle="tooltip"]').tooltip();
+            getPReportsData();
+        });
+
+        $('#temploadmore').on('click', function () {
+            progLoadTable();
         });
 
         var searchTerms = [];
+
+        var myList;
+
+        var currentList;
+
+        var searchList = [];
+
+        var headersDrawn = false;
+
+        var masterColumnSet;
+
+        var tableIndex = 0;
 
         var queryParams;
 
@@ -115,7 +137,7 @@
                 ["school", "School", 4],
                 ["type", "Type", 5],
                 ["cost", "Cost", 6],
-                ["photographer", "Photographer", 7],
+                ["photographer", "Initials", 7],
                 ["status", "Status", 8],
                 ["notes", "Notes", 9]
             ]
@@ -168,7 +190,7 @@
 
         function innerSearch(j, td, filter, currentCount) {
             var count = currentCount;
-            var tdv = td.getAttribute("data-value");
+            var tdv = td.toString();
             var searchTerm;
             var innerCount = 0;
 
@@ -229,15 +251,17 @@
         }
 
         function searchFilter() {
+            searchList = [];
           // Declare variables
-          var input, filter, table, tr, td, i, ii, current, col, e;
+          var input, filter, table, tr, td, i, ii, current, col, colName, e;
           input = document.getElementById('equipSearch');
           filter = input.value.toUpperCase();
-          table = document.getElementById("<%= reportsList.ClientID %>");
-          tr = table.getElementsByTagName("tr");
+          //table = document.getElementById("<%= reportsList.ClientID %>");
+          //tr = table.getElementsByTagName("tr");
         e = document.getElementById('searchCol');
             col = parseInt(e.options[e.selectedIndex].value);
-        var liveSearch = { 'columnIndex': col, 'searchTerm': [filter] };
+            colName = e.options[e.selectedIndex].text;
+        var liveSearch = { 'columnName': colName, 'columnIndex': col, 'searchTerm': [filter] };
 
             var searchNow = JSON.parse(JSON.stringify(searchTerms));
             var searchExists = false;
@@ -257,7 +281,7 @@
         
 
           // Loop through all table rows, and hide those who don't match the search query
-          for (i = 1; i < tr.length; i++) {
+            for (i = 0; i < myList.length; i++) {
               var count = 0;
               //for (j = col; j < col + 1; j++) {
               //    td = tr[i].getElementsByTagName("td")[j];
@@ -265,15 +289,24 @@
               //}
               for (jj = 0; jj < searchNow.length; jj++) {
                   var column = parseInt(searchNow[jj].columnIndex);
-                  td = tr[i].getElementsByTagName("td")[column];
+                  td = myList[i][searchNow[jj].columnName];
                   count = innerSearch(column, td, searchNow[jj], count);
               }
               if (count > 0) {
-                  tr[i].style.display = "none";
+                  //tr[i].style.display = "none";
               } else {
-                  tr[i].style.display = "";
+                  //tr[i].style.display = "";
+                  searchList.push(myList[i]);
               }
             }
+            var tbody = document.getElementById('reportsdataBody');
+            tbody.innerHTML = "";
+
+            //remove next line?
+            tableIndex = 0;
+
+            currentList = searchList;
+            buildHtmlTable('#reportsdataBody', currentList);
         }
 
         function addFilter() {
@@ -365,6 +398,86 @@
             var newURL = url + queryString;
             history.pushState('', 'Braiswick', newURL);
             document.getElementsByTagName("form")[0].setAttribute('action', './PhotogReportsList' + queryString);
+        }
+
+        function getPReportsData() {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                url: 'ColumnChart.asmx/GetReports',
+                data: '{}',
+                success: function (response) {
+                    setPReportsData(response.d);
+                },
+
+                error: function () {
+                    alert("Error loading data! Please try again.");
+                }
+            });
+        }
+
+        function setPReportsData(tableinputdata) {
+            myList = tableinputdata;
+            currentList = myList;
+            buildHtmlTable('#reportsdataBody', currentList);
+        }
+
+        function buildHtmlTable(selector, buildList) {
+            var columns;
+            if (!headersDrawn) columns = addAllColumnHeaders(buildList, '#reportsdataHead');
+            else columns = masterColumnSet;
+
+            var tableIndexUpper;
+            if (buildList.length > 100) tableIndexUpper = tableIndex + 100;
+            else tableIndexUpper = buildList.length;
+
+            for (var i = tableIndex; i < tableIndexUpper; i++) {
+                var row$ = $('<tr/>');
+                for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+                    if (colIndex != 8 && colIndex != 9) {
+                        var cell$ = $('<td/>');
+                        var cellValue = buildList[i][columns[colIndex]];
+                        if (cellValue == null) cellValue = "";
+                        if (colIndex == 0) cellValue = '<a class="btn btn-primary" href="PhotogReports.aspx?id=' + buildList[i][columns[colIndex]] + '">' + buildList[i][columns[colIndex]] + '</a>';
+                        if (colIndex == 7) cellValue = '<a class="btn btn-default" href="PhotogDetails.aspx?photogID=' + buildList[i][columns[colIndex]] +
+                            '" data-toggle="tooltip" data-placement="right" data-html="true" title="" data-original-title="ID: ' + buildList[i][columns[colIndex]] +
+                            '</br>' + buildList[i][columns[9]] + '">' + buildList[i][columns[8]] + '</a>';
+                        row$.append(cell$.html(cellValue));
+                    }
+                }
+                $(selector).append(row$);
+            }
+
+            tableIndex = tableIndexUpper;
+            $('[data-toggle="tooltip"]').tooltip();
+        }
+
+        // Adds a header row to the table and returns the set of columns.
+        // Need to do union of keys from all records as some records may not contain
+        // all records.
+        function addAllColumnHeaders(myList, selector) {
+            var columnSet = [];
+            var headerTr$ = $('<tr/>');
+
+            for (var i = 0; i < myList.length; i++) {
+                var rowHash = myList[i];
+                for (var key in rowHash) {
+                    if ($.inArray(key, columnSet) == -1) {
+                        columnSet.push(key);
+                        if (key != 'Initials' && key != 'Name') headerTr$.append($('<th/>').html(key));
+                    }
+                }
+            }
+            $(selector).append(headerTr$);
+
+            masterColumnSet = columnSet;
+            headersDrawn = true;
+            return columnSet;
+        }
+
+        function progLoadTable() {
+            buildHtmlTable('#reportsdata', currentList);
         }
     </script>
 </asp:Content>
