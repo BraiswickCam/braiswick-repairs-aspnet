@@ -48,6 +48,25 @@
             padding-right: 3px;
         }
 
+        #temploadmore {
+            text-align: center;
+        }
+
+        .center-button {
+            width: 100%;
+            text-align: center;
+        }
+
+        .column-sort-icon {
+            display: inline;
+            margin-left: 5px;
+        }
+
+        a.column-sort {
+            text-decoration: none !important;
+            cursor: pointer;
+        }
+
         @media print {
             a[href]:after {
                 content: "" !important;
@@ -94,7 +113,10 @@
                 <thead id="reportsdataHead"></thead>
                 <tbody id="reportsdataBody"></tbody>
             </table>
-            <p id="temploadmore">Load more...</p>
+            <div class="center-button">
+                <a class="btn btn-danger" id="temploadmore">Load more...</a>
+                <!--<a class="btn btn-warning" id="loadall">Show all</a>-->
+            </div>
         </div>
     </div>
 
@@ -102,12 +124,26 @@
     <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
-            getPReportsData();
         });
 
         $('#temploadmore').on('click', function () {
             progLoadTable();
         });
+
+        $('#loadall').on('click', function () {
+            progLoadTable(true);
+        })
+
+        $('#reportsdataHead').on('click', '.column-sort', function () {
+            $('.column-sort-icon').removeClass('glyphicon glyphicon-chevron-up glyphicon-chevron-down');
+            var newSortColumn = $(this).attr('data-sort-column');
+            var newSortDirection = newSortColumn == lastSortColumn ? (lastSortDirection == 'ASC' ? 'DESC' : 'ASC') : 'ASC';
+            sortList(newSortColumn, newSortDirection);
+            lastSortColumn = newSortColumn;
+            lastSortDirection = newSortDirection;
+            var columnIcon = '.column-sort-icon[data-sort-column=\'' + newSortColumn + '\']';
+            $(columnIcon).addClass(newSortDirection == 'ASC' ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down');
+        })
 
         var searchTerms = [];
 
@@ -125,7 +161,15 @@
 
         var queryParams;
 
-        getParams();
+        var lastSortColumn = 'ID';
+        var lastSortDirection = 'DESC';
+
+        pageStart();
+
+        async function pageStart() {
+            await getPReportsData();
+            getParams();
+        }
 
         function getParams() {
             queryParams = purl().param();
@@ -137,7 +181,7 @@
                 ["school", "School", 4],
                 ["type", "Type", 5],
                 ["cost", "Cost", 6],
-                ["photographer", "Initials", 7],
+                ["initials", "Initials", 7],
                 ["status", "Status", 8],
                 ["notes", "Notes", 9]
             ]
@@ -229,6 +273,10 @@
             if (innerCount === 0 && j != 6 && j != 1) {
                 count = count + 1;
             }
+
+            if (tdv == "" && j == 1) {
+                count = count + 1;
+            }
             
             return count;
         }
@@ -307,6 +355,22 @@
 
             currentList = searchList;
             buildHtmlTable('#reportsdataBody', currentList);
+        }
+
+        function sortList(sortColumn, direction) {
+            var sortedList = myList.sort(compare(sortColumn, direction));
+            myList = sortedList;
+            searchFilter();
+        }
+
+        function compare(sortColumn, direction) {
+            return function(a, b) {
+                if (a[sortColumn] < b[sortColumn])
+                    return direction == 'ASC' ? -1 : 1;
+                if (a[sortColumn] > b[sortColumn])
+                    return direction == 'ASC' ? 1 : -1;
+                return 0;
+            }
         }
 
         function addFilter() {
@@ -400,8 +464,8 @@
             document.getElementsByTagName("form")[0].setAttribute('action', './PhotogReportsList' + queryString);
         }
 
-        function getPReportsData() {
-            $.ajax({
+        async function getPReportsData() {
+            await $.ajax({
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
@@ -415,6 +479,7 @@
                     alert("Error loading data! Please try again.");
                 }
             });
+            return;
         }
 
         function setPReportsData(tableinputdata) {
@@ -423,14 +488,20 @@
             buildHtmlTable('#reportsdataBody', currentList);
         }
 
-        function buildHtmlTable(selector, buildList) {
+        function buildHtmlTable(selector, buildList, showall = false) {
             var columns;
+            var endOfRecords = false;
             if (!headersDrawn) columns = addAllColumnHeaders(buildList, '#reportsdataHead');
             else columns = masterColumnSet;
 
             var tableIndexUpper;
-            if (buildList.length > 100) tableIndexUpper = tableIndex + 100;
-            else tableIndexUpper = buildList.length;
+            if (buildList.length - tableIndex > 100) tableIndexUpper = tableIndex + 100;
+            else {
+                tableIndexUpper = buildList.length;
+                endOfRecords = true;
+            }
+
+            if (showall) tableIndexUpper = buildList.length;
 
             for (var i = tableIndex; i < tableIndexUpper; i++) {
                 var row$ = $('<tr/>');
@@ -449,6 +520,14 @@
                 $(selector).append(row$);
             }
 
+            if (endOfRecords || showall) {
+                $('#temploadmore').addClass('disabled');
+                $('#temploadmore').text("End of results");
+            } else {
+                $('#temploadmore').removeClass('disabled');
+                $('#temploadmore').text("Load more...");
+            }
+
             tableIndex = tableIndexUpper;
             $('[data-toggle="tooltip"]').tooltip();
         }
@@ -465,7 +544,7 @@
                 for (var key in rowHash) {
                     if ($.inArray(key, columnSet) == -1) {
                         columnSet.push(key);
-                        if (key != 'Initials' && key != 'Name') headerTr$.append($('<th/>').html(key));
+                        if (key != 'Initials' && key != 'Name') headerTr$.append($('<th/>').html('<a class="column-sort" data-sort-column="' + key + '">' + key +'<span class="column-sort-icon" data-sort-column="' + key + '"></span></a>'));
                     }
                 }
             }
@@ -476,8 +555,8 @@
             return columnSet;
         }
 
-        function progLoadTable() {
-            buildHtmlTable('#reportsdata', currentList);
+        function progLoadTable(showall = false) {
+            buildHtmlTable('#reportsdata', currentList, showall);
         }
     </script>
 </asp:Content>
