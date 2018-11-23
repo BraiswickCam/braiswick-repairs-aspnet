@@ -323,7 +323,7 @@
                     }
                 }
             }
-            if (!searchExists) {
+            if (!searchExists && filter != "") {
                 searchNow.push(liveSearch);
             }
         
